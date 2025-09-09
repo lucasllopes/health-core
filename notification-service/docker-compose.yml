@@ -1,23 +1,6 @@
 version: "3.9"
 
 services:
-  postgres:
-    image: postgres:15
-    container_name: postgres-healthcore
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: healthcore
-    ports:
-      - "5432:5432"
-    volumes:
-      - healthcore_dbdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
-      interval: 10s
-      timeout: 15s
-      retries: 3
-
   rabbitmq:
     image: rabbitmq:3.13-management
     container_name: rabbitmq
@@ -34,5 +17,20 @@ services:
       retries: 5
     restart: unless-stopped
 
-volumes:
-  healthcore_dbdata:
+  app-notification-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-notification-service
+    ports:
+      - "8081:8081"
+      - "5006:5006"
+    environment:
+      - LANG=pt_BR.UTF-8
+      - LANGUAGE=pt_BR:pt
+      - LC_ALL=pt_BR.UTF-8
+      - JAVA_TOOL_OPTIONS= "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
+    networks:
+      - app-network
+networks:
+  app-network:

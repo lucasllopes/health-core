@@ -28,5 +28,4 @@ public class AppointmentController {
         logger.info("Handling POST request to /usuarios");
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.create(createAppointmentRequestDTO));
     }
-
 }
