@@ -1,0 +1,10 @@
+type Appointment {
+    id: ID!
+    name: String!
+    description: String
+}
+
+type Query {
+    allAppointments: [Appointment!]!
+    appointmentByName(name: String!): [Appointment!]!
+}
