@@ -2,6 +2,9 @@ package com.healthcore.appointmentservice.configuration;
 
 public class RabbitMQConstants {
 
+    private RabbitMQConstants() {
+    }
+
     public static final String EXCHANGE_NAME = "appointment_exchange";
     public static final String NOTIFICATION_QUEUE= "notification_queue";
 

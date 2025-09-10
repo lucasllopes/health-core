@@ -14,7 +14,7 @@ public class AppointmentConsumer {
 
     private final Logger logger = LoggerFactory.getLogger(AppointmentConsumer.class);
 
- /*   @RabbitListener(
+    @RabbitListener(
             queues = RabbitMQConstants.NOTIFICATION_QUEUE,
             containerFactory = "manualAckListenerContainerFactory"
     )
@@ -27,10 +27,10 @@ public class AppointmentConsumer {
         } catch (Exception e) {
             logger.error("Error processing cancellation for reservation: {}", cancellation);
         }
-    }*/
-
-    @RabbitListener(queues = RabbitMQConstants.NOTIFICATION_QUEUE)
-    public void processPaymentMessage(NotificationMessageDTO reservationDTO) {
-        logger.info("Received payment message: {}", reservationDTO);
     }
+
+ //   @RabbitListener(queues = RabbitMQConstants.NOTIFICATION_QUEUE)
+ //   public void processNotificationMessage(NotificationMessageDTO notificationMessageDTO) {
+ //       logger.info("Received notification message: {}", notificationMessageDTO);
+   // }
 }

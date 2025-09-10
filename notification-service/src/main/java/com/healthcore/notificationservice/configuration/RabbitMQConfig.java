@@ -41,5 +41,12 @@ public class RabbitMQConfig {
         return rabbitTemplate;
     }
 
-
+    @Bean
+    public SimpleRabbitListenerContainerFactory manualAckListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        factory.setMessageConverter(jackson2JsonMessageConverter());
+        return factory;
+    }
 }

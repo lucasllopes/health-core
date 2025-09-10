@@ -10,3 +10,6 @@ docker-compose -f docker-compose-local.yml up -d
 
 
 Para habilitar o debug remoto no intellij ir em edit configurations -> clicar no "+" -> Remote JVM Debug -> Host: localhost Porta: 5005 -> clicar em "Apply" -> Rodar normalmente
+
+
+Para verificar as filas no rabbitmq acesse o link http://localhost:15672/ (usuario: user senha: 123456)
