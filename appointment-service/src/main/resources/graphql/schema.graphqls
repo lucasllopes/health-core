@@ -1,10 +1,80 @@
+type User {
+    id: ID!
+    username: String!
+    password: String!
+    role: String!
+    enabled: Boolean!
+    createdAt: String!
+}
+
+type Doctor {
+    id: ID!
+    userId: ID!
+    name: String!
+    specialty: String
+    crm: String
+}
+
+type Nurse {
+    id: ID!
+    userId: ID!
+    name: String!
+    coren: String
+}
+
+type Patient {
+    id: ID!
+    userId: ID!
+    name: String!
+    dateOfBirth: String
+    document: String
+    phone: String
+    email: String
+    address: String
+}
+
 type Appointment {
     id: ID!
-    name: String!
-    description: String
+    patientId: ID!
+    doctorId: ID!
+    nurseId: ID
+    appointmentDate: String!
+    status: String!
+    notes: String
+    createdAt: String!
+    updatedAt: String!
+}
+
+type MedicalRecord {
+    id: ID!
+    appointmentId: ID!
+    doctorId: ID!
+    patientId: ID!
+    diagnosis: String
+    prescription: String
+    observations: String
+    createdAt: String!
+    updatedAt: String!
 }
 
 type Query {
+    allUsers: [User!]!
+    userById(id: ID!): User
+
+    allDoctors: [Doctor!]!
+    doctorById(id: ID!): Doctor
+
+    allNurses: [Nurse!]!
+    nurseById(id: ID!): Nurse
+
+    allPatients: [Patient!]!
+    patientById(id: ID!): Patient
+
     allAppointments: [Appointment!]!
-    appointmentByName(name: String!): [Appointment!]!
+    appointmentById(id: ID!): Appointment
+
+    allMedicalRecords: [MedicalRecord!]!
+    medicalRecordById(id: ID!): MedicalRecord
+
+    futureAppointments: [Appointment!]!
 }
