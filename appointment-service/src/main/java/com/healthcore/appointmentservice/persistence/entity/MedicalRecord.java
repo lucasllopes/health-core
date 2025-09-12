@@ -1,45 +1,45 @@
 package com.healthcore.appointmentservice.persistence.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "appointments")
-public class Appointment {
+@Table(name = "medical_records")
+public class MedicalRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    @OneToOne
+    @JoinColumn(name = "appointment_id", nullable = false, unique = true)
+    private Appointment appointment;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "nurse_id")
-    private Nurse nurse;
-
-    @Column(name = "appointment_date", nullable = false)
-    private LocalDateTime appointmentDate;
-
-    @Column(nullable = false)
-    private String status;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
     @Column(columnDefinition = "TEXT")
-    private String notes;
+    private String diagnosis;
+
+    @Column(columnDefinition = "TEXT")
+    private String prescription;
+
+    @Column(columnDefinition = "TEXT")
+    private String observations;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -55,12 +55,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Appointment getAppointment() {
+        return appointment;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     public Doctor getDoctor() {
@@ -71,36 +71,36 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public Nurse getNurse() {
-        return nurse;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setNurse(Nurse nurse) {
-        this.nurse = nurse;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public LocalDateTime getAppointmentDate() {
-        return appointmentDate;
+    public String getDiagnosis() {
+        return diagnosis;
     }
 
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
-        this.appointmentDate = appointmentDate;
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPrescription() {
+        return prescription;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPrescription(String prescription) {
+        this.prescription = prescription;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getObservations() {
+        return observations;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setObservations(String observations) {
+        this.observations = observations;
     }
 
     public LocalDateTime getCreatedAt() {
