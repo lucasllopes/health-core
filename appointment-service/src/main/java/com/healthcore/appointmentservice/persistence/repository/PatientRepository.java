@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
-    List<Patient> findByNameIgnoreCase(String name);
+    List<Patient> findBynameIgnoreCase(String name);
 }
