@@ -1,13 +1,13 @@
 INSERT INTO users (username, password, role, enabled, created_at)
-VALUES ('joao.silva', 'senha123', 'DOCTOR', TRUE, NOW())
+VALUES ('joao.silva', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'DOCTOR', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO users (username, password, role, enabled, created_at)
-VALUES ('maria.souza', 'senha123', 'NURSE', TRUE, NOW())
+VALUES ('maria.souza', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTw.', 'NURSE', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO users (username, password, role, enabled, created_at)
-VALUES ('ana.lima', 'senha123', 'PATIENT', TRUE, NOW())
+VALUES ('ana.lima', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO doctors (user_id, name, specialty, crm)

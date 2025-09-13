@@ -1,4 +1,4 @@
-package com.healthcore.appointmentservice.dto;
+package com.healthcore.appointmentservice.dto.registration;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

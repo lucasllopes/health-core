@@ -1,8 +1,8 @@
 package com.healthcore.appointmentservice.service;
 
-import com.healthcore.appointmentservice.dto.DoctorRegistrationDTO;
-import com.healthcore.appointmentservice.dto.NurseRegistrationDTO;
-import com.healthcore.appointmentservice.dto.PatientRegistrationDTO;
+import com.healthcore.appointmentservice.dto.registration.DoctorRegistrationDTO;
+import com.healthcore.appointmentservice.dto.registration.NurseRegistrationDTO;
+import com.healthcore.appointmentservice.dto.registration.PatientRegistrationDTO;
 import com.healthcore.appointmentservice.enums.UserRole;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
