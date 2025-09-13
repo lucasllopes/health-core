@@ -1,5 +1,6 @@
 package com.healthcore.appointmentservice.controller;
 
+import com.healthcore.appointmentservice.dto.PatientRequestDTO;
 import com.healthcore.appointmentservice.dto.registration.PatientRegistrationDTO;
 import com.healthcore.appointmentservice.dto.response.PatientResponseDTO;
 import com.healthcore.appointmentservice.dto.update.PatientUpdateDTO;
@@ -9,16 +10,16 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import com.healthcore.appointmentservice.controller.helper.PatientDTOConverter;
+import com.healthcore.appointmentservice.controller.helper.PaginationHelper;
+import java.util.function.Supplier;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/patients")
@@ -26,52 +27,53 @@ public class PatientController {
 
     private static final Logger log = LoggerFactory.getLogger(PatientController.class);
 
-    private final PatientService patientService;
+    private static final String ADMIN_NURSE_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')";
+    private static final String ADMIN_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('DOCTOR')";
+    private static final String PATIENT_SELF_ACCESS = "hasRole('PATIENT') and @patientService.getPatientByUserId(authentication.principal.id).map(p -> p.id).orElse(-1L) == #id";
 
-    public PatientController(PatientService patientService) {
+    private final PatientService patientService;
+    private final PatientDTOConverter dtoConverter;
+    private final PaginationHelper paginationHelper;
+
+    public PatientController(PatientService patientService, PatientDTOConverter dtoConverter, PaginationHelper paginationHelper) {
         this.patientService = patientService;
+        this.dtoConverter = dtoConverter;
+        this.paginationHelper = paginationHelper;
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')")
-    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRegistrationDTO dto) {
-        log.info("Criando novo paciente: {}", dto.username());
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
+    public ResponseEntity<PatientResponseDTO> createPatient(
+            @Valid @RequestBody PatientRegistrationDTO registrationRequest) {
 
-        try {
-            Patient patient = patientService.createPatient(dto);
-            PatientResponseDTO response = PatientResponseDTO.fromEntity(patient);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
-            log.error("Erro ao criar paciente: {}", e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        return handlePatientOperation(
+                "Criando",
+                null,
+                () -> patientService.createPatient(registrationRequest)
+        );
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')")
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<List<PatientResponseDTO>> getAllPatients(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDir) {
+            @RequestParam(defaultValue = "asc") String sortDirection) {
 
-        log.info("Buscando todos os pacientes - página: {}, tamanho: {}", page, size);
+        log.info("Buscando pacientes - página: {}, tamanho: {}, ordenação: {} {}",
+                page, size, sortBy, sortDirection);
 
-        Sort sort = sortDir.equalsIgnoreCase("desc") ?
-                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-
-        Pageable pageable = PageRequest.of(page, size, sort);
+        Pageable pageable = paginationHelper.createPageable(page, size, sortBy, sortDirection);
         Page<Patient> patientsPage = patientService.getAllPatients(pageable);
 
-        List<PatientResponseDTO> response = patientsPage.getContent().stream()
-                .map(PatientResponseDTO::fromEntity)
-                .collect(Collectors.toList());
+        List<PatientResponseDTO> responseList = dtoConverter.convertPageToResponseList(patientsPage);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(responseList);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR') or (hasRole('PATIENT') and @patientService.getPatientByUserId(authentication.principal.id).map(p -> p.id).orElse(-1L) == #id)")
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES + " or (" + PATIENT_SELF_ACCESS + ")")
     public ResponseEntity<PatientResponseDTO> getPatientById(@PathVariable Long id) {
         log.info("Buscando paciente por ID: {}", id);
 
@@ -80,55 +82,90 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/search")
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
+    public ResponseEntity<List<PatientResponseDTO>> searchPatients(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String document) {
+
+        log.info("Buscando pacientes - nome: '{}', email: '{}', documento: '{}'",
+                name, email, document);
+
+        List<PatientResponseDTO> foundPatients = patientService.searchPatients(name, email, document);
+
+        log.info("Encontrados {} pacientes para a busca", foundPatients.size());
+
+        return ResponseEntity.ok(foundPatients);
+    }
+
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR') or (hasRole('PATIENT') and @patientService.getPatientByUserId(authentication.principal.id).map(p -> p.id).orElse(-1L) == #id)")
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES + " or (" + PATIENT_SELF_ACCESS + ")")
     public ResponseEntity<PatientResponseDTO> updatePatient(
             @PathVariable Long id,
-            @Valid @RequestBody PatientUpdateDTO dto) {
+            @Valid @RequestBody PatientUpdateDTO updateRequest) {
 
-        log.info("Atualizando paciente ID: {}", id);
+        return handlePatientOperation(
+                "Atualizando",
+                id,
+                () -> {
+                    PatientRequestDTO requestDTO = dtoConverter.convertUpdateToRequest(id, updateRequest);
+                    return patientService.updatePatient(id, requestDTO);
+                }
+        );
+    }
+
+    @PatchMapping("/{id}/disable")
+    @PreAuthorize(ADMIN_DOCTOR_ROLES)
+    public ResponseEntity<Void> disablePatient(@PathVariable Long id) {
+        return handlePatientStatusOperation(
+                "Desabilitando",
+                id,
+                () -> patientService.disablePatient(id)
+        );
+    }
+
+    @PatchMapping("/{id}/enable")
+    @PreAuthorize(ADMIN_DOCTOR_ROLES)
+    public ResponseEntity<Void> enablePatient(@PathVariable Long id) {
+        return handlePatientStatusOperation(
+                "Habilitando",
+                id,
+                () -> patientService.enablePatient(id)
+        );
+    }
+    private ResponseEntity<PatientResponseDTO> handlePatientOperation(
+            String operationName,
+            Long patientId,
+            Supplier<Patient> operation) {
+
+        log.info("{} paciente ID: {}", operationName, patientId);
 
         try {
-            var requestDTO = new com.healthcore.appointmentservice.dto.PatientRequestDTO(
-                    id, null, dto.name(), dto.dateOfBirth(),
-                    dto.document(), dto.phone(), dto.email(), dto.address()
-            );
-
-            Patient updatedPatient = patientService.updatePatient(id, requestDTO);
-            PatientResponseDTO response = PatientResponseDTO.fromEntity(updatedPatient);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            log.error("Erro ao atualizar paciente: {}", e.getMessage());
+            Patient patient = operation.get();
+            PatientResponseDTO response = PatientResponseDTO.fromEntity(patient);
+            return operationName.equals("Criando")
+                    ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                    : ResponseEntity.ok(response);
+        } catch (RuntimeException exception) {
+            log.error("Erro ao {}: {}", operationName.toLowerCase(), exception.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @PatchMapping("/{id}/disable")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
-    public ResponseEntity<Void> disablePatient(@PathVariable Long id) {
-        log.info("Desabilitando paciente ID: {}", id);
+    private ResponseEntity<Void> handlePatientStatusOperation(
+            String operationName,
+            Long patientId,
+            Runnable operation) {
+
+        log.info("{} paciente ID: {}", operationName, patientId);
 
         try {
-            patientService.disablePatient(id);
+            operation.run();
             return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            log.error("Erro ao desabilitar paciente: {}", e.getMessage());
+        } catch (RuntimeException exception) {
+            log.error("Erro ao {}: {}", operationName.toLowerCase(), exception.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PatchMapping("/{id}/enable")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
-    public ResponseEntity<Void> enablePatient(@PathVariable Long id) {
-        log.info("Habilitando paciente ID: {}", id);
-
-        try {
-            patientService.enablePatient(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            log.error("Erro ao habilitar paciente: {}", e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
-
 }

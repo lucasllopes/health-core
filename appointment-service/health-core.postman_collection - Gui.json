@@ -23,7 +23,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTY1MjksImV4cCI6MTc1Nzc5NzQyOX0.flow19FjdZHdUkrJUS9d6bm2xK3uYe87zhY36qZIza8",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
 							"type": "string"
 						}
 					]
@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"guilherme.marques\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Guilherme Marques Ferreira\",\r\n  \"dateOfBirth\": \"1996-02-09\",\r\n  \"document\": \"12345678901\",\r\n  \"phone\": \"(11) 99999-8888\",\r\n  \"email\": \"guilherme.marques@email.com\",\r\n  \"address\": \"Rua das Guerras, 123 - Itumbiara, GO\"\r\n}",
+					"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - São Paulo, SP\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
