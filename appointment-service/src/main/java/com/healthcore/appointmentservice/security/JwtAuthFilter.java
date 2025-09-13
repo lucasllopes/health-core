@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +27,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final UserService userService;
 
-    public JwtAuthFilter(JwtUtil jwtUtil, UserService userService) {
+    public JwtAuthFilter(JwtUtil jwtUtil, @Lazy UserService userService) {
         this.jwtUtil = jwtUtil;
         this.userService = userService;
     }
@@ -37,7 +38,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if(token != null){
             try {
-                // Primeiro valida o token
                 if (jwtUtil.validateToken(token)) {
                     String userName = jwtUtil.getUsernameFromToken(token);
                     UserDetails user = userService.loadUserByUsername(userName);
