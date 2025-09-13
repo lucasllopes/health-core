@@ -3,6 +3,9 @@ package com.healthcore.appointmentservice.service;
 import com.healthcore.appointmentservice.dto.CreateAppointmentRequestDTO;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
+import com.healthcore.appointmentservice.persistence.entity.Doctor;
+import com.healthcore.appointmentservice.persistence.entity.Nurse;
+import com.healthcore.appointmentservice.persistence.entity.Patient;
 import com.healthcore.appointmentservice.persistence.repository.AppointmentRepository;
 import com.healthcore.appointmentservice.persistence.repository.DoctorRepository;
 import com.healthcore.appointmentservice.persistence.repository.NurseRepository;
@@ -15,11 +18,11 @@ import java.time.LocalDateTime;
 @Service
 public class AppointmentService {
 
-    AppointmentRepository appointmentRepository;
-    PatientRepository patientRepository;
-    DoctorRepository doctorRepository;
-    NurseRepository nurseRepository;
-    AppointmentProducerService appointmentProducerService;
+    private final AppointmentRepository appointmentRepository;
+    private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
+    private final NurseRepository nurseRepository;
+    private final AppointmentProducerService appointmentProducerService;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               AppointmentProducerService appointmentProducerService,
@@ -34,16 +37,45 @@ public class AppointmentService {
     }
 
     public String create(CreateAppointmentRequestDTO createAppointmentRequestDTO) {
-        var appointment = new Appointment();
-        validateRequest(createAppointmentRequestDTO, appointment);
-        appointment.setAppointmentDate(createAppointmentRequestDTO.appointmentDate());
-        appointment.setStatus(createAppointmentRequestDTO.status());
-        appointment.setNotes(createAppointmentRequestDTO.notes());
-        appointment.setCreatedAt(LocalDateTime.now());
+        Appointment appointment = buildAppointment(createAppointmentRequestDTO);
 
         appointmentRepository.save(appointment);
 
-        AppointmentNotificationDTO event = new AppointmentNotificationDTO(
+        AppointmentNotificationDTO event = buildAppointmentNotification(appointment);
+        appointmentProducerService.sendAppointmentCreated(event);
+
+        return "Appointment id: " + appointment.getId();
+    }
+
+    private Appointment buildAppointment(CreateAppointmentRequestDTO dto) {
+        Appointment appointment = new Appointment();
+        appointment.setPatient(findPatientById(dto.patientId()));
+        appointment.setDoctor(findDoctorById(dto.doctorId()));
+        appointment.setNurse(dto.nurseId() != null ? findNurseById(dto.nurseId()) : null);
+        appointment.setAppointmentDate(dto.appointmentDate());
+        appointment.setStatus(dto.status());
+        appointment.setNotes(dto.notes());
+        appointment.setCreatedAt(LocalDateTime.now());
+        return appointment;
+    }
+
+    private Patient findPatientById(Long patientId) {
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new IllegalArgumentException("Patient not found with id: " + patientId));
+    }
+
+    private Doctor findDoctorById(Long doctorId) {
+        return doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new IllegalArgumentException("Doctor not found with id: " + doctorId));
+    }
+
+    private Nurse findNurseById(Long nurseId) {
+        return nurseRepository.findById(nurseId)
+                .orElseThrow(() -> new IllegalArgumentException("Nurse not found with id: " + nurseId));
+    }
+
+    private AppointmentNotificationDTO buildAppointmentNotification(Appointment appointment) {
+        return new AppointmentNotificationDTO(
                 appointment.getId(),
                 appointment.getPatient().getId(),
                 appointment.getDoctor().getId(),
@@ -54,20 +86,5 @@ public class AppointmentService {
                 appointment.getCreatedAt(),
                 appointment.getUpdatedAt()
         );
-
-        appointmentProducerService.sendAppointmentCreated(event);
-
-        return "Appointment id: " + appointment.getId();
-    }
-
-    private void validateRequest(CreateAppointmentRequestDTO createAppointmentRequestDTO, Appointment appointment) {
-        appointment.setPatient(patientRepository.findById(createAppointmentRequestDTO.patientId())
-                .orElseThrow(() -> new IllegalArgumentException("Patient not found")));
-        appointment.setDoctor(doctorRepository.findById(createAppointmentRequestDTO.doctorId())
-                .orElseThrow(() -> new IllegalArgumentException("Doctor not found")));
-        appointment.setNurse(createAppointmentRequestDTO.nurseId() != null
-                ? nurseRepository.findById(createAppointmentRequestDTO.nurseId())
-                .orElse(null)
-                : null);
     }
 }
