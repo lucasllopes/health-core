@@ -87,4 +87,32 @@ public class AppointmentService {
                 appointment.getUpdatedAt()
         );
     }
+    public String update(Long appointmentId, CreateAppointmentRequestDTO updateRequest) {
+        Appointment existingAppointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + appointmentId));
+
+        if (updateRequest.patientId() != null) {
+            existingAppointment.setPatient(findPatientById(updateRequest.patientId()));
+        }
+        if (updateRequest.doctorId() != null) {
+            existingAppointment.setDoctor(findDoctorById(updateRequest.doctorId()));
+        }
+        if (updateRequest.nurseId() != null) {
+            existingAppointment.setNurse(findNurseById(updateRequest.nurseId()));
+        }
+        if (updateRequest.appointmentDate() != null) {
+            existingAppointment.setAppointmentDate(updateRequest.appointmentDate());
+        }
+        if (updateRequest.status() != null) {
+            existingAppointment.setStatus(updateRequest.status());
+        }
+        if (updateRequest.notes() != null) {
+            existingAppointment.setNotes(updateRequest.notes());
+        }
+
+        existingAppointment.setUpdatedAt(LocalDateTime.now());
+        appointmentRepository.save(existingAppointment);
+
+        return "Appointment updated successfully with id: " + existingAppointment.getId();
+    }
 }

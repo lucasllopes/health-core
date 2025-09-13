@@ -7,8 +7,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -86,6 +86,26 @@ public class User implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled != null ? enabled : false;
     }
 }
