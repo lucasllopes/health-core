@@ -68,7 +68,6 @@ public class JwtUtil {
         return claims.getSubject();
     }
 
-    //TODO: talvez colocar a logica de validacao do refresh token e gerar um novo token quando cair na ExpiredJwtException
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
