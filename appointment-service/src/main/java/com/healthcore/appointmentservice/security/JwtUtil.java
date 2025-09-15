@@ -46,6 +46,16 @@ public class JwtUtil {
                 .signWith(jwtSecretKey)
                 .compact();
     }
+    public String generateTokenWithRole(String username, String role) {
+        return Jwts.builder()
+                .issuer("HealthCore")
+                .subject(username)
+                .claim("role", role)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .signWith(jwtSecretKey)
+                .compact();
+    }
 
     public String generateRefreshToken(String username) {
         return Jwts.builder()
@@ -66,6 +76,15 @@ public class JwtUtil {
                 .getPayload();
 
         return claims.getSubject();
+    }
+    public String getRoleFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(jwtSecretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.get("role", String.class);
     }
 
     public boolean validateToken(String token) {
@@ -88,6 +107,7 @@ public class JwtUtil {
     }
 
     public String refreshAccessToken(String refreshToken) {
+        try {
         Claims claims = Jwts.parser()
                 .verifyWith(refreshKey)
                 .build()
@@ -99,5 +119,8 @@ public class JwtUtil {
         }
 
         return generateToken(claims.getSubject());
+        } catch (ExpiredJwtException ex) {
+            throw new RuntimeException("Refresh token expirado. Realize novamente o login.");
+        }
     }
 }

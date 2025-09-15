@@ -1,11 +1,18 @@
 package com.healthcore.appointmentservice.security;
 
+import com.healthcore.appointmentservice.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,10 +25,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
-    public JwtAuthFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    private final UserService userService;
 
+    public JwtAuthFilter(JwtUtil jwtUtil, @Lazy UserService userService) {
+        this.jwtUtil = jwtUtil;
+        this.userService = userService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -30,12 +39,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwtUtil.validateToken(token);
 
         if(token != null){
-            String login = jwtUtil.getUsernameFromToken(token);
-            /*Usuario usuario = usuarioRepository.findByLoginIgnoreCase(login)
-                   .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+            try {
+                if (jwtUtil.validateToken(token)) {
+                    String userName = jwtUtil.getUsernameFromToken(token);
+                    UserDetails user = userService.loadUserByUsername(userName);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);*/
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(
+                            user, null, user.getAuthorities()
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            } catch (UsernameNotFoundException e) {
+                log.error("Usuário não encontrado: {}", e.getMessage());
+            } catch (RuntimeException e) {
+                log.error("Erro na validação do token: {}", e.getMessage());
+            }
         }
 
         filterChain.doFilter(request, response);

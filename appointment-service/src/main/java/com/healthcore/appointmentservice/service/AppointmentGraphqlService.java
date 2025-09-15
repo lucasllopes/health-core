@@ -15,8 +15,8 @@ public class AppointmentGraphqlService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Appointment> findByNameIgnoreCase(String name){
-        return appointmentRepository.findByNameIgnoreCase(name);
+    public Appointment findById(Long id){
+        return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found"));
     }
 
     public List<Appointment> findAll(){

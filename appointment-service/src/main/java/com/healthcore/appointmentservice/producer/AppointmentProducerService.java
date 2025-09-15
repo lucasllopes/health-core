@@ -15,11 +15,21 @@ public class AppointmentProducerService {
     }
 
     public void sendAppointmentCreated(AppointmentNotificationDTO event) {
-        rabbitTemplate.convertAndSend(
-                RabbitMQConstants.EXCHANGE_NAME,
-                RabbitMQConstants.ROUTING_KEY_NEW,
-                event
-        );
+        if (event == null) {
+            throw new IllegalArgumentException("AppointmentNotificationDTO cannot be null");
+        }
+
+        try {
+            rabbitTemplate.convertAndSend(
+                    RabbitMQConstants.EXCHANGE_NAME,
+                    RabbitMQConstants.ROUTING_KEY_NEW,
+                    event
+            );
+            System.out.println("Appointment created event sent: " + event);
+        } catch (Exception e) {
+            System.err.println("Failed to send appointment created event: " + e.getMessage());
+            throw new RuntimeException("Error sending appointment created event", e);
+        }
     }
 }
 

@@ -23,7 +23,7 @@ public class AppointmentGraphQLController {
     }
 
     @QueryMapping
-    public List<Appointment> appointmentByName(@Argument String name) {
-        return appointmentGraphqlService.findByNameIgnoreCase(name);
+    public Appointment appointmentByName(@Argument Long id) {
+        return appointmentGraphqlService.findById(id);
     }
 }

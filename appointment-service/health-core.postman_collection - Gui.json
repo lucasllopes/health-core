@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "82f20ac9-b437-43d4-8833-f977228e6c0c",
+		"name": "health-core",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20727142",
+		"_collection_link": "https://red-station-987730.postman.co/workspace/Fiap~c6cdd2d4-4081-491f-8fc9-9cf0892b8f2a/collection/20727142-82f20ac9-b437-43d4-8833-f977228e6c0c?action=share&source=collection_link&creator=20727142"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"item": []
+		},
+		{
+			"name": "Login",
+			"item": []
+		},
+		{
+			"name": "Cadastro Paciente",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - São Paulo, SP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/patients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"patients"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

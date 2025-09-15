@@ -3,10 +3,10 @@ version: "3.9"
 services:
   rabbitmq:
     image: rabbitmq:3.13-management
-    container_name: rabbitmq
+    container_name: rabbitmq-healthcore-docker
     ports:
-      - "5672:5672"     # AMQP
-      - "15672:15672"   # Management UI
+      - "5673:5672"     # AMQP
+      - "15673:15672"   # Management UI
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: 123456
@@ -16,6 +16,8 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+    networks:
+      - app-network-notification-service
 
   app-notification-service:
     build:
@@ -26,11 +28,15 @@ services:
       - "8081:8081"
       - "5006:5006"
     environment:
+      - SPRING_PROFILES_ACTIVE=docker
       - LANG=pt_BR.UTF-8
       - LANGUAGE=pt_BR:pt
       - LC_ALL=pt_BR.UTF-8
       - JAVA_TOOL_OPTIONS= "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     networks:
-      - app-network
+      - app-network-notification-service
 networks:
-  app-network:
+  app-network-notification-service:
