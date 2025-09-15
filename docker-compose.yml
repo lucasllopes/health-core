@@ -1,0 +1,83 @@
+version: "3.9"
+
+x-variaveis-comuns: &variaveis-comuns
+  LANG: pt_BR.UTF-8
+  LANGUAGE: pt_BR:pt
+  LC_ALL: pt_BR.UTF-8
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: healthcore
+    ports:
+      - "5433:5432"
+    volumes:
+      - healthcore_dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 15s
+      retries: 5
+    networks: [app-network]
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5673:5672"        # AMQP
+      - "15672:15672"      # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: 123456
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      app-network:
+
+  appointment-service:
+    build:
+      context: ./appointment-service
+      dockerfile: Dockerfile
+    environment:
+      <<: *variaveis-comuns
+      SPRING_PROFILES_ACTIVE: docker
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks: [app-network]
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    environment:
+      <<: *variaveis-comuns
+      SPRING_PROFILES_ACTIVE: docker
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
+    ports:
+      - "8081:8081"
+      - "5006:5006"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks: [app-network]
+
+volumes:
+  healthcore_dbdata:
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
