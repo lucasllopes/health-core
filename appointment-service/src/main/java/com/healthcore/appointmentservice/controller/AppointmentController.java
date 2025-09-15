@@ -24,7 +24,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody CreateAppointmentRequestDTO createAppointmentRequestDTO) {
+    public ResponseEntity<String> createAppointment(@RequestBody CreateAppointmentRequestDTO createAppointmentRequestDTO) {
         logger.info("Handling POST request to /usuarios");
         return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.create(createAppointmentRequestDTO));
     }
