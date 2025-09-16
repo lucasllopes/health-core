@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "719816ee-08ae-444a-ad10-dcbb9b040a9d",
+		"name": "health-core-FULL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9099310"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"item": []
+		},
+		{
+			"name": "GRAPHQL - Histórico Médico",
+			"item": [
+				{
+					"name": "appointment by id simples",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1Nzk4NjYzMiwiZXhwIjoxNzU3OTg3NTMyfQ.-Baz0Gwi9T8m3hZBrtJcThzW1AaLje5o5UQCREIetKE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\r\n    appointmentById(id: 2) {\r\n        id\r\n        appointmentDate\r\n        status\r\n        notes\r\n        createdAt\r\n        updatedAt\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET TOKEN - DOCTOR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"joao.silva\",\r\n    \"password\":\"senha123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

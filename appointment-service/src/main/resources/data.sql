@@ -31,9 +31,33 @@ SELECT (SELECT id FROM users WHERE username = 'ana.lima'), 'Paciente Ana Lima', 
 INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
 SELECT
     (SELECT id FROM patients WHERE document = 'DOC123456'),
-    (SELECT id FROM doctors WHERE crm = 'CRM12345'),
-    (SELECT id FROM nurses WHERE coren = 'COREN67890'),
-    NOW() + INTERVAL '1 DAY', 'AGENDADO', 'Consulta inicial', NOW(), NOW()
-WHERE NOT EXISTS (
-    SELECT 1 FROM appointments WHERE appointment_date = NOW() + INTERVAL '1 DAY'
-    );
+    (SELECT id FROM doctors  WHERE crm      = 'CRM12345'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) + interval '1 day' + time '09:00'),
+    'AGENDADO',
+    'Consulta inicial',
+    now(),
+    now()
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC123456')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM12345')
+    AND a.appointment_date::date = current_date + 1
+);
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = 'DOC123456'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM12345'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) + interval '2 day' + time '09:00'),
+    'AGENDADO',
+    'Consulta inicial - sem data de atualizacao',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC123456')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM12345')
+    AND a.appointment_date::date = current_date + 2
+);

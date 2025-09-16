@@ -1,30 +1,18 @@
-type User {
-    id: ID!
-    username: String!
-    password: String!
-    role: String!
-    enabled: Boolean!
-    createdAt: String!
-}
-
 type Doctor {
     id: ID!
-    userId: ID!
     name: String!
-    specialty: String
-    crm: String
+    specialty: String!
+    crm: String!
 }
 
 type Nurse {
     id: ID!
-    userId: ID!
     name: String!
-    coren: String
+    coren: String!
 }
 
 type Patient {
     id: ID!
-    userId: ID!
     name: String!
     dateOfBirth: String
     document: String
@@ -35,14 +23,14 @@ type Patient {
 
 type Appointment {
     id: ID!
-    patientId: ID!
-    doctorId: ID!
-    nurseId: ID
+    patient: Patient
+    doctor: Doctor
+    nurse: Nurse
     appointmentDate: String!
     status: String!
     notes: String
     createdAt: String!
-    updatedAt: String!
+    updatedAt: String
 }
 
 type MedicalRecord {
@@ -58,17 +46,14 @@ type MedicalRecord {
 }
 
 type Query {
-    allUsers: [User!]!
-    userById(id: ID!): User
+##    allDoctors: [Doctor!]!
+##    doctorById(id: ID!): Doctor
 
-    allDoctors: [Doctor!]!
-    doctorById(id: ID!): Doctor
+##    allNurses: [Nurse!]!
+##    nurseById(id: ID!): Nurse
 
-    allNurses: [Nurse!]!
-    nurseById(id: ID!): Nurse
-
-    allPatients: [Patient!]!
-    patientById(id: ID!): Patient
+##    allPatients: [Patient!]!
+##    patientById(id: ID!): Patient
 
     allAppointments: [Appointment!]!
     appointmentById(id: ID!): Appointment
