@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("Carregando usuário: {}", username);
         return userRepository.findByusernameIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + username));

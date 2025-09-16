@@ -2,18 +2,19 @@ package com.healthcore.appointmentservice.controller;
 
 import com.healthcore.appointmentservice.dto.AuthResponseDTO;
 import com.healthcore.appointmentservice.dto.LoginRequestDTO;
+import com.healthcore.appointmentservice.dto.RefreshTokenRequestDTO;
+import com.healthcore.appointmentservice.persistence.entity.User;
 import com.healthcore.appointmentservice.security.JwtUtil;
 import com.healthcore.appointmentservice.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -42,14 +43,11 @@ public class AuthController {
     }
 
     @PostMapping("refresh-token")
-    public ResponseEntity<AuthResponseDTO> atualizarToken(@Valid String refreshToken) {
-        String newToken = "";
-        String newRefreshToken = "";
-        if (jwtUtil.validateToken(refreshToken)) {
-            //Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new NegocioException("Usuário não encontrado."));
-            newToken = jwtUtil.refreshAccessToken(refreshToken);
-            //newRefreshToken = jwtUtil.generateRefreshToken(usuario);
-        }
+    public ResponseEntity<AuthResponseDTO> atualizarToken(@Valid @RequestBody RefreshTokenRequestDTO dto) {
+        String username = jwtUtil.getUsernameFromRefreshToken(dto.refreshToken());
+        User user = userService.loadUserByUsername(username);
+        String newToken = jwtUtil.refreshAccessToken(dto.refreshToken(), user.getUsername());
+        String newRefreshToken = jwtUtil.generateRefreshToken(user.getUsername());
         return ResponseEntity.ok(new AuthResponseDTO(newToken, newRefreshToken));
     }
 

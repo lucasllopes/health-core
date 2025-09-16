@@ -77,6 +77,17 @@ public class JwtUtil {
 
         return claims.getSubject();
     }
+
+    public String getUsernameFromRefreshToken(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(refreshKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return claims.getSubject();
+    }
+
     public String getRoleFromToken(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith(jwtSecretKey)
@@ -106,7 +117,7 @@ public class JwtUtil {
 
     }
 
-    public String refreshAccessToken(String refreshToken) {
+    public String refreshAccessToken(String refreshToken, String username) {
         try {
         Claims claims = Jwts.parser()
                 .verifyWith(refreshKey)
@@ -118,7 +129,7 @@ public class JwtUtil {
             throw new IllegalArgumentException("Token não é um refresh válido.");
         }
 
-        return generateToken(claims.getSubject());
+        return generateToken(username);
         } catch (ExpiredJwtException ex) {
             throw new RuntimeException("Refresh token expirado. Realize novamente o login.");
         }
