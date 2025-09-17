@@ -15,8 +15,7 @@ import java.util.List;
 @Service
 public class AppointmentGraphqlService {
 
-    private static final ZoneId APP_ZONE = ZoneId.of("America/Sao_Paulo");
-
+    private static final String STATUS_CONCLUIDO = "CONCLUIDO";
 
     private final AppointmentRepository appointmentRepository;
 
@@ -38,34 +37,45 @@ public class AppointmentGraphqlService {
             throw new IllegalArgumentException("Use patientDocument OU doctorCrm, não ambos.");
         }
 
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        LocalDateTime now = LocalDateTime.now();
 
         if (doc != null) {
-            if (Boolean.TRUE.equals(futureOnly)) {
-                return appointmentRepository.findByPatient_DocumentAndAppointmentDateGreaterThanEqual(doc, now, pageable);
-            } else if (Boolean.FALSE.equals(futureOnly)) {
-                return appointmentRepository.findByPatient_DocumentAndAppointmentDateLessThan(doc, now, pageable);
-            } else {
+            if (futureOnly == null) {
                 return appointmentRepository.findByPatient_Document(doc, pageable);
+            } else {
+                if (futureOnly) {
+                    return appointmentRepository.findByPatient_DocumentAndAppointmentDateGreaterThanEqualAndStatusNot(
+                            doc, now, STATUS_CONCLUIDO, pageable);
+                } else {
+                    return appointmentRepository.findByPatient_DocumentAndAppointmentDateLessThan(
+                            doc, now, pageable);
+                }
             }
         }
 
         if (crm != null) {
-            if (Boolean.TRUE.equals(futureOnly)) {
-                return appointmentRepository.findByDoctor_CrmAndAppointmentDateGreaterThanEqual(crm, now, pageable);
-            } else if (Boolean.FALSE.equals(futureOnly)) {
-                return appointmentRepository.findByDoctor_CrmAndAppointmentDateLessThan(crm, now, pageable);
-            } else {
+            if (futureOnly == null) {
                 return appointmentRepository.findByDoctor_Crm(crm, pageable);
+            } else {
+                if (futureOnly) {
+                    return appointmentRepository.findByDoctor_CrmAndAppointmentDateGreaterThanEqualAndStatusNot(
+                            crm, now, STATUS_CONCLUIDO, pageable);
+                } else {
+                    return appointmentRepository.findByDoctor_CrmAndAppointmentDateLessThan(
+                            crm, now, pageable);
+                }
             }
         }
 
-        if (Boolean.TRUE.equals(futureOnly)) {
-            return appointmentRepository.findByAppointmentDateGreaterThanEqual(now, pageable);
-        } else if (Boolean.FALSE.equals(futureOnly)) {
-            return appointmentRepository.findByAppointmentDateLessThan(now, pageable);
-        } else {
+        if (futureOnly == null) {
             return appointmentRepository.findAll(pageable);
+        } else {
+            if (futureOnly) {
+                return appointmentRepository.findByAppointmentDateGreaterThanEqualAndStatusNot(
+                        now, STATUS_CONCLUIDO, pageable);
+            } else {
+                return appointmentRepository.findByAppointmentDateLessThan(now, pageable);
+            }
         }
     }
 
@@ -74,6 +84,5 @@ public class AppointmentGraphqlService {
         String t = s.trim();
         return t.isEmpty() ? null : t;
     }
-
 }
 

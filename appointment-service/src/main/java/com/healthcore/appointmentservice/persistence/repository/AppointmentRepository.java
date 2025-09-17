@@ -21,16 +21,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     Page<Appointment> findByDoctor_Crm(String crm, Pageable pageable);
 
-    Page<Appointment> findByDoctor_CrmAndAppointmentDateGreaterThanEqual(String crm, LocalDateTime date, Pageable pageable);
-
-    Page<Appointment> findByPatient_DocumentAndAppointmentDateGreaterThanEqual(String document, LocalDateTime date, Pageable pageable);
-
-    Page<Appointment> findByAppointmentDateGreaterThanEqual(LocalDateTime date, Pageable pageable);
-
     Page<Appointment> findByPatient_DocumentAndAppointmentDateLessThan(String document, LocalDateTime to, Pageable p);
 
     Page<Appointment> findByDoctor_CrmAndAppointmentDateLessThan(String crm, LocalDateTime to, Pageable p);
 
     Page<Appointment> findByAppointmentDateLessThan(LocalDateTime to, Pageable p);
+
+    Page<Appointment> findByAppointmentDateGreaterThanEqualAndStatusNot(LocalDateTime from, String status, Pageable p);
+    Page<Appointment> findByDoctor_CrmAndAppointmentDateGreaterThanEqualAndStatusNot(String crm, LocalDateTime from, String status, Pageable p);
+    Page<Appointment> findByPatient_DocumentAndAppointmentDateGreaterThanEqualAndStatusNot(String document, LocalDateTime from, String status, Pageable p);
 
 }

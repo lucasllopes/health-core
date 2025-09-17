@@ -18,6 +18,11 @@ INSERT INTO users (username, password, role, enabled, created_at)
 VALUES ('renato.ds', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
+INSERT INTO users (username, password, role, enabled, created_at)
+VALUES ('erick', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
+    ON CONFLICT (username) DO NOTHING;
+
+
 INSERT INTO doctors (user_id, name, specialty, crm)
 SELECT (SELECT id FROM users WHERE username = 'joao.silva'), 'João Silva', 'Cardiologia', 'CRM12345'
     WHERE NOT EXISTS (
@@ -48,6 +53,12 @@ SELECT (SELECT id FROM users WHERE username = 'renato.ds'), 'Paciente Renato DS'
     SELECT 1 FROM patients WHERE document = 'DOC66666'
 );
 
+INSERT INTO patients (user_id, name, date_of_birth, document, phone, email, address)
+SELECT (SELECT id FROM users WHERE username = 'erick'), 'Paciente Erick', '1990-01-01', '12345678902', '11987656666', 'erick@exemplo.com', 'Rua das Flores, 123'
+    WHERE NOT EXISTS (
+    SELECT 1 FROM patients WHERE document = '12345678902'
+);
+
 INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
 SELECT
     (SELECT id FROM patients WHERE document = 'DOC123456'),
@@ -55,7 +66,7 @@ SELECT
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
     (date_trunc('day', now()) + interval '1 day' + time '09:00'),
     'AGENDADO',
-    'Consulta inicial',
+    'Consulta inicial 1 - com data de atualizacao',
     now(),
     now()
     WHERE NOT EXISTS (
@@ -72,7 +83,7 @@ SELECT
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
     (date_trunc('day', now()) + interval '2 day' + time '09:00'),
     'AGENDADO',
-    'Consulta inicial - sem data de atualizacao',
+    'Consulta inicial 2 - sem data de atualizacao',
     now(),
     NULL
     WHERE NOT EXISTS (
@@ -89,7 +100,7 @@ SELECT
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
     (date_trunc('day', now()) + interval '2 day' + time '09:00'),
     'AGENDADO',
-    'Consulta inicial - sem data de atualizacao',
+    'Consulta inicial 3 - sem data de atualizacao',
     now(),
     NULL
     WHERE NOT EXISTS (
@@ -107,7 +118,7 @@ SELECT
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
     (date_trunc('day', now()) + interval '2 day' + time '09:00'),
     'AGENDADO',
-    'Consulta inicial - sem data de atualizacao',
+    'Consulta inicial  4 - sem data de atualizacao',
     now(),
     NULL
     WHERE NOT EXISTS (
@@ -115,4 +126,38 @@ SELECT
   WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
     AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
     AND a.appointment_date::date = current_date + 2
+);
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = '12345678902'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) - interval '2 day' + time '09:00'),
+    'CONCLUIDO',
+    'Consulta finalizada 1',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = '12345678902')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+    AND a.status = 'CONCLUIDO'
+);
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = 'DOC66666'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) - interval '2 day' + time '09:00'),
+    'CONCLUIDO',
+    'Consulta finalizada 2',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+    AND a.status = 'CONCLUIDO'
 );
