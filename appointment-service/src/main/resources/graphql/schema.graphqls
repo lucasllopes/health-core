@@ -45,21 +45,31 @@ type MedicalRecord {
     updatedAt: String!
 }
 
-type Query {
-##    allDoctors: [Doctor!]!
-##    doctorById(id: ID!): Doctor
-
-##    allNurses: [Nurse!]!
-##    nurseById(id: ID!): Nurse
-
-##    allPatients: [Patient!]!
-##    patientById(id: ID!): Patient
-
-    allAppointments: [Appointment!]!
-    appointmentById(id: ID!): Appointment
-
-    allMedicalRecords: [MedicalRecord!]!
-    medicalRecordById(id: ID!): MedicalRecord
-
-    futureAppointments: [Appointment!]!
+input PageInput {
+    page: Int = 0
+    size: Int = 3
 }
+
+type PageOutput {
+    page: Int!
+    size: Int!
+    totalPages: Int!
+    totalElements: Int!
+}
+
+type AppointmentPageGraphQL {
+    content: [Appointment!]!
+    pageInfo: PageOutput!
+}
+
+input AppointmentFilter {
+    patientDocument: String
+    doctorCrm: String
+    futureOnly: Boolean
+}
+
+type Query {
+    appointmentById(id: ID!): Appointment
+    appointments(filter: AppointmentFilter, page: PageInput!): AppointmentPageGraphQL!
+}
+
