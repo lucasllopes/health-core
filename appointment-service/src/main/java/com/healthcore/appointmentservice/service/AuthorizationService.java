@@ -69,6 +69,46 @@ public class AuthorizationService {
         return false;
     }
 
+    public boolean canViewAppointment(Authentication auth, Long apptId) {
+        if (auth == null || !auth.isAuthenticated()) {
+            return false;
+        }
+
+        var roles = auth.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(java.util.stream.Collectors.toSet());
+
+        if (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_NURSE")) {
+            return true;
+        }
+
+        var user = userService.findByUsername(auth.getName()).orElse(null);
+        if (user == null) {
+            return false;
+        }
+
+        var appointment = appointmentRepo.findById(apptId).orElse(null);
+
+        if (appointment == null) {
+            return false;
+        }
+
+        if (roles.contains("ROLE_DOCTOR")) {
+            var doctor = doctorRepo.findByUser_Id(user.getId()).orElse(null);
+            return doctor != null &&
+                    appointment.getDoctor() != null &&
+                    safeEq(appointment.getDoctor().getCrm(), doctor.getCrm());
+        }
+
+        if (roles.contains("ROLE_PATIENT")) {
+            var patient = patientRepo.findByUser_Id(user.getId()).orElse(null);
+            return patient != null &&
+                    appointment.getPatient() != null &&
+                    safeEq((appointment.getPatient().getDocument()), patient.getDocument());
+        }
+
+        return false;
+    }
+
     private static boolean hasText(String s) {
         return s != null && !s.trim().isEmpty();
     }

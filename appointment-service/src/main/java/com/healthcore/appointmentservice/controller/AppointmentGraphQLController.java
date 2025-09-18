@@ -24,6 +24,7 @@ public class AppointmentGraphQLController {
         this.appointmentGraphqlService = appointmentGraphqlService;
     }
 
+    @PreAuthorize("@authValidationService.canViewAppointment(authentication, T(java.lang.Long).valueOf(#id.toString()))")
     @QueryMapping
     public Appointment appointmentById(@Argument Long id) {
         return appointmentGraphqlService.findById(id);
