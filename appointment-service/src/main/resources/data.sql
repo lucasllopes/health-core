@@ -161,3 +161,59 @@ SELECT
     AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
     AND a.status = 'CONCLUIDO'
 );
+
+WITH target AS (
+    SELECT a.id       AS appt_id,
+           a.doctor_id,
+           a.patient_id
+    FROM appointments a
+    WHERE a.patient_id = (SELECT id FROM patients WHERE document = '12345678902')
+      AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+      AND a.nurse_id   = (SELECT id FROM nurses   WHERE coren    = 'COREN67890')
+      AND a.status = 'CONCLUIDO'
+    )
+INSERT INTO medical_records (
+    appointment_id, doctor_id, patient_id,
+    diagnosis, prescription, observations,
+    created_at, updated_at
+)
+SELECT
+    t.appt_id, t.doctor_id, t.patient_id,
+    'Diagnóstico: alta após evolução favorável.',
+    'Prescrição: manter orientações e retorno se necessário.',
+    'Consulta concluída sem intercorrências.',
+    now(), NULL
+FROM target t
+WHERE t.appt_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM medical_records mr WHERE mr.appointment_id = t.appt_id
+);
+
+
+WITH target AS (
+    SELECT a.id       AS appt_id,
+           a.doctor_id,
+           a.patient_id
+    FROM appointments a
+    WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
+      AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+      AND a.nurse_id   = (SELECT id FROM nurses   WHERE coren    = 'COREN67890')
+      AND a.status = 'CONCLUIDO'
+
+    )
+INSERT INTO medical_records (
+    appointment_id, doctor_id, patient_id,
+    diagnosis, prescription, observations,
+    created_at, updated_at
+)
+SELECT
+    t.appt_id, t.doctor_id, t.patient_id,
+    'Diagnóstico: quadro resolvido.',
+    'Prescrição: suspender medicação; retornar em 30 dias.',
+    'Evolução satisfatória; sem queixas atuais.',
+    now(), NULL
+FROM target t
+WHERE t.appt_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM medical_records mr WHERE mr.appointment_id = t.appt_id
+);

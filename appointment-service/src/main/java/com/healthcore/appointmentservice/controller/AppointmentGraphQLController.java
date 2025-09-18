@@ -4,10 +4,7 @@ import com.healthcore.appointmentservice.dto.graphql.AppointmentFilterInput;
 import com.healthcore.appointmentservice.dto.graphql.AppointmentPageGraphql;
 import com.healthcore.appointmentservice.pagination.PageInput;
 import com.healthcore.appointmentservice.pagination.PageOutput;
-import com.healthcore.appointmentservice.persistence.entity.Appointment;
-import com.healthcore.appointmentservice.persistence.entity.Doctor;
-import com.healthcore.appointmentservice.persistence.entity.Nurse;
-import com.healthcore.appointmentservice.persistence.entity.Patient;
+import com.healthcore.appointmentservice.persistence.entity.*;
 import com.healthcore.appointmentservice.service.AppointmentGraphqlService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,4 +71,10 @@ public class AppointmentGraphQLController {
     Nurse nurse(Appointment appointment) {
         return appointment.getNurse();
     }
+
+    @SchemaMapping(typeName = "Appointment", field = "medicalRecord")
+    public MedicalRecord medicalRecord(Appointment a) {
+        return a.getMedicalRecord();
+    }
+
 }

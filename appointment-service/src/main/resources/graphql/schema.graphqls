@@ -31,18 +31,16 @@ type Appointment {
     notes: String
     createdAt: String!
     updatedAt: String
+    medicalRecord: MedicalRecord
 }
 
 type MedicalRecord {
     id: ID!
-    appointmentId: ID!
-    doctorId: ID!
-    patientId: ID!
     diagnosis: String
     prescription: String
     observations: String
     createdAt: String!
-    updatedAt: String!
+    updatedAt: String
 }
 
 input PageInput {

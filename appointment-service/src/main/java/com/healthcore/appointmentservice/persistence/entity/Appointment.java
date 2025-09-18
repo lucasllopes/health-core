@@ -1,14 +1,7 @@
 package com.healthcore.appointmentservice.persistence.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -46,6 +39,9 @@ public class Appointment {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToOne(mappedBy = "appointment")
+    private MedicalRecord medicalRecord;
 
     public Long getId() {
         return id;
@@ -117,5 +113,12 @@ public class Appointment {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public MedicalRecord getMedicalRecord() {
+        return medicalRecord;
+    }
+    public void setMedicalRecord(MedicalRecord medicalRecord) {
+        this.medicalRecord = medicalRecord;
     }
 }

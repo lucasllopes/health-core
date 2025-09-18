@@ -60,7 +60,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MDkxMywiZXhwIjoxNzU4MTQxODEzfQ.TGWIpU5_Rib1NIHdTo5dhYHnVj9twWx57uH9706F8fQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
 									"type": "string"
 								}
 							]
@@ -70,7 +70,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query AllAppointments {\r\n    appointmentById(id: 2) {\r\n        id\r\n        appointmentDate\r\n        status\r\n        notes\r\n        createdAt\r\n        updatedAt\r\n        patient {\r\n            id\r\n            name\r\n            dateOfBirth\r\n            document\r\n            phone\r\n            email\r\n            address\r\n        }\r\n        nurse {\r\n            id\r\n            name\r\n            coren\r\n        }\r\n        doctor {\r\n            id\r\n            name\r\n            specialty\r\n            crm\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query AllAppointments {\r\n    appointmentById(id: 2) {\r\n        id\r\n        appointmentDate\r\n        status\r\n        notes\r\n        createdAt\r\n        updatedAt\r\n        patient {\r\n            id\r\n            name\r\n            dateOfBirth\r\n            document\r\n            phone\r\n            email\r\n            address\r\n        }\r\n        nurse {\r\n            id\r\n            name\r\n            coren\r\n        }\r\n        doctor {\r\n            id\r\n            name\r\n            specialty\r\n            crm\r\n        }\r\n        medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -95,7 +95,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MDkxMywiZXhwIjoxNzU4MTQxODEzfQ.TGWIpU5_Rib1NIHdTo5dhYHnVj9twWx57uH9706F8fQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
 									"type": "string"
 								}
 							]
@@ -130,7 +130,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MDkxMywiZXhwIjoxNzU4MTQxODEzfQ.TGWIpU5_Rib1NIHdTo5dhYHnVj9twWx57uH9706F8fQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
 									"type": "string"
 								}
 							]
@@ -165,7 +165,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MDkxMywiZXhwIjoxNzU4MTQxODEzfQ.TGWIpU5_Rib1NIHdTo5dhYHnVj9twWx57uH9706F8fQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
 									"type": "string"
 								}
 							]
@@ -175,7 +175,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 } \r\n        filter: { futureOnly : false} ) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 } \r\n        filter: { futureOnly : false} ) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -210,7 +210,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -235,7 +235,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgxNDMxMzYsImV4cCI6MTc1ODE0NDAzNn0.wqgSeJgOr7VX8ISsL3o1Uj3k2fFHviwsMIdsQn3NenI",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
 									"type": "string"
 								}
 							]
@@ -245,7 +245,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, filter: { patientDocument: \"12345678902\" }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, filter: { patientDocument: \"12345678902\" }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -270,7 +270,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgxNDMzNDYsImV4cCI6MTc1ODE0NDI0Nn0.Ho2sqvCqDP0VRnDehzsSt632vVia6o3zuFwn9UnBuW4",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE2OTM0OCwiZXhwIjoxNzU4MTcwMjQ4fQ.UVbrrrIaMSqRZmx1Ye8X6K6mR4IaX7a0JLw4eIqI3zk",
 									"type": "string"
 								}
 							]
@@ -305,7 +305,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MTAxNywiZXhwIjoxNzU4MTQxOTE3fQ.bDX6Lhiij9ZSYqpOWUlh-yv7xZcMjpBKXrtCBlI23No",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
 									"type": "string"
 								}
 							]
@@ -315,7 +315,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        patientDocument: \"12345678902\",\r\n        futureOnly: false }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        patientDocument: \"12345678902\",\r\n        futureOnly: false }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -350,7 +350,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\"}) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\"}) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -385,7 +385,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\",\r\n        futureOnly: true }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\",\r\n        futureOnly: true }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
 								"variables": ""
 							}
 						},
@@ -457,6 +457,45 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"login\":\"joao.silva\",\r\n    \"password\":\"senha123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET TOKEN - PATIENT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"ana.lima\",\r\n    \"password\":\"senha123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
