@@ -1,6 +1,7 @@
 package com.healthcore.appointmentservice.service;
 
 import com.healthcore.appointmentservice.dto.graphql.AppointmentFilterInput;
+import com.healthcore.appointmentservice.exception.ArgumentException;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.repository.AppointmentRepository;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentGraphqlService {
@@ -23,8 +25,8 @@ public class AppointmentGraphqlService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public Appointment findById(Long id) {
-        return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found"));
+    public Optional<Appointment> findById(Long id) {
+        return appointmentRepository.findById(id);
     }
 
     public Page<Appointment> findAllAppointments(AppointmentFilterInput filter, Pageable pageable) {
@@ -34,7 +36,7 @@ public class AppointmentGraphqlService {
         Boolean futureOnly = (filter != null) ? filter.futureOnly() : null;
 
         if (doc != null && crm != null) {
-            throw new IllegalArgumentException("Use patientDocument OU doctorCrm, não ambos.");
+            throw new ArgumentException("Use patientDocument OU doctorCrm, não ambos.");
         }
 
         LocalDateTime now = LocalDateTime.now();

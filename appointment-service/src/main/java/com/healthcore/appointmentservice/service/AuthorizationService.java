@@ -1,7 +1,9 @@
 package com.healthcore.appointmentservice.service;
 
 import com.healthcore.appointmentservice.dto.graphql.AppointmentFilterInput;
-import com.healthcore.appointmentservice.persistence.repository.AppointmentRepository;
+import com.healthcore.appointmentservice.exception.ArgumentException;
+import com.healthcore.appointmentservice.exception.DataNotFoundException;
+import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.repository.DoctorRepository;
 import com.healthcore.appointmentservice.persistence.repository.PatientRepository;
 import org.springframework.security.core.Authentication;
@@ -12,101 +14,72 @@ import org.springframework.stereotype.Component;
 public class AuthorizationService {
 
     private final UserService userService;
-    private final PatientRepository patientRepo;
-    private final DoctorRepository doctorRepo;
-    private final AppointmentRepository appointmentRepo;
+    private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
 
-    public AuthorizationService(UserService userService,
-                                PatientRepository patientRepo,
-                                DoctorRepository doctorRepo,
-                                AppointmentRepository appointmentRepo) {
+    public AuthorizationService(UserService userService, PatientRepository patientRepo,
+                                DoctorRepository doctorRepo) {
         this.userService = userService;
-        this.patientRepo = patientRepo;
-        this.doctorRepo = doctorRepo;
-        this.appointmentRepo = appointmentRepo;
+        this.patientRepository = patientRepo;
+        this.doctorRepository = doctorRepo;
     }
 
-    public boolean canSearchAppointments(Authentication auth,
-                                         AppointmentFilterInput filter) {
-        if (auth == null || !auth.isAuthenticated()) {
-            return false;
-        }
-
-        var roles = auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).collect(java.util.stream.Collectors.toSet());
+    public boolean canSearchAppointments(Authentication auth, AppointmentFilterInput filter) {
+        if (auth == null || !auth.isAuthenticated()) return false;
+        var roles = roles(auth);
 
         if (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_NURSE") || roles.contains("ROLE_DOCTOR")) {
             return true;
         }
 
         if (roles.contains("ROLE_PATIENT")) {
-            if (filter == null) {
-                return false;
+            if (filter == null || !hasText(filter.patientDocument())){
+                throw new ArgumentException("Informe o seu documento para buscar seus agendamentos.");
             }
             if (hasText(filter.doctorCrm())) {
-                return false;
-            }
-
-            if (!hasText(filter.patientDocument())) {
-                return false;
+                throw new ArgumentException("Informe o seu documento e não o CRM.");
             }
 
             var user = userService.findByUsername(auth.getName()).orElse(null);
             if (user == null) {
-                return false;
+                throw new DataNotFoundException("Informe um token/usuário válido.");
             }
 
-            var patient = patientRepo.findByUser_Id(user.getId()).orElse(null);
-
+            var patient = patientRepository.findByUser_Id(user.getId()).orElse(null);
             if (patient == null) {
-                return false;
+                throw new DataNotFoundException("Usuário não é um paciente válido.");
             }
 
-            String docUser = patient.getDocument();
-            String docReq = filter.patientDocument();
-            return docReq.equals(docUser);
-        }
-        return false;
-    }
+            if (!filter.patientDocument().equals(patient.getDocument())){
+                throw new ArgumentException("Usuário não coincide com o documento informado.");
+            }
 
-    public boolean canViewAppointment(Authentication auth, Long apptId) {
-        if (auth == null || !auth.isAuthenticated()) {
-            return false;
-        }
-
-        var roles = auth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).collect(java.util.stream.Collectors.toSet());
-
-        if (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_NURSE")) {
             return true;
         }
 
+        return false;
+    }
+
+    public boolean canViewAppointmentEntity(Authentication auth, Appointment appt) {
+        if (auth == null || !auth.isAuthenticated()) return false;
+        var roles = roles(auth);
+
+        if (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_NURSE") || roles.contains("ROLE_DOCTOR")) return true;
+
         var user = userService.findByUsername(auth.getName()).orElse(null);
-        if (user == null) {
-            return false;
-        }
-
-        var appointment = appointmentRepo.findById(apptId).orElse(null);
-
-        if (appointment == null) {
-            return false;
-        }
-
-        if (roles.contains("ROLE_DOCTOR")) {
-            var doctor = doctorRepo.findByUser_Id(user.getId()).orElse(null);
-            return doctor != null &&
-                    appointment.getDoctor() != null &&
-                    safeEq(appointment.getDoctor().getCrm(), doctor.getCrm());
-        }
+        if (user == null) return false;
 
         if (roles.contains("ROLE_PATIENT")) {
-            var patient = patientRepo.findByUser_Id(user.getId()).orElse(null);
-            return patient != null &&
-                    appointment.getPatient() != null &&
-                    safeEq((appointment.getPatient().getDocument()), patient.getDocument());
+            var patient = patientRepository.findByUser_Id(user.getId()).orElse(null);
+            return patient != null && appt.getPatient() != null &&
+                    appt.getPatient().getDocument().equals(patient.getDocument());
         }
 
         return false;
+    }
+
+    private static java.util.Set<String> roles(Authentication auth) {
+        return auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(java.util.stream.Collectors.toSet());
     }
 
     private static boolean hasText(String s) {
