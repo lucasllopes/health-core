@@ -1,5 +1,6 @@
 package com.healthcore.appointmentservice.controller;
 
+import com.healthcore.appointmentservice.dto.*;
 import com.healthcore.appointmentservice.dto.graphql.AppointmentFilterInput;
 import com.healthcore.appointmentservice.dto.graphql.AppointmentPageGraphql;
 import com.healthcore.appointmentservice.exception.AccessDeniedException;
@@ -8,26 +9,32 @@ import com.healthcore.appointmentservice.pagination.PageInput;
 import com.healthcore.appointmentservice.pagination.PageOutput;
 import com.healthcore.appointmentservice.persistence.entity.*;
 import com.healthcore.appointmentservice.service.AppointmentGraphqlService;
+import com.healthcore.appointmentservice.service.AppointmentService;
 import com.healthcore.appointmentservice.service.AuthorizationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public class AppointmentGraphQLController {
 
     private final AppointmentGraphqlService appointmentGraphqlService;
     private final AuthorizationService authorizationService;
+    private final AppointmentService appointmentService;
 
-    public AppointmentGraphQLController(AppointmentGraphqlService appointmentGraphqlService, AuthorizationService authorizationService) {
+    public AppointmentGraphQLController(AppointmentGraphqlService appointmentGraphqlService, AuthorizationService authorizationService, AppointmentService appointmentService) {
         this.appointmentGraphqlService = appointmentGraphqlService;
         this.authorizationService = authorizationService;
+        this.appointmentService = appointmentService;
     }
 
     @QueryMapping
@@ -69,6 +76,56 @@ public class AppointmentGraphQLController {
         );
 
         return new AppointmentPageGraphql(result.getContent(), infoPage);
+    }
+
+    @QueryMapping
+    public List<AppointmentResponseDTO> appointmentsByPatient(@Argument Long patientId) {
+        return appointmentService.getAppointmentsByPatient(patientId);
+    }
+
+    @QueryMapping
+    public List<AppointmentResponseDTO> futureAppointmentsByPatient(@Argument Long patientId) {
+        return appointmentService.getFutureAppointmentsByPatient(patientId);
+    }
+
+    @MutationMapping
+    public AppointmentResponseDTO createAppointment(@Argument AppointmentInput input) {
+        return appointmentService.createAppointment(new AppointmentRegistrationDTO(
+            input.patientId(),
+            input.doctorId(),
+            input.nurseId(),
+            input.appointmentDate(),
+            input.status(),
+            input.notes()
+        ));
+    }
+
+    @MutationMapping
+    public AppointmentResponseDTO updateAppointment(@Argument Long id, @Argument AppointmentUpdateInput input) {
+        return appointmentService.updateAppointment(id, new AppointmentRequestDTO(
+            null, // patientId não alterado
+            null, // doctorId não alterado
+            input.nurseId(),
+            input.appointmentDate(),
+            input.status(),
+            input.notes()
+        ));
+    }
+
+    @MutationMapping
+    public AppointmentResponseDTO disableAppointment(@Argument Long id) {
+        return appointmentService.disableAppointment(id);
+    }
+
+    @MutationMapping
+    public AppointmentResponseDTO enableAppointment(@Argument Long id) {
+        return appointmentService.enableAppointment(id);
+    }
+
+    @MutationMapping
+    public Boolean deleteAppointment(@Argument Long id) {
+        appointmentService.deleteAppointment(id);
+        return true;
     }
 
     @SchemaMapping(typeName = "Appointment", field = "patient")
