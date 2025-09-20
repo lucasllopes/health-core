@@ -66,8 +66,25 @@ input AppointmentFilter {
     futureOnly: Boolean
 }
 
+input AppointmentInput {
+    patientId: ID!
+    doctorId: ID!
+    nurseId: ID
+    appointmentDate: String!
+    status: String!
+    notes: String
+}
+
+input AppointmentUpdateInput {
+    nurseId: ID
+    appointmentDate: String
+    status: String
+    notes: String
+}
+
 type Query {
     appointmentById(id: ID!): Appointment
     appointments(filter: AppointmentFilter, page: PageInput!): AppointmentPageGraphQL!
+    appointmentsByPatient(patientId: ID!): [Appointment]!
+    futureAppointmentsByPatient(patientId: ID!): [Appointment]!
 }
-
