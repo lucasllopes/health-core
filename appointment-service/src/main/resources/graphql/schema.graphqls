@@ -88,3 +88,11 @@ type Query {
     appointmentsByPatient(patientId: ID!): [Appointment]!
     futureAppointmentsByPatient(patientId: ID!): [Appointment]!
 }
+
+type Mutation {
+    createAppointment(input: AppointmentInput!): Appointment!
+    updateAppointment(id: ID!, input: AppointmentUpdateInput!): Appointment!
+    disableAppointment(id: ID!): Appointment!
+    enableAppointment(id: ID!): Appointment!
+    deleteAppointment(id: ID!): Boolean!
+}
