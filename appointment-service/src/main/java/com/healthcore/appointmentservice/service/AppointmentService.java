@@ -20,6 +20,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +35,8 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
     private final AppointmentProducerService appointmentProducerService;
+
+    private static final Logger log = LoggerFactory.getLogger(AppointmentService.class);
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               AppointmentProducerService appointmentProducerService,
@@ -165,46 +170,58 @@ public class AppointmentService {
     }
 
     public AppointmentResponseDTO disableAppointment(Long id) {
+        log.info("Desabilitando agendamento: id={}", id);
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         appointment.setStatus("DISABLED");
         appointment.setUpdatedAt(LocalDateTime.now());
         appointmentRepository.save(appointment);
+        log.info("Agendamento desabilitado com sucesso: id={}", id);
         return toResponseDTO(appointment);
     }
 
     public AppointmentResponseDTO enableAppointment(Long id) {
+        log.info("Habilitando agendamento: id={}", id);
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         appointment.setStatus("ENABLED");
         appointment.setUpdatedAt(LocalDateTime.now());
         appointmentRepository.save(appointment);
+        log.info("Agendamento habilitado com sucesso: id={}", id);
         return toResponseDTO(appointment);
     }
 
     public void deleteAppointment(Long id) {
+        log.info("Excluindo agendamento: id={}", id);
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         appointmentRepository.delete(appointment);
+        log.info("Agendamento excluído com sucesso: id={}", id);
     }
 
     public List<AppointmentResponseDTO> getAppointmentsByPatient(Long patientId) {
+        log.info("Buscando agendamentos do paciente: id={}", patientId);
         Patient patient = findPatientById(patientId);
-        return appointmentRepository.findAll(Pageable.unpaged())
+        List<AppointmentResponseDTO> result = appointmentRepository.findAll(Pageable.unpaged())
                 .stream()
                 .filter(a -> a.getPatient().getId().equals(patientId))
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
+        log.info("{} agendamentos encontrados para o paciente: id={}", result.size(), patientId);
+        return result;
     }
 
     public List<AppointmentResponseDTO> getFutureAppointmentsByPatient(Long patientId) {
+        log.info("Buscando agendamentos futuros do paciente: id={}", patientId);
         Patient patient = findPatientById(patientId);
         LocalDateTime now = LocalDateTime.now();
-        return appointmentRepository.findAll(Pageable.unpaged())
+        List<AppointmentResponseDTO> result = appointmentRepository.findAll(Pageable.unpaged())
                 .stream()
                 .filter(a -> a.getPatient().getId().equals(patientId) && a.getAppointmentDate().isAfter(now))
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
+        log.info("{} agendamentos futuros encontrados para o paciente: id={}", result.size(), patientId);
+        return result;
     }
 
     private AppointmentResponseDTO toResponseDTO(Appointment appointment) {
