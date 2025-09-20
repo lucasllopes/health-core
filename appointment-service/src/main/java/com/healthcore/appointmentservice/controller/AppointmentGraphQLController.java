@@ -37,6 +37,7 @@ public class AppointmentGraphQLController {
         this.appointmentService = appointmentService;
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE') or (hasRole('PATIENT') and @authValidationService.isPatientOfAppointment(authentication, #id))")
     @QueryMapping
     public Appointment appointmentById(@Argument Long id, Authentication auth) {
 
@@ -50,7 +51,7 @@ public class AppointmentGraphQLController {
         return appointment;
     }
 
-    @PreAuthorize("@authValidationService.canSearchAppointments(authentication, #filter)")
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE') or (hasRole('PATIENT') and @authValidationService.isPatientOfFilter(authentication, #filter))")
     @QueryMapping
     public AppointmentPageGraphql appointments(
             @Argument(name = "filter") AppointmentFilterInput filter,
@@ -78,16 +79,19 @@ public class AppointmentGraphQLController {
         return new AppointmentPageGraphql(result.getContent(), infoPage);
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE') or (hasRole('PATIENT') and #patientId == authentication.principal.id)")
     @QueryMapping
     public List<AppointmentResponseDTO> appointmentsByPatient(@Argument Long patientId) {
         return appointmentService.getAppointmentsByPatient(patientId);
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE') or (hasRole('PATIENT') and #patientId == authentication.principal.id)")
     @QueryMapping
     public List<AppointmentResponseDTO> futureAppointmentsByPatient(@Argument Long patientId) {
         return appointmentService.getFutureAppointmentsByPatient(patientId);
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE')")
     @MutationMapping
     public AppointmentResponseDTO createAppointment(@Argument AppointmentInput input) {
         return appointmentService.createAppointment(new AppointmentRegistrationDTO(
@@ -100,6 +104,7 @@ public class AppointmentGraphQLController {
         ));
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE')")
     @MutationMapping
     public AppointmentResponseDTO updateAppointment(@Argument Long id, @Argument AppointmentUpdateInput input) {
         return appointmentService.updateAppointment(id, new AppointmentRequestDTO(
@@ -112,16 +117,19 @@ public class AppointmentGraphQLController {
         ));
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE')")
     @MutationMapping
     public AppointmentResponseDTO disableAppointment(@Argument Long id) {
         return appointmentService.disableAppointment(id);
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE')")
     @MutationMapping
     public AppointmentResponseDTO enableAppointment(@Argument Long id) {
         return appointmentService.enableAppointment(id);
     }
 
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('NURSE')")
     @MutationMapping
     public Boolean deleteAppointment(@Argument Long id) {
         appointmentService.deleteAppointment(id);
