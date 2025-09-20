@@ -6,6 +6,7 @@ import com.healthcore.appointmentservice.dto.AppointmentRequestDTO;
 import com.healthcore.appointmentservice.dto.AppointmentResponseDTO;
 import com.healthcore.appointmentservice.dto.AppointmentUpdateDTO;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
+import com.healthcore.appointmentservice.exception.DataNotFoundException;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
@@ -69,17 +70,17 @@ public class AppointmentService {
 
     private Patient findPatientById(Long patientId) {
         return patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalArgumentException("Patient not found with id: " + patientId));
+                .orElseThrow(() -> new DataNotFoundException("Paciente não encontrado: id=" + patientId));
     }
 
     private Doctor findDoctorById(Long doctorId) {
         return doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new IllegalArgumentException("Doctor not found with id: " + doctorId));
+                .orElseThrow(() -> new DataNotFoundException("Médico não encontrado: id=" + doctorId));
     }
 
     private Nurse findNurseById(Long nurseId) {
         return nurseRepository.findById(nurseId)
-                .orElseThrow(() -> new IllegalArgumentException("Nurse not found with id: " + nurseId));
+                .orElseThrow(() -> new DataNotFoundException("Enfermeiro não encontrado: id=" + nurseId));
     }
 
     private AppointmentNotificationDTO buildAppointmentNotification(Appointment appointment) {
@@ -145,13 +146,13 @@ public class AppointmentService {
 
     public AppointmentResponseDTO getAppointmentById(Long id) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         return toResponseDTO(appointment);
     }
 
     public AppointmentResponseDTO updateAppointment(Long id, AppointmentRequestDTO dto) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         if (dto.patientId() != null) appointment.setPatient(findPatientById(dto.patientId()));
         if (dto.doctorId() != null) appointment.setDoctor(findDoctorById(dto.doctorId()));
         if (dto.nurseId() != null) appointment.setNurse(findNurseById(dto.nurseId()));
@@ -165,7 +166,7 @@ public class AppointmentService {
 
     public AppointmentResponseDTO disableAppointment(Long id) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         appointment.setStatus("DISABLED");
         appointment.setUpdatedAt(LocalDateTime.now());
         appointmentRepository.save(appointment);
@@ -174,7 +175,7 @@ public class AppointmentService {
 
     public AppointmentResponseDTO enableAppointment(Long id) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         appointment.setStatus("ENABLED");
         appointment.setUpdatedAt(LocalDateTime.now());
         appointmentRepository.save(appointment);
@@ -183,7 +184,7 @@ public class AppointmentService {
 
     public void deleteAppointment(Long id) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new DataNotFoundException("Agendamento não encontrado: id=" + id));
         appointmentRepository.delete(appointment);
     }
 
