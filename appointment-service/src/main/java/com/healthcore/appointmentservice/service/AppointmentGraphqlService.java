@@ -18,6 +18,7 @@ import java.util.Optional;
 public class AppointmentGraphqlService {
 
     private static final String STATUS_CONCLUIDO = "CONCLUIDO";
+    private static final String STATUS_AGENDADO = "AGENDADO";
 
     private final AppointmentRepository appointmentRepository;
 
@@ -46,11 +47,11 @@ public class AppointmentGraphqlService {
                 return appointmentRepository.findByPatient_Document(doc, pageable);
             } else {
                 if (futureOnly) {
-                    return appointmentRepository.findByPatient_DocumentAndAppointmentDateGreaterThanEqualAndStatusNot(
-                            doc, now, STATUS_CONCLUIDO, pageable);
+                    return appointmentRepository.findByPatient_DocumentAndAppointmentDateGreaterThanEqualAndStatus(
+                            doc, now, STATUS_AGENDADO, pageable);
                 } else {
-                    return appointmentRepository.findByPatient_DocumentAndAppointmentDateLessThan(
-                            doc, now, pageable);
+                    return appointmentRepository.findByPatient_DocumentAndAppointmentDateLessThanAndStatus(
+                            doc, now, STATUS_CONCLUIDO, pageable);
                 }
             }
         }
@@ -60,11 +61,11 @@ public class AppointmentGraphqlService {
                 return appointmentRepository.findByDoctor_Crm(crm, pageable);
             } else {
                 if (futureOnly) {
-                    return appointmentRepository.findByDoctor_CrmAndAppointmentDateGreaterThanEqualAndStatusNot(
-                            crm, now, STATUS_CONCLUIDO, pageable);
+                    return appointmentRepository.findByDoctor_CrmAndAppointmentDateGreaterThanEqualAndStatus(
+                            crm, now, STATUS_AGENDADO, pageable);
                 } else {
-                    return appointmentRepository.findByDoctor_CrmAndAppointmentDateLessThan(
-                            crm, now, pageable);
+                    return appointmentRepository.findByDoctor_CrmAndAppointmentDateLessThanAndStatus(
+                            crm, now, STATUS_CONCLUIDO, pageable);
                 }
             }
         }
@@ -73,10 +74,10 @@ public class AppointmentGraphqlService {
             return appointmentRepository.findAll(pageable);
         } else {
             if (futureOnly) {
-                return appointmentRepository.findByAppointmentDateGreaterThanEqualAndStatusNot(
-                        now, STATUS_CONCLUIDO, pageable);
+                return appointmentRepository.findByAppointmentDateGreaterThanEqualAndStatus(
+                        now, STATUS_AGENDADO, pageable);
             } else {
-                return appointmentRepository.findByAppointmentDateLessThan(now, pageable);
+                return appointmentRepository.findByAppointmentDateLessThanAndStatus(now, STATUS_CONCLUIDO, pageable);
             }
         }
     }
