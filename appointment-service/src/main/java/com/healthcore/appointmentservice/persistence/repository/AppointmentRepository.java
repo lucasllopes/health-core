@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -32,4 +33,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Page<Appointment> findByAppointmentDateGreaterThanEqualAndStatus(LocalDateTime now, String statusPendente, Pageable pageable);
 
     Page<Appointment> findByAppointmentDateLessThanAndStatus(LocalDateTime now, String statusConcluido, Pageable pageable);
+
+    List<Appointment> findByAppointmentDateBetweenAndStatus(LocalDateTime start, LocalDateTime end, String status);
 }
