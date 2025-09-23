@@ -3,7 +3,7 @@ VALUES ('joao.silva', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWt
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO users (username, password, role, enabled, created_at)
-VALUES ('maria.souza', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTw.', 'NURSE', TRUE, NOW())
+VALUES ('maria.souza', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'NURSE', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO users (username, password, role, enabled, created_at)
