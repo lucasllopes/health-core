@@ -22,6 +22,19 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue upcomingQueue() {
+        return new Queue(RabbitMQConstants.APPOINTMENT_UPCOMING_QUEUE, true);
+    }
+
+    @Bean
+    public Binding upcomingAppointmentBinding(Queue upcomingQueue, DirectExchange reservationExchange) {
+        return BindingBuilder
+                .bind(upcomingQueue)
+                .to(reservationExchange)
+                .with(RabbitMQConstants.ROUTING_KEY_UPCOMING);
+    }
+
+    @Bean
     public Binding notificationBinding(Queue notificationQueue, DirectExchange reservationExchange) {
         return BindingBuilder
                 .bind(notificationQueue)

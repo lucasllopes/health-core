@@ -3,17 +3,36 @@ VALUES ('joao.silva', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWt
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO users (username, password, role, enabled, created_at)
-VALUES ('maria.souza', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTw.', 'NURSE', TRUE, NOW())
+VALUES ('maria.souza', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'NURSE', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
 INSERT INTO users (username, password, role, enabled, created_at)
 VALUES ('ana.lima', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
+INSERT INTO users (username, password, role, enabled, created_at)
+VALUES ('gustavo.lima', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'DOCTOR', TRUE, NOW())
+    ON CONFLICT (username) DO NOTHING;
+
+INSERT INTO users (username, password, role, enabled, created_at)
+VALUES ('renato.ds', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
+    ON CONFLICT (username) DO NOTHING;
+
+INSERT INTO users (username, password, role, enabled, created_at)
+VALUES ('erick', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
+    ON CONFLICT (username) DO NOTHING;
+
+
 INSERT INTO doctors (user_id, name, specialty, crm)
 SELECT (SELECT id FROM users WHERE username = 'joao.silva'), 'João Silva', 'Cardiologia', 'CRM12345'
     WHERE NOT EXISTS (
     SELECT 1 FROM doctors WHERE crm = 'CRM12345'
+);
+
+INSERT INTO doctors (user_id, name, specialty, crm)
+SELECT (SELECT id FROM users WHERE username = 'gustavo.lima'), 'Gustavo Lima', 'Dermatologista', 'CRM66666'
+    WHERE NOT EXISTS (
+    SELECT 1 FROM doctors WHERE crm = 'CRM66666'
 );
 
 INSERT INTO nurses (user_id, name, coren)
@@ -28,6 +47,18 @@ SELECT (SELECT id FROM users WHERE username = 'ana.lima'), 'Paciente Ana Lima', 
     SELECT 1 FROM patients WHERE document = 'DOC123456'
 );
 
+INSERT INTO patients (user_id, name, date_of_birth, document, phone, email, address)
+SELECT (SELECT id FROM users WHERE username = 'renato.ds'), 'Paciente Renato DS', '1990-01-01', 'DOC66666', '11987656666', 'ana.lima@exemplo.com', 'Rua das Flores, 123'
+    WHERE NOT EXISTS (
+    SELECT 1 FROM patients WHERE document = 'DOC66666'
+);
+
+INSERT INTO patients (user_id, name, date_of_birth, document, phone, email, address)
+SELECT (SELECT id FROM users WHERE username = 'erick'), 'Paciente Erick', '1990-01-01', '12345678902', '11987656666', 'erick@exemplo.com', 'Rua das Flores, 123'
+    WHERE NOT EXISTS (
+    SELECT 1 FROM patients WHERE document = '12345678902'
+);
+
 INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
 SELECT
     (SELECT id FROM patients WHERE document = 'DOC123456'),
@@ -35,7 +66,7 @@ SELECT
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
     (date_trunc('day', now()) + interval '1 day' + time '09:00'),
     'AGENDADO',
-    'Consulta inicial',
+    'Consulta inicial 1 - com data de atualizacao',
     now(),
     now()
     WHERE NOT EXISTS (
@@ -52,7 +83,7 @@ SELECT
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
     (date_trunc('day', now()) + interval '2 day' + time '09:00'),
     'AGENDADO',
-    'Consulta inicial - sem data de atualizacao',
+    'Consulta inicial 2 - sem data de atualizacao',
     now(),
     NULL
     WHERE NOT EXISTS (
@@ -60,4 +91,129 @@ SELECT
   WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC123456')
     AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM12345')
     AND a.appointment_date::date = current_date + 2
+);
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = '12345678902'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM12345'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) + interval '2 day' + time '09:00'),
+    'AGENDADO',
+    'Consulta inicial 3 - sem data de atualizacao',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = '12345678902')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM12345')
+    AND a.appointment_date::date = current_date + 2
+);
+
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = 'DOC66666'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) + interval '2 day' + time '09:00'),
+    'AGENDADO',
+    'Consulta inicial  4 - sem data de atualizacao',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+    AND a.appointment_date::date = current_date + 2
+);
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = '12345678902'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) - interval '2 day' + time '09:00'),
+    'CONCLUIDO',
+    'Consulta finalizada 1',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = '12345678902')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+    AND a.status = 'CONCLUIDO'
+);
+
+INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+SELECT
+    (SELECT id FROM patients WHERE document = 'DOC66666'),
+    (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
+    (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
+    (date_trunc('day', now()) - interval '2 day' + time '09:00'),
+    'CONCLUIDO',
+    'Consulta finalizada 2',
+    now(),
+    NULL
+    WHERE NOT EXISTS (
+  SELECT 1 FROM appointments a
+  WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
+    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+    AND a.status = 'CONCLUIDO'
+);
+
+WITH target AS (
+    SELECT a.id       AS appt_id,
+           a.doctor_id,
+           a.patient_id
+    FROM appointments a
+    WHERE a.patient_id = (SELECT id FROM patients WHERE document = '12345678902')
+      AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+      AND a.nurse_id   = (SELECT id FROM nurses   WHERE coren    = 'COREN67890')
+      AND a.status = 'CONCLUIDO'
+    )
+INSERT INTO medical_records (
+    appointment_id, doctor_id, patient_id,
+    diagnosis, prescription, observations,
+    created_at, updated_at
+)
+SELECT
+    t.appt_id, t.doctor_id, t.patient_id,
+    'Diagnóstico: alta após evolução favorável.',
+    'Prescrição: manter orientações e retorno se necessário.',
+    'Consulta concluída sem intercorrências.',
+    now(), NULL
+FROM target t
+WHERE t.appt_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM medical_records mr WHERE mr.appointment_id = t.appt_id
+);
+
+
+WITH target AS (
+    SELECT a.id       AS appt_id,
+           a.doctor_id,
+           a.patient_id
+    FROM appointments a
+    WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
+      AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+      AND a.nurse_id   = (SELECT id FROM nurses   WHERE coren    = 'COREN67890')
+      AND a.status = 'CONCLUIDO'
+
+    )
+INSERT INTO medical_records (
+    appointment_id, doctor_id, patient_id,
+    diagnosis, prescription, observations,
+    created_at, updated_at
+)
+SELECT
+    t.appt_id, t.doctor_id, t.patient_id,
+    'Diagnóstico: quadro resolvido.',
+    'Prescrição: suspender medicação; retornar em 30 dias.',
+    'Evolução satisfatória; sem queixas atuais.',
+    now(), NULL
+FROM target t
+WHERE t.appt_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM medical_records mr WHERE mr.appointment_id = t.appt_id
 );

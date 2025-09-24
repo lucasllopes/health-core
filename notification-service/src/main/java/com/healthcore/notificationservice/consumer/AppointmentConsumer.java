@@ -29,6 +29,22 @@ public class AppointmentConsumer {
         }
     }
 
+    @RabbitListener(
+            queues = RabbitMQConstants.APPOINTMENT_UPCOMING_QUEUE,
+            containerFactory = "manualAckListenerContainerFactory"
+    )
+    public void upcomingAppointment(String upcomingAppointment,
+                                    Message message,
+                                    Channel channel) {
+        try {
+            logger.info("notification : {}", upcomingAppointment);
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (Exception e) {
+            logger.error("Error processing cancellation for reservation: {}", upcomingAppointment);
+        }
+    }
+
+
  //   @RabbitListener(queues = RabbitMQConstants.NOTIFICATION_QUEUE)
  //   public void processNotificationMessage(NotificationMessageDTO notificationMessageDTO) {
  //       logger.info("Received notification message: {}", notificationMessageDTO);

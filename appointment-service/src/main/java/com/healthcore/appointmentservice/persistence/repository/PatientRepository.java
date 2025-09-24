@@ -27,4 +27,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findActivePatientsByFilters(@Param("name") String name,
                                               @Param("email") String email,
                                               @Param("document") String document);
+
+     Optional<Patient> findByUser_Id(Long userId);
 }
