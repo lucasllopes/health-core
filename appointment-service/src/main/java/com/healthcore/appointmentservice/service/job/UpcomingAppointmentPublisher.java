@@ -1,6 +1,7 @@
 package com.healthcore.appointmentservice.service.job;
 
 import com.healthcore.appointmentservice.configuration.RabbitMQConstants;
+import com.healthcore.appointmentservice.dto.message.UpcomingAppointementNotificationDTO;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.repository.AppointmentRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -30,10 +31,20 @@ public class UpcomingAppointmentPublisher {
         var appointments = appointmentRepository.findByAppointmentDateBetweenAndStatus(now, end, "AGENDADO");
 
         for (Appointment appointment : appointments) {
-            var msg = appointment.getId() + "-" + appointment.getPatient().getEmail();
 
-            rabbitTemplate.convertAndSend(RabbitMQConstants.EXCHANGE_NAME, RabbitMQConstants.ROUTING_KEY_UPCOMING, msg);
+            UpcomingAppointementNotificationDTO appointmentDTO = new UpcomingAppointementNotificationDTO(
+                    appointment.getId(),
+                    appointment.getPatient(),
+                    appointment.getDoctor(),
+                    appointment.getNurse(),
+                    appointment.getAppointmentDate(),
+                    appointment.getStatus(),
+                    appointment.getNotes(),
+                    appointment.getCreatedAt(),
+                    appointment.getUpdatedAt()
+            );
+
+            rabbitTemplate.convertAndSend(RabbitMQConstants.EXCHANGE_NAME, RabbitMQConstants.ROUTING_KEY_UPCOMING, appointmentDTO);
         }
     }
-
 }
