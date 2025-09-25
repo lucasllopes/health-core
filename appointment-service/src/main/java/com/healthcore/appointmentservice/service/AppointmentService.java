@@ -1,6 +1,8 @@
 package com.healthcore.appointmentservice.service;
 
+import com.healthcore.appointmentservice.dto.AppointmentResponseDTO;
 import com.healthcore.appointmentservice.dto.CreateAppointmentRequestDTO;
+import com.healthcore.appointmentservice.dto.UpdateAppointmentRequestDTO;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
@@ -11,9 +13,12 @@ import com.healthcore.appointmentservice.persistence.repository.DoctorRepository
 import com.healthcore.appointmentservice.persistence.repository.NurseRepository;
 import com.healthcore.appointmentservice.persistence.repository.PatientRepository;
 import com.healthcore.appointmentservice.producer.AppointmentProducerService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -36,7 +41,7 @@ public class AppointmentService {
         this.nurseRepository = nurseRepository;
     }
 
-    public String create(CreateAppointmentRequestDTO createAppointmentRequestDTO) {
+    public AppointmentResponseDTO create(CreateAppointmentRequestDTO createAppointmentRequestDTO) {
         Appointment appointment = buildAppointment(createAppointmentRequestDTO);
 
         appointmentRepository.save(appointment);
@@ -44,7 +49,42 @@ public class AppointmentService {
         AppointmentNotificationDTO event = buildAppointmentNotification(appointment);
         appointmentProducerService.sendAppointmentCreated(event);
 
-        return "Appointment id: " + appointment.getId();
+        return toResponseDTO(appointment);
+    }
+
+    public Page<AppointmentResponseDTO> getAll(Pageable pageable) {
+        return appointmentRepository.findAll(pageable).map(this::toResponseDTO);
+    }
+
+    public Optional<AppointmentResponseDTO> getById(Long id) {
+        return appointmentRepository.findById(id).map(this::toResponseDTO);
+    }
+
+    public AppointmentResponseDTO update(Long appointmentId, UpdateAppointmentRequestDTO updateRequest) {
+        Appointment existingAppointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + appointmentId));
+
+        if (updateRequest.getPatientId() != null) {
+            existingAppointment.setPatient(findPatientById(updateRequest.getPatientId()));
+        }
+        if (updateRequest.getDoctorId() != null) {
+            existingAppointment.setDoctor(findDoctorById(updateRequest.getDoctorId()));
+        }
+        if (updateRequest.getAppointmentDate() != null) {
+            existingAppointment.setAppointmentDate(updateRequest.getAppointmentDate());
+        }
+        if (updateRequest.getNotes() != null) {
+            existingAppointment.setNotes(updateRequest.getNotes());
+        }
+        existingAppointment.setUpdatedAt(LocalDateTime.now());
+        appointmentRepository.save(existingAppointment);
+        return toResponseDTO(existingAppointment);
+    }
+
+    public void delete(Long id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+        appointmentRepository.delete(appointment);
     }
 
     private Appointment buildAppointment(CreateAppointmentRequestDTO dto) {
@@ -53,7 +93,6 @@ public class AppointmentService {
         appointment.setDoctor(findDoctorById(dto.doctorId()));
         appointment.setNurse(dto.nurseId() != null ? findNurseById(dto.nurseId()) : null);
         appointment.setAppointmentDate(dto.appointmentDate());
-        appointment.setStatus(dto.status());
         appointment.setNotes(dto.notes());
         appointment.setCreatedAt(LocalDateTime.now());
         return appointment;
@@ -81,38 +120,19 @@ public class AppointmentService {
                 appointment.getDoctor().getId(),
                 appointment.getNurse() != null ? appointment.getNurse().getId() : null,
                 appointment.getAppointmentDate(),
-                appointment.getStatus(),
                 appointment.getNotes(),
                 appointment.getCreatedAt(),
                 appointment.getUpdatedAt()
         );
     }
-    public String update(Long appointmentId, CreateAppointmentRequestDTO updateRequest) {
-        Appointment existingAppointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + appointmentId));
 
-        if (updateRequest.patientId() != null) {
-            existingAppointment.setPatient(findPatientById(updateRequest.patientId()));
-        }
-        if (updateRequest.doctorId() != null) {
-            existingAppointment.setDoctor(findDoctorById(updateRequest.doctorId()));
-        }
-        if (updateRequest.nurseId() != null) {
-            existingAppointment.setNurse(findNurseById(updateRequest.nurseId()));
-        }
-        if (updateRequest.appointmentDate() != null) {
-            existingAppointment.setAppointmentDate(updateRequest.appointmentDate());
-        }
-        if (updateRequest.status() != null) {
-            existingAppointment.setStatus(updateRequest.status());
-        }
-        if (updateRequest.notes() != null) {
-            existingAppointment.setNotes(updateRequest.notes());
-        }
-
-        existingAppointment.setUpdatedAt(LocalDateTime.now());
-        appointmentRepository.save(existingAppointment);
-
-        return "Appointment updated successfully with id: " + existingAppointment.getId();
+    private AppointmentResponseDTO toResponseDTO(Appointment appointment) {
+        AppointmentResponseDTO dto = new AppointmentResponseDTO();
+        dto.setId(appointment.getId());
+        dto.setDoctorId(appointment.getDoctor() != null ? appointment.getDoctor().getId() : null);
+        dto.setPatientId(appointment.getPatient() != null ? appointment.getPatient().getId() : null);
+        dto.setAppointmentDate(appointment.getAppointmentDate());
+        dto.setNotes(appointment.getNotes());
+        return dto;
     }
 }
