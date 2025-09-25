@@ -8,7 +8,6 @@ public record AppointmentNotificationDTO(
         Long doctorId,
         Long nurseId,
         LocalDateTime appointmentDate,
-        String status,
         String notes,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
