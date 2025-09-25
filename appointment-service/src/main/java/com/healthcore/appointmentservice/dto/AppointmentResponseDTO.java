@@ -7,8 +7,8 @@ public class AppointmentResponseDTO {
     private Long doctorId;
     private Long patientId;
     private LocalDateTime appointmentDate;
-    private String notes;
     private String status;
+    private String notes;
 
     // Getters e Setters
     public Long getId() { return id; }
@@ -23,10 +23,10 @@ public class AppointmentResponseDTO {
     public LocalDateTime getAppointmentDate() { return appointmentDate; }
     public void setAppointmentDate(LocalDateTime appointmentDate) { this.appointmentDate = appointmentDate; }
 
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 }
-

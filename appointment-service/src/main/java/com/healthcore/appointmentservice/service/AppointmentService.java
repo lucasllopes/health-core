@@ -43,12 +43,10 @@ public class AppointmentService {
 
     public AppointmentResponseDTO create(CreateAppointmentRequestDTO createAppointmentRequestDTO) {
         Appointment appointment = buildAppointment(createAppointmentRequestDTO);
-
+        appointment.setStatus(createAppointmentRequestDTO.status());
         appointmentRepository.save(appointment);
-
         AppointmentNotificationDTO event = buildAppointmentNotification(appointment);
         appointmentProducerService.sendAppointmentCreated(event);
-
         return toResponseDTO(appointment);
     }
 
@@ -73,6 +71,9 @@ public class AppointmentService {
         if (updateRequest.getAppointmentDate() != null) {
             existingAppointment.setAppointmentDate(updateRequest.getAppointmentDate());
         }
+        if (updateRequest.getStatus() != null) {
+            existingAppointment.setStatus(updateRequest.getStatus());
+        }
         if (updateRequest.getNotes() != null) {
             existingAppointment.setNotes(updateRequest.getNotes());
         }
@@ -93,6 +94,7 @@ public class AppointmentService {
         appointment.setDoctor(findDoctorById(dto.doctorId()));
         appointment.setNurse(dto.nurseId() != null ? findNurseById(dto.nurseId()) : null);
         appointment.setAppointmentDate(dto.appointmentDate());
+        appointment.setStatus(dto.status());
         appointment.setNotes(dto.notes());
         appointment.setCreatedAt(LocalDateTime.now());
         return appointment;
@@ -132,6 +134,7 @@ public class AppointmentService {
         dto.setDoctorId(appointment.getDoctor() != null ? appointment.getDoctor().getId() : null);
         dto.setPatientId(appointment.getPatient() != null ? appointment.getPatient().getId() : null);
         dto.setAppointmentDate(appointment.getAppointmentDate());
+        dto.setStatus(appointment.getStatus());
         dto.setNotes(appointment.getNotes());
         return dto;
     }
