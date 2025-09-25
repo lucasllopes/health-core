@@ -4,6 +4,7 @@ import com.healthcore.appointmentservice.dto.AppointmentResponseDTO;
 import com.healthcore.appointmentservice.dto.CreateAppointmentRequestDTO;
 import com.healthcore.appointmentservice.dto.UpdateAppointmentRequestDTO;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
+import com.healthcore.appointmentservice.dto.AppointmentNotificationMessageDTO;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
@@ -13,6 +14,7 @@ import com.healthcore.appointmentservice.persistence.repository.DoctorRepository
 import com.healthcore.appointmentservice.persistence.repository.NurseRepository;
 import com.healthcore.appointmentservice.persistence.repository.PatientRepository;
 import com.healthcore.appointmentservice.producer.AppointmentProducerService;
+import com.healthcore.appointmentservice.producer.NotificationMessageSender;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,17 +30,20 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
     private final AppointmentProducerService appointmentProducerService;
+    private final NotificationMessageSender notificationMessageSender;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               AppointmentProducerService appointmentProducerService,
                               PatientRepository patientRepository,
                               DoctorRepository doctorRepository,
-                              NurseRepository nurseRepository) {
+                              NurseRepository nurseRepository,
+                              NotificationMessageSender notificationMessageSender) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentProducerService = appointmentProducerService;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.nurseRepository = nurseRepository;
+        this.notificationMessageSender = notificationMessageSender;
     }
 
     public AppointmentResponseDTO create(CreateAppointmentRequestDTO createAppointmentRequestDTO) {
@@ -47,6 +52,9 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
         AppointmentNotificationDTO event = buildAppointmentNotification(appointment);
         appointmentProducerService.sendAppointmentCreated(event);
+        // Envio para fila de notificação
+        AppointmentNotificationMessageDTO notificationMsg = toNotificationMessageDTO(appointment);
+        notificationMessageSender.sendNotification(notificationMsg);
         return toResponseDTO(appointment);
     }
 
@@ -79,6 +87,9 @@ public class AppointmentService {
         }
         existingAppointment.setUpdatedAt(LocalDateTime.now());
         appointmentRepository.save(existingAppointment);
+        // Envio para fila de notificação
+        AppointmentNotificationMessageDTO notificationMsg = toNotificationMessageDTO(existingAppointment);
+        notificationMessageSender.sendNotification(notificationMsg);
         return toResponseDTO(existingAppointment);
     }
 
@@ -126,6 +137,20 @@ public class AppointmentService {
                 appointment.getCreatedAt(),
                 appointment.getUpdatedAt()
         );
+    }
+
+    private AppointmentNotificationMessageDTO toNotificationMessageDTO(Appointment appointment) {
+        AppointmentNotificationMessageDTO dto = new AppointmentNotificationMessageDTO();
+        dto.setAppointmentId(appointment.getId());
+        dto.setPatientId(appointment.getPatient() != null ? appointment.getPatient().getId() : null);
+        dto.setDoctorId(appointment.getDoctor() != null ? appointment.getDoctor().getId() : null);
+        dto.setNurseId(appointment.getNurse() != null ? appointment.getNurse().getId() : null);
+        dto.setAppointmentDate(appointment.getAppointmentDate());
+        dto.setStatus(appointment.getStatus());
+        dto.setNotes(appointment.getNotes());
+        dto.setCreatedAt(appointment.getCreatedAt());
+        dto.setUpdatedAt(appointment.getUpdatedAt());
+        return dto;
     }
 
     private AppointmentResponseDTO toResponseDTO(Appointment appointment) {
