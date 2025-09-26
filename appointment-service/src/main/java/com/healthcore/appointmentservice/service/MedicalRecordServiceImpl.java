@@ -13,6 +13,7 @@ import com.healthcore.appointmentservice.persistence.repository.DoctorRepository
 import com.healthcore.appointmentservice.persistence.repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import com.healthcore.appointmentservice.exception.MedicalRecordNotFoundException;
 import com.healthcore.appointmentservice.exception.MedicalRecordValidationException;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class MedicalRecordServiceImpl implements MedicalRecordService {
@@ -44,6 +46,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public MedicalRecordResponseDTO create(CreateMedicalRecordRequestDTO dto) {
         logger.info("Creating MedicalRecord for appointmentId={}, doctorId={}, patientId={}", dto.getAppointmentId(), dto.getDoctorId(), dto.getPatientId());
+
+        Optional<MedicalRecord> existing = medicalRecordRepository.findByAppointmentId(dto.getAppointmentId());
+        if (existing.isPresent()) {
+            throw new MedicalRecordValidationException("Já existe um prontuário para este agendamento.");
+        }
+
         Appointment appointment = appointmentRepository.findById(dto.getAppointmentId())
                 .orElseThrow(() -> new MedicalRecordNotFoundException("Appointment not found: " + dto.getAppointmentId()));
         Doctor doctor = doctorRepository.findById(dto.getDoctorId())
