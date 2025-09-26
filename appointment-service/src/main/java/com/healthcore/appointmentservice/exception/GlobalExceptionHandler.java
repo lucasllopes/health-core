@@ -86,6 +86,28 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(MedicalRecordNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleMedicalRecordNotFoundException(MedicalRecordNotFoundException ex) {
+        log.error("MedicalRecord não encontrado: {}", ex.getMessage());
+        ErrorResponse error = new ErrorResponse(
+                "MEDICAL_RECORD_NOT_FOUND",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(MedicalRecordValidationException.class)
+    public ResponseEntity<ErrorResponse> handleMedicalRecordValidationException(MedicalRecordValidationException ex) {
+        log.error("Erro de validação de MedicalRecord: {}", ex.getMessage());
+        ErrorResponse error = new ErrorResponse(
+                "MEDICAL_RECORD_VALIDATION_ERROR",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return ResponseEntity.badRequest().body(error);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         log.error("Erro interno do servidor: {}", ex.getMessage(), ex);
