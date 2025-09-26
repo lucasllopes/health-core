@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import com.healthcore.appointmentservice.exception.MedicalRecordNotFoundException;
+import com.healthcore.appointmentservice.exception.MedicalRecordValidationException;
 
 @Service
 public class MedicalRecordServiceImpl implements MedicalRecordService {
@@ -43,11 +45,14 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     public MedicalRecordResponseDTO create(CreateMedicalRecordRequestDTO dto) {
         logger.info("Creating MedicalRecord for appointmentId={}, doctorId={}, patientId={}", dto.getAppointmentId(), dto.getDoctorId(), dto.getPatientId());
         Appointment appointment = appointmentRepository.findById(dto.getAppointmentId())
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found: " + dto.getAppointmentId()));
+                .orElseThrow(() -> new MedicalRecordNotFoundException("Appointment not found: " + dto.getAppointmentId()));
         Doctor doctor = doctorRepository.findById(dto.getDoctorId())
-                .orElseThrow(() -> new IllegalArgumentException("Doctor not found: " + dto.getDoctorId()));
+                .orElseThrow(() -> new MedicalRecordNotFoundException("Doctor not found: " + dto.getDoctorId()));
         Patient patient = patientRepository.findById(dto.getPatientId())
-                .orElseThrow(() -> new IllegalArgumentException("Patient not found: " + dto.getPatientId()));
+                .orElseThrow(() -> new MedicalRecordNotFoundException("Patient not found: " + dto.getPatientId()));
+        if (dto.getDiagnosis() == null || dto.getDiagnosis().trim().isEmpty()) {
+            throw new MedicalRecordValidationException("Diagnosis is required");
+        }
         MedicalRecord record = new MedicalRecord();
         record.setAppointment(appointment);
         record.setDoctor(doctor);
@@ -70,14 +75,18 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public Optional<MedicalRecordResponseDTO> getById(Long id) {
         logger.info("Getting MedicalRecord by id={}", id);
-        return medicalRecordRepository.findById(id).map(this::toResponseDTO);
+        return medicalRecordRepository.findById(id)
+                .map(this::toResponseDTO);
     }
 
     @Override
     public MedicalRecordResponseDTO update(Long id, UpdateMedicalRecordRequestDTO dto) {
         logger.info("Updating MedicalRecord id={}", id);
         MedicalRecord record = medicalRecordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("MedicalRecord not found: " + id));
+                .orElseThrow(() -> new MedicalRecordNotFoundException("MedicalRecord not found: " + id));
+        if (dto.getDiagnosis() == null || dto.getDiagnosis().trim().isEmpty()) {
+            throw new MedicalRecordValidationException("Diagnosis is required");
+        }
         record.setDiagnosis(dto.getDiagnosis());
         record.setPrescription(dto.getPrescription());
         record.setObservations(dto.getObservations());
@@ -90,7 +99,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     public void delete(Long id) {
         logger.info("Deleting MedicalRecord id={}", id);
         MedicalRecord record = medicalRecordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("MedicalRecord not found: " + id));
+                .orElseThrow(() -> new MedicalRecordNotFoundException("MedicalRecord not found: " + id));
         medicalRecordRepository.delete(record);
     }
 
@@ -108,4 +117,3 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return dto;
     }
 }
-
