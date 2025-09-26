@@ -67,6 +67,8 @@ public class NurseService {
         return repository.findByUserId(userId);
     }
 
+    //TODO: verificar BUGGGGGG
+    @Transactional
     public Nurse updateNurse(Long nurseId, NurseRequestDTO request) {
         if (nurseId == null || nurseId <= 0) {
             throw new IllegalArgumentException("ID do paciente deve ser um número positivo");
