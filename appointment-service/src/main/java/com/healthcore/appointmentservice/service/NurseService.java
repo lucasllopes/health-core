@@ -38,7 +38,6 @@ public class NurseService {
         return userService.saveNurse(request);
     }
 
-    @Transactional(readOnly = true)
     public Page<Nurse> getAllNurses(Pageable pageable) {
         if (pageable == null) {
             throw new IllegalArgumentException("Pageable não pode ser nulo");
@@ -48,7 +47,6 @@ public class NurseService {
         return repository.findAll(pageable);
     }
 
-    @Transactional(readOnly = true)
     public Optional<Nurse> getNurseById(Long nurseId) {
         if (nurseId == null || nurseId <= 0) {
             throw new IllegalArgumentException("ID do paciente deve ser um número positivo");
@@ -58,13 +56,30 @@ public class NurseService {
     }
 
 
-    @Transactional(readOnly = true)
     public Optional<Nurse> getNurseByUserId(Long userId) {
         if (userId == null || userId <= 0) {
             throw new IllegalArgumentException("ID do usuário deve ser um número positivo");
         }
         log.info("Buscando paciente por user ID: {}", userId);
         return repository.findByUserId(userId);
+    }
+    public Optional<Nurse> getNurseByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username não pode ser nulo ou vazio");
+        }
+
+        log.info("Buscando enfermeiro por username: {}", username);
+        return repository.findByUser_UsernameIgnoreCase(username);
+    }
+
+    public boolean isNurseOwner(String username, Long nurseId) {
+        if (username == null || nurseId == null) {
+            return false;
+        }
+
+        return getNurseByUsername(username)
+                .map(nurse -> nurse.getId().equals(nurseId))
+                .orElse(false);
     }
 
     public Nurse updateNurse(Long nurseId, NurseRequestDTO request) {
@@ -78,7 +93,7 @@ public class NurseService {
 
         log.info("Atualizando paciente ID: {}", nurseId);
 
-        Nurse nurse = repository.findByUserId(nurseId).orElseThrow(() -> new NurseNotFoundException(nurseId));
+        Nurse nurse = repository.findById(nurseId).orElseThrow(() -> new NurseNotFoundException(nurseId));
         updater.updateNurseFields(nurse, request, nurseId);
 
         return repository.save(nurse);

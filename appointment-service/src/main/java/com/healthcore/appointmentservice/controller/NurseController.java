@@ -1,13 +1,10 @@
 package com.healthcore.appointmentservice.controller;
 
-import com.healthcore.appointmentservice.controller.helper.DoctorDTOConverter;
 import com.healthcore.appointmentservice.controller.helper.NurseDTOConverter;
 import com.healthcore.appointmentservice.controller.helper.PaginationHelper;
 import com.healthcore.appointmentservice.dto.NurseRequestDTO;
 import com.healthcore.appointmentservice.dto.registration.NurseRegistrationDTO;
-import com.healthcore.appointmentservice.dto.response.DoctorResponseDTO;
 import com.healthcore.appointmentservice.dto.response.NurseResponseDTO;
-import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
 import com.healthcore.appointmentservice.service.NurseService;
 import org.slf4j.Logger;
@@ -29,6 +26,8 @@ public class NurseController {
 
 
     private static final String ADMIN_ROLE = "hasRole('ADMIN')";
+    private static final String ADMIN_NURSE_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')";
+    private static final String NURSE_SELF_ACCESS = "hasRole('NURSE') and @nurseService.isNurseOwner(authentication.name, #id)";
     private final NurseService service;
     private final PaginationHelper paginationHelper;
     private final NurseDTOConverter converter;
@@ -41,7 +40,7 @@ public class NurseController {
 
 
     @GetMapping
-    // @PreAuthorize(ADMIN_ROLE) -- TODO: QUAL VAI SER O NIVEL DE ACESSO
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<List<NurseResponseDTO>> getAllNurses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -63,21 +62,22 @@ public class NurseController {
 
 
     @PostMapping
-    @PreAuthorize(ADMIN_ROLE)
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<Nurse> createNurse(@RequestBody NurseRegistrationDTO request) {
         Nurse nurse = service.createNurse(request);
         return new ResponseEntity<>(nurse, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES + " or (" + NURSE_SELF_ACCESS + ")")
     public ResponseEntity<Nurse> getNurseById(@PathVariable("id") Long id) {
         return service.getNurseById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Atualizar enfermeiro
     @PutMapping("/{id}")
+    @PreAuthorize(ADMIN_ROLE + " or (" + NURSE_SELF_ACCESS + ")")
     public ResponseEntity<Nurse> updateNurse(@PathVariable("id") Long id,
                                              @RequestBody NurseRequestDTO request) {
         Nurse updatedNurse = service.updateNurse(id, request);

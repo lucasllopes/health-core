@@ -1,8 +1,6 @@
 package com.healthcore.appointmentservice.persistence.repository;
 
-import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
-import com.healthcore.appointmentservice.persistence.entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +15,5 @@ public interface NurseRepository extends JpaRepository<Nurse, Long> {
 
     @Query("SELECT n FROM Nurse n WHERE n.user.id = :userId")
     Optional<Nurse> findByUserId(@Param("userId") Long userId);
+    Optional<Nurse> findByUser_UsernameIgnoreCase(String username);
 }
