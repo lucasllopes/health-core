@@ -56,7 +56,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    // @PreAuthorize(ADMIN_ROLE) -- TODO: QUAL VAI SER O NIVEL DE ACESSO
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<List<DoctorResponseDTO>> getAllDoctors(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -77,7 +77,7 @@ public class DoctorController {
     }
 
     @GetMapping("/search")
-    // @PreAuthorize(ADMIN_ROLE) -- TODO: QUAL VAI SER O NIVEL DE ACESSO
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<List<DoctorResponseDTO>> searchDoctors(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String specialty,
@@ -96,7 +96,7 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    // @PreAuthorize(ADMIN_ROLE) -- TODO: QUAL VAI SER O NIVEL DE ACESSO
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<DoctorResponseDTO> getDoctorById(@PathVariable Long id) {
 
         log.info("DoctorController | Buscando médico por ID: {}", id);
@@ -107,7 +107,7 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
-    // @PreAuthorize(ADMIN_ROLE) -- TODO: QUAL VAI SER O NIVEL DE ACESSO
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<DoctorResponseDTO> updateDoctor(
             @PathVariable Long id,
             @Valid @RequestBody DoctorUpdateDTO updateRequest
@@ -124,7 +124,7 @@ public class DoctorController {
     }
 
     @PatchMapping("/{id}/disable")
-    // @PreAuthorize(ADMIN_ROLE) -- TODO: QUAL VAI SER O NIVEL DE ACESSO
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<Void> disableDoctor(@PathVariable Long id) {
 
         return handleDoctorStatusOperation(
@@ -135,6 +135,7 @@ public class DoctorController {
     }
 
     @PatchMapping("/{id}/enable")
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<Void> enableDoctor(@PathVariable Long id) {
 
         return handleDoctorStatusOperation(

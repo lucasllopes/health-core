@@ -29,4 +29,5 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
                                               @Param("document") String document);
 
      Optional<Patient> findByUser_Id(Long userId);
+    Optional<Patient> findByUser_UsernameIgnoreCase(String username);
 }

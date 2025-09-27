@@ -60,7 +60,6 @@ public class PatientService {
         return userService.savePatient(registrationRequest);
     }
 
-    @Transactional(readOnly = true)
     public Page<Patient> getAllPatients(Pageable pageable) {
         if (pageable == null) {
             throw new IllegalArgumentException("Pageable não pode ser nulo");
@@ -70,7 +69,6 @@ public class PatientService {
         return patientRepository.findAll(pageable);
     }
 
-    @Transactional(readOnly = true)
     public Optional<Patient> getPatientById(Long patientId) {
         if (patientId == null || patientId <= 0) {
             throw new IllegalArgumentException("ID do paciente deve ser um número positivo");
@@ -78,9 +76,15 @@ public class PatientService {
         log.info("Buscando paciente por ID: {}", patientId);
         return patientRepository.findById(patientId);
     }
+    public Optional<Patient> getPatientByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username não pode ser nulo ou vazio");
+        }
+
+        return patientRepository.findByUser_UsernameIgnoreCase(username);
+    }
 
 
-    @Transactional(readOnly = true)
     public Optional<Patient> getPatientByUserId(Long userId) {
         if (userId == null || userId <= 0) {
             throw new IllegalArgumentException("ID do usuário deve ser um número positivo");
@@ -119,7 +123,6 @@ public class PatientService {
         changePatientStatus(patientId, true);
     }
 
-    @Transactional(readOnly = true)
     public List<PatientResponseDTO> searchPatients(String name, String email, String document) {
         log.info("Buscando pacientes ativos - nome: '{}', email: '{}', documento: '{}'",
                 name, email, document);
@@ -142,6 +145,14 @@ public class PatientService {
         return patients.stream()
                 .map(patientMapper::toResponseDTO)
                 .toList();
+    }
+    public boolean isPatientOwner(String username, Long patientId) {
+        if (username == null || patientId == null) {
+            return false;
+        }
+
+        Optional<Patient> patient = getPatientByUsername(username);
+        return patient.isPresent() && patient.get().getId().equals(patientId);
     }
 
     private Patient findPatientByIdOrThrow(Long patientId) {

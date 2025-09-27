@@ -28,8 +28,7 @@ public class PatientController {
     private static final Logger log = LoggerFactory.getLogger(PatientController.class);
 
     private static final String ADMIN_NURSE_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')";
-    private static final String ADMIN_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('DOCTOR')";
-    private static final String PATIENT_SELF_ACCESS = "hasRole('PATIENT') and @patientService.getPatientByUserId(authentication.principal.id).map(p -> p.id).orElse(-1L) == #id";
+    private static final String PATIENT_SELF_ACCESS = "hasRole('PATIENT') and @patientService.isPatientOwner(authentication.name, #id)";
 
     private final PatientService patientService;
     private final PatientDTOConverter dtoConverter;
@@ -116,7 +115,7 @@ public class PatientController {
     }
 
     @PatchMapping("/{id}/disable")
-    @PreAuthorize(ADMIN_DOCTOR_ROLES)
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<Void> disablePatient(@PathVariable Long id) {
         return handlePatientStatusOperation(
                 "Desabilitando",
@@ -126,7 +125,7 @@ public class PatientController {
     }
 
     @PatchMapping("/{id}/enable")
-    @PreAuthorize(ADMIN_DOCTOR_ROLES)
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<Void> enablePatient(@PathVariable Long id) {
         return handlePatientStatusOperation(
                 "Habilitando",

@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -97,6 +98,32 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAuthorizationDeniedException(AuthorizationDeniedException ex) {
+        log.error("Acesso negado: {}", ex.getMessage());
+
+        String customMessage = determineAuthorizationMessage(ex);
+
+        ErrorResponse error = new ErrorResponse(
+                "ACCESS_DENIED",
+                customMessage,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    private String determineAuthorizationMessage(AuthorizationDeniedException ex) {
+        String message = ex.getMessage();
+
+        if (message != null && message.contains("PATIENT")) {
+            return "Acesso negado: Pacientes só podem visualizar seus próprios dados";
+        } else if (message != null && message.contains("hasRole")) {
+            return "Acesso negado: Você não possui permissão para acessar este recurso";
+        }
+
+        return "Acesso negado: Permissões insuficientes para esta operação";
     }
 
     public record ErrorResponse(
