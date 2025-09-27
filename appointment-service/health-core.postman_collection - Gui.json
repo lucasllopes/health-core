@@ -27,7 +27,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - SÃ£o Paulo, SP\"\r\n}",
+							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - São Paulo, SP\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,7 +95,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg4NTA0OTcsImV4cCI6MTc1ODg1MTM5N30.8z31mbpRTRMff4Mkp5dCVUdfq5tr5uSyByV6zu1by1k",
 									"type": "string"
 								}
 							]
@@ -103,7 +103,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/patients/2",
+							"raw": "http://localhost:8080/patients/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -111,7 +111,7 @@
 							"port": "8080",
 							"path": [
 								"patients",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -125,7 +125,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg4NTA0OTcsImV4cCI6MTc1ODg1MTM5N30.8z31mbpRTRMff4Mkp5dCVUdfq5tr5uSyByV6zu1by1k",
 									"type": "string"
 								}
 							]
@@ -133,7 +133,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/patients/search?name=guilherme",
+							"raw": "http://localhost:8080/patients/search?name=guilherm",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -146,7 +146,7 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "guilherme"
+									"value": "guilherm"
 								}
 							]
 						}
@@ -161,7 +161,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg4NTA0OTcsImV4cCI6MTc1ODg1MTM5N30.8z31mbpRTRMff4Mkp5dCVUdfq5tr5uSyByV6zu1by1k",
 									"type": "string"
 								}
 							]
@@ -239,6 +239,386 @@
 								"patients",
 								"2",
 								"enable"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Médico",
+			"item": [
+				{
+					"name": "Cadastro Médico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTgzMjY3MDEsImV4cCI6MTc1ODMyNzYwMX0.3G7f7CK3l2Y1OFVH5j8LiRNcYh_ZlSFI6JXmilRubfg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"dr.silva\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Dr. João Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"crm\": \"CRM/SP 123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Médico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTgzMjY3MDEsImV4cCI6MTc1ODMyNzYwMX0.3G7f7CK3l2Y1OFVH5j8LiRNcYh_ZlSFI6JXmilRubfg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Dr. João Silva Santos\",\r\n  \"specialty\": \"Cardiologia Intervencionista\",\r\n  \"crm\": \"CRM/SP 123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctors/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Médico por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTgzMjY3MDEsImV4cCI6MTc1ODMyNzYwMX0.3G7f7CK3l2Y1OFVH5j8LiRNcYh_ZlSFI6JXmilRubfg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctors/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Médico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg5ODEwODEsImV4cCI6MTc1ODk4MTk4MX0.oehtGuLhsyynxNI8qICUU07YzhR7n6KzbhNTAWryj8k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctors/search?name=gustavo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "gustavo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos os Médicos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg5ODEwODEsImV4cCI6MTc1ODk4MTk4MX0.oehtGuLhsyynxNI8qICUU07YzhR7n6KzbhNTAWryj8k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desabilitar Médico por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTgzMjY3MDEsImV4cCI6MTc1ODMyNzYwMX0.3G7f7CK3l2Y1OFVH5j8LiRNcYh_ZlSFI6JXmilRubfg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctors/2/disable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors",
+								"2",
+								"disable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Habilitar Medico por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTgzMjY3MDEsImV4cCI6MTc1ODMyNzYwMX0.3G7f7CK3l2Y1OFVH5j8LiRNcYh_ZlSFI6JXmilRubfg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctors/2/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors",
+								"2",
+								"enable"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enfermeiro",
+			"item": [
+				{
+					"name": "Cadastro Enfermeiro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg5ODAwNjEsImV4cCI6MTc1ODk4MDk2MX0.ty1NxatiuB09KGiBiiLSd2fkhuwvTV4Nl_vOL1MSHMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"ana.ferreira\",\r\n    \"password\": \"senhaSegura123\",\r\n    \"name\": \"Ana Paula Ferreira\",\r\n    \"coren\": \"COREN-MG-345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nurses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nurses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Enfermeiro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg5ODEwODEsImV4cCI6MTc1ODk4MTk4MX0.oehtGuLhsyynxNI8qICUU07YzhR7n6KzbhNTAWryj8k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"userId\": 2,\r\n    \"name\": \"Maria Souza\",\r\n    \"coren\": \"COREN-SP-12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/nurses/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nurses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Enfermeiro por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg5ODAwNjEsImV4cCI6MTc1ODk4MDk2MX0.ty1NxatiuB09KGiBiiLSd2fkhuwvTV4Nl_vOL1MSHMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nurses/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nurses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos os Enfermeiros",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTg5ODEwODEsImV4cCI6MTc1ODk4MTk4MX0.oehtGuLhsyynxNI8qICUU07YzhR7n6KzbhNTAWryj8k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nurses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nurses"
 							]
 						}
 					},
