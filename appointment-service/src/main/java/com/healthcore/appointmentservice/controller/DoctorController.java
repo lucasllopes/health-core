@@ -28,6 +28,8 @@ public class DoctorController {
     private static final Logger log = LoggerFactory.getLogger(DoctorController.class);
 
     private static final String ADMIN_ROLE = "hasRole('ADMIN')";
+    private static final String ADMIN_NURSE_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')";
+    private static final String DOCTOR_SELF_ACCESS = "hasRole('DOCTOR') and @doctorService.isDoctorOwner(authentication.name, #id)";
 
     private final DoctorService doctorService;
     private final PaginationHelper paginationHelper;
@@ -56,7 +58,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    @PreAuthorize(ADMIN_ROLE)
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<List<DoctorResponseDTO>> getAllDoctors(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -77,7 +79,7 @@ public class DoctorController {
     }
 
     @GetMapping("/search")
-    @PreAuthorize(ADMIN_ROLE)
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<List<DoctorResponseDTO>> searchDoctors(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String specialty,
@@ -96,7 +98,7 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize(ADMIN_ROLE)
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
     public ResponseEntity<DoctorResponseDTO> getDoctorById(@PathVariable Long id) {
 
         log.info("DoctorController | Buscando médico por ID: {}", id);
@@ -107,7 +109,7 @@ public class DoctorController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize(ADMIN_ROLE)
+    @PreAuthorize(ADMIN_ROLE + " or (" + DOCTOR_SELF_ACCESS + ")")
     public ResponseEntity<DoctorResponseDTO> updateDoctor(
             @PathVariable Long id,
             @Valid @RequestBody DoctorUpdateDTO updateRequest
