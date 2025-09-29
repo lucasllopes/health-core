@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "935afa90-5b86-4026-95a8-069469357cc0",
+		"_postman_id": "518d01dd-d489-47f1-ba06-9ce2325fde9b",
 		"name": "health-core",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "24136292",
-		"_collection_link": "https://galactic-eclipse-841224.postman.co/workspace/My-Workspace~9773321a-d3da-477d-8d9b-4da51df9509f/collection/24136292-935afa90-5b86-4026-95a8-069469357cc0?action=share&source=collection_link&creator=24136292"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9099310"
 	},
 	"item": [
 		{
@@ -15,9 +14,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -30,7 +33,17 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients"
+							]
+						}
 					},
 					"response": []
 				},
@@ -39,9 +52,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -54,7 +71,18 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients/2"
+						"url": {
+							"raw": "http://localhost:8080/patients/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -63,13 +91,28 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients/2"
+						"url": {
+							"raw": "http://localhost:8080/patients/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -78,9 +121,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -110,13 +157,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients"
+							]
+						}
 					},
 					"response": []
 				},
@@ -125,13 +186,29 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/disable"
+						"url": {
+							"raw": "http://localhost:8080/patients/2/disable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2",
+								"disable"
+							]
+						}
 					},
 					"response": []
 				},
@@ -140,13 +217,29 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/enable"
+						"url": {
+							"raw": "http://localhost:8080/patients/2/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2",
+								"enable"
+							]
+						}
 					},
 					"response": []
 				}
@@ -160,9 +253,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -175,7 +272,17 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients"
+							]
+						}
 					},
 					"response": []
 				},
@@ -184,9 +291,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -199,7 +310,18 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients/2"
+						"url": {
+							"raw": "http://localhost:8080/patients/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -208,13 +330,28 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients/2"
+						"url": {
+							"raw": "http://localhost:8080/patients/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -223,9 +360,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -255,13 +396,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients"
+							]
+						}
 					},
 					"response": []
 				},
@@ -270,13 +425,29 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/disable"
+						"url": {
+							"raw": "http://localhost:8080/patients/2/disable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2",
+								"disable"
+							]
+						}
 					},
 					"response": []
 				},
@@ -285,13 +456,29 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/enable"
+						"url": {
+							"raw": "http://localhost:8080/patients/2/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients",
+								"2",
+								"enable"
+							]
+						}
 					},
 					"response": []
 				}
@@ -299,7 +486,476 @@
 		},
 		{
 			"name": "Login",
-			"item": []
+			"item": [
+				{
+					"name": "GET TOKEN - DOCTOR",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"joao.silva\",\r\n    \"password\":\"senha123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TOKEN - PATIENT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"ana.lima\",\r\n    \"password\":\"senha123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GRAPHQL - Histórico Médico",
+			"item": [
+				{
+					"name": "appointment by id - COMPLETO",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDc3NzIsImV4cCI6MTc1ODI0ODY3Mn0.LVB5ENOw7-SNf-h1x2wExt4XetDu6ClWyci9Li8ZLKM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AllAppointments {\r\n    appointmentById(id: 4) {\r\n        id\r\n        appointmentDate\r\n        status\r\n        notes\r\n        createdAt\r\n        updatedAt\r\n        patient {\r\n            id\r\n            name\r\n            dateOfBirth\r\n            document\r\n            phone\r\n            email\r\n            address\r\n        }\r\n        nurse {\r\n            id\r\n            name\r\n            coren\r\n        }\r\n        doctor {\r\n            id\r\n            name\r\n            specialty\r\n            crm\r\n        }\r\n        medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointment by id - SIMPLES",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\r\n    appointmentById(id: 2) {\r\n        id\r\n        appointmentDate\r\n        status\r\n        notes\r\n        createdAt\r\n        updatedAt\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments apenas consultas futuras",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDIxMiwiZXhwIjoxNzU4NTk1MTEyfQ.omRyoexBzAsx3vsJxKf6tTo8WX_k1Pf2Vk0yAYIhEOk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 4 } \r\n        filter: { futureOnly : true} ) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments apenas consultas passadas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 } \r\n        filter: { futureOnly : false} ) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODc2MTc4OSwiZXhwIjoxNzU4NzYyNjg5fQ.avTtxTd7J1lwHH9R2VMj5k4-18y1Ofae1AgT8_RTF-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments by documento",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTg1ODM5NDAsImV4cCI6MTc1ODU4NDg0MH0.ZNH2dBORy-ceq8WrGHZ8LsUcUTSFaS7KJ3B0vvH-iAo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, filter: { patientDocument: \"DOC123456\" }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments by documento - Apenas consultas futuras",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        patientDocument: \"DOC123456\",\r\n        futureOnly: true }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments by documento - Apenas consultas passadas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        patientDocument: \"12345678902\",\r\n        futureOnly: false }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments by CRM",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDgzMzksImV4cCI6MTc1ODI0OTIzOX0.b7dxiP56cx3WqOZteNscVMxM7WRXgZv_iB7TQsiqyUo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\"}) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments by CRM apenas consultas futuras",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDg0MDMsImV4cCI6MTc1ODI0OTMwM30.0Yg5m4AQk1gLy6kZzmZ_GCZc0WY3bEfI4V4THGiWfZQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\",\r\n        futureOnly: true }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n            medicalRecord {\r\n                id\r\n                diagnosis\r\n                prescription\r\n                observations\r\n                createdAt\r\n                updatedAt\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments by CRM apenas consultas passadas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MTExNiwiZXhwIjoxNzU4MTQyMDE2fQ.6iawxJ3gEwKGeoSK6mfXrtbtX4Ka94-kjLCAUf5tqYg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Appointments {\r\n    appointments(page: { page: 0, size: 50 }, \r\n    filter: { \r\n        doctorCrm: \"CRM66666\",\r\n        futureOnly: false }) {\r\n        content {\r\n            id\r\n            appointmentDate\r\n            status\r\n            notes\r\n            createdAt\r\n            updatedAt\r\n            patient {\r\n                id\r\n                name\r\n                dateOfBirth\r\n                document\r\n                phone\r\n                email\r\n                address\r\n            }\r\n            doctor {\r\n                id\r\n                name\r\n                specialty\r\n                crm\r\n            }\r\n            nurse {\r\n                id\r\n                name\r\n                coren\r\n            }\r\n        }\r\n        pageInfo {\r\n            page\r\n            size\r\n            totalPages\r\n            totalElements\r\n        }\r\n    }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/graphql",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
