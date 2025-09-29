@@ -27,9 +27,9 @@ public class JwtUtil {
 
     private SecretKey refreshKey;
 
-    private final int jwtExpirationMs = 900_000;
+    private final int jwtExpirationMs = 1500000;
 
-    private final int refreshExpirationMs = 900_000;
+    private final int refreshExpirationMs = 3000000;
 
     @PostConstruct
     public void init() {
@@ -41,16 +41,6 @@ public class JwtUtil {
         return Jwts.builder()
                 .issuer("HealthCore")
                 .subject(username)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(jwtSecretKey)
-                .compact();
-    }
-    public String generateTokenWithRole(String username, String role) {
-        return Jwts.builder()
-                .issuer("HealthCore")
-                .subject(username)
-                .claim("role", role)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(jwtSecretKey)
@@ -86,16 +76,6 @@ public class JwtUtil {
                 .getPayload();
 
         return claims.getSubject();
-    }
-
-    public String getRoleFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(jwtSecretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-
-        return claims.get("role", String.class);
     }
 
     public boolean validateToken(String token) {

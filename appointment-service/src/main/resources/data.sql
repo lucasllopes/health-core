@@ -22,6 +22,10 @@ INSERT INTO users (username, password, role, enabled, created_at)
 VALUES ('erick', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'PATIENT', TRUE, NOW())
     ON CONFLICT (username) DO NOTHING;
 
+INSERT INTO users (username, password, role, enabled, created_at)
+VALUES ('admin', '$2a$10$qh2BLer14kkg58hXI2nWjOYAHn3/YapvsEPLdBvCnBPhQtXlWtTwu', 'ADMIN', TRUE, NOW())
+    ON CONFLICT (username) DO NOTHING;
+
 
 INSERT INTO doctors (user_id, name, specialty, crm)
 SELECT (SELECT id FROM users WHERE username = 'joao.silva'), 'João Silva', 'Cardiologia', 'CRM12345'
