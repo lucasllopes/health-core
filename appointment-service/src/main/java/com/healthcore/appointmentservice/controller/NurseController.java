@@ -4,7 +4,11 @@ import com.healthcore.appointmentservice.controller.helper.NurseDTOConverter;
 import com.healthcore.appointmentservice.controller.helper.PaginationHelper;
 import com.healthcore.appointmentservice.dto.NurseRequestDTO;
 import com.healthcore.appointmentservice.dto.registration.NurseRegistrationDTO;
+import com.healthcore.appointmentservice.dto.response.DoctorResponseDTO;
 import com.healthcore.appointmentservice.dto.response.NurseResponseDTO;
+import com.healthcore.appointmentservice.dto.response.PatientResponseDTO;
+import com.healthcore.appointmentservice.dto.update.NurseUpdateDTO;
+import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
 import com.healthcore.appointmentservice.service.NurseService;
 import org.slf4j.Logger;
@@ -63,24 +67,55 @@ public class NurseController {
 
     @PostMapping
     @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
-    public ResponseEntity<Nurse> createNurse(@RequestBody NurseRegistrationDTO request) {
+    public ResponseEntity<NurseResponseDTO> createNurse(@RequestBody NurseRegistrationDTO request) {
         Nurse nurse = service.createNurse(request);
-        return new ResponseEntity<>(nurse, HttpStatus.CREATED);
+        return ResponseEntity.ok(NurseResponseDTO.fromEntity(nurse));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES + " or (" + NURSE_SELF_ACCESS + ")")
-    public ResponseEntity<Nurse> getNurseById(@PathVariable("id") Long id) {
-        return service.getNurseById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<NurseResponseDTO> getNurseById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(NurseResponseDTO.fromEntity(service.getNurseById(id)));
+    }
+
+    @GetMapping("/search")
+    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
+    public ResponseEntity<List<NurseResponseDTO>> searchNurses(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String coren
+    )
+    {
+
+        log.info("Buscando enfermeiros - nome '{}', coren '{}'",
+                name, coren);
+
+        List<NurseResponseDTO> foundNurses = service.searchNurses(name, coren);
+
+        log.info("Encontrados {} enfermeiros para a busca", foundNurses.size());
+
+        return ResponseEntity.ok(foundNurses);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize(ADMIN_ROLE + " or (" + NURSE_SELF_ACCESS + ")")
-    public ResponseEntity<Nurse> updateNurse(@PathVariable("id") Long id,
-                                             @RequestBody NurseRequestDTO request) {
+    public ResponseEntity<NurseResponseDTO> updateNurse(@PathVariable("id") Long id,
+                                             @RequestBody NurseUpdateDTO request) {
         Nurse updatedNurse = service.updateNurse(id, request);
-        return ResponseEntity.ok(updatedNurse);
+        return ResponseEntity.ok(NurseResponseDTO.fromEntity(updatedNurse));
     }
+
+    @PatchMapping("/{id}/disable")
+    @PreAuthorize(ADMIN_ROLE)
+    public ResponseEntity<?> disableNurse(@PathVariable Long id) {
+        service.disableNurse(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/enable")
+    @PreAuthorize(ADMIN_ROLE)
+    public ResponseEntity<Void> enableDoctor(@PathVariable Long id) {
+        service.enableNurse(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -7,13 +7,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface NurseRepository extends JpaRepository<Nurse, Long> {
-    List<Nurse> findBynameIgnoreCase(String name);
 
-    @Query("SELECT n FROM Nurse n WHERE n.user.id = :userId")
-    Optional<Nurse> findByUserId(@Param("userId") Long userId);
-    Optional<Nurse> findByUser_UsernameIgnoreCase(String username);
+    @Query(value = "SELECT n.* FROM nurses n " +
+            "JOIN users u ON u.id = n.user_id " +
+            "WHERE (:name IS NULL OR UPPER(n.name) LIKE UPPER(CONCAT('%', :name, '%'))) " +
+            "AND (:coren IS NULL OR UPPER(n.coren) LIKE UPPER(CONCAT('%', :coren, '%'))) " +
+            "AND u.enabled = true",
+            nativeQuery = true)
+    List<Nurse> findActiveNursesByFilters(@Param("name") String name, @Param("coren") String coren);
 }
