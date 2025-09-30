@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "b498413b-9568-491e-9e70-90fdacac223b",
+		"_postman_id": "b55b83a2-bb62-48f2-b233-97b5220111e3",
 		"name": "health-core",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13612493"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24136292",
+		"_collection_link": "https://galactic-eclipse-841224.postman.co/workspace/My-Workspace~9773321a-d3da-477d-8d9b-4da51df9509f/collection/24136292-b55b83a2-bb62-48f2-b233-97b5220111e3?action=share&source=collection_link&creator=24136292"
 	},
 	"item": [
 		{
@@ -14,13 +15,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -33,17 +30,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/patients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients"
-							]
-						}
+						"url": "http://localhost:8080/patients"
 					},
 					"response": []
 				},
@@ -52,13 +39,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE"
+							}
 						},
 						"method": "PUT",
 						"header": [],
@@ -71,18 +54,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/patients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2"
-							]
-						}
+						"url": "http://localhost:8080/patients/2"
 					},
 					"response": []
 				},
@@ -91,28 +63,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2"
-							]
-						}
+						"url": "http://localhost:8080/patients/2"
 					},
 					"response": []
 				},
@@ -121,13 +78,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -157,27 +110,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients"
-							]
-						}
+						"url": "http://localhost:8080/patients"
 					},
 					"response": []
 				},
@@ -186,29 +125,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2/disable",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2",
-								"disable"
-							]
-						}
+						"url": "http://localhost:8080/patients/2/disable"
 					},
 					"response": []
 				},
@@ -217,29 +140,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2/enable",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2",
-								"enable"
-							]
-						}
+						"url": "http://localhost:8080/patients/2/enable"
 					},
 					"response": []
 				}
@@ -253,13 +160,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -272,17 +175,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/patients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients"
-							]
-						}
+						"url": "http://localhost:8080/patients"
 					},
 					"response": []
 				},
@@ -291,13 +184,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE"
+							}
 						},
 						"method": "PUT",
 						"header": [],
@@ -310,18 +199,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/patients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2"
-							]
-						}
+						"url": "http://localhost:8080/patients/2"
 					},
 					"response": []
 				},
@@ -330,28 +208,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2"
-							]
-						}
+						"url": "http://localhost:8080/patients/2"
 					},
 					"response": []
 				},
@@ -360,13 +223,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -396,27 +255,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients"
-							]
-						}
+						"url": "http://localhost:8080/patients"
 					},
 					"response": []
 				},
@@ -425,29 +270,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2/disable",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2",
-								"disable"
-							]
-						}
+						"url": "http://localhost:8080/patients/2/disable"
 					},
 					"response": []
 				},
@@ -456,29 +285,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2/enable",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2",
-								"enable"
-							]
-						}
+						"url": "http://localhost:8080/patients/2/enable"
 					},
 					"response": []
 				}
@@ -492,13 +305,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -511,17 +320,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/patients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients"
-							]
-						}
+						"url": "http://localhost:8080/patients"
 					},
 					"response": []
 				},
@@ -530,13 +329,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE"
+							}
 						},
 						"method": "PUT",
 						"header": [],
@@ -549,18 +344,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/patients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2"
-							]
-						}
+						"url": "http://localhost:8080/patients/2"
 					},
 					"response": []
 				},
@@ -569,28 +353,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2"
-							]
-						}
+						"url": "http://localhost:8080/patients/2"
 					},
 					"response": []
 				},
@@ -599,13 +368,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -635,27 +400,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients"
-							]
-						}
+						"url": "http://localhost:8080/patients"
 					},
 					"response": []
 				},
@@ -664,29 +415,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2/disable",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2",
-								"disable"
-							]
-						}
+						"url": "http://localhost:8080/patients/2/disable"
 					},
 					"response": []
 				},
@@ -695,29 +430,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/patients/2/enable",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"patients",
-								"2",
-								"enable"
-							]
-						}
+						"url": "http://localhost:8080/patients/2/enable"
 					},
 					"response": []
 				}
@@ -731,13 +450,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": ""
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -750,18 +465,31 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
+						"url": "http://localhost:8080/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "GET TOKEN - ADMIN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"admin\",\r\n    \"password\":\"senha123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/login"
 					},
 					"response": []
 				},
@@ -770,13 +498,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": ""
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -789,18 +513,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
+						"url": "http://localhost:8080/auth/login"
 					},
 					"response": []
 				},
@@ -809,13 +522,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": ""
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -828,18 +537,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
+						"url": "http://localhost:8080/auth/login"
 					},
 					"response": []
 				}
@@ -853,13 +551,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDc3NzIsImV4cCI6MTc1ODI0ODY3Mn0.LVB5ENOw7-SNf-h1x2wExt4XetDu6ClWyci9Li8ZLKM",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDc3NzIsImV4cCI6MTc1ODI0ODY3Mn0.LVB5ENOw7-SNf-h1x2wExt4XetDu6ClWyci9Li8ZLKM"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -870,16 +564,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -888,13 +573,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE3MDIyNSwiZXhwIjoxNzU4MTcxMTI1fQ.bf_1E05PlGpkmlzFdcVlSVRpDlSGX_Fp-F-CWMVBlwk"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -905,16 +586,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -923,13 +595,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDIxMiwiZXhwIjoxNzU4NTk1MTEyfQ.omRyoexBzAsx3vsJxKf6tTo8WX_k1Pf2Vk0yAYIhEOk",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDIxMiwiZXhwIjoxNzU4NTk1MTEyfQ.omRyoexBzAsx3vsJxKf6tTo8WX_k1Pf2Vk0yAYIhEOk"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -940,16 +608,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -958,13 +617,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -975,16 +630,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -993,13 +639,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODc2MTc4OSwiZXhwIjoxNzU4NzYyNjg5fQ.avTtxTd7J1lwHH9R2VMj5k4-18y1Ofae1AgT8_RTF-E",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODc2MTc4OSwiZXhwIjoxNzU4NzYyNjg5fQ.avTtxTd7J1lwHH9R2VMj5k4-18y1Ofae1AgT8_RTF-E"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1010,16 +652,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -1028,13 +661,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTg1ODM5NDAsImV4cCI6MTc1ODU4NDg0MH0.ZNH2dBORy-ceq8WrGHZ8LsUcUTSFaS7KJ3B0vvH-iAo",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTg1ODM5NDAsImV4cCI6MTc1ODU4NDg0MH0.ZNH2dBORy-ceq8WrGHZ8LsUcUTSFaS7KJ3B0vvH-iAo"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1045,16 +674,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -1063,13 +683,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1080,16 +696,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -1098,13 +705,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODU5NDg5NCwiZXhwIjoxNzU4NTk1Nzk0fQ.wxvZZfgcm6bzaeOOmnchZOD4ntwd6rbnZ3pFtJBqS4E"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1115,16 +718,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -1133,13 +727,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDgzMzksImV4cCI6MTc1ODI0OTIzOX0.b7dxiP56cx3WqOZteNscVMxM7WRXgZv_iB7TQsiqyUo",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDgzMzksImV4cCI6MTc1ODI0OTIzOX0.b7dxiP56cx3WqOZteNscVMxM7WRXgZv_iB7TQsiqyUo"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1150,16 +740,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -1168,13 +749,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDg0MDMsImV4cCI6MTc1ODI0OTMwM30.0Yg5m4AQk1gLy6kZzmZ_GCZc0WY3bEfI4V4THGiWfZQ",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDg0MDMsImV4cCI6MTc1ODI0OTMwM30.0Yg5m4AQk1gLy6kZzmZ_GCZc0WY3bEfI4V4THGiWfZQ"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1185,16 +762,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				},
@@ -1203,13 +771,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MTExNiwiZXhwIjoxNzU4MTQyMDE2fQ.6iawxJ3gEwKGeoSK6mfXrtbtX4Ka94-kjLCAUf5tqYg",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiam9hby5zaWx2YSIsImlhdCI6MTc1ODE0MTExNiwiZXhwIjoxNzU4MTQyMDE2fQ.6iawxJ3gEwKGeoSK6mfXrtbtX4Ka94-kjLCAUf5tqYg"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -1220,16 +784,7 @@
 								"variables": ""
 							}
 						},
-						"url": {
-							"raw": "localhost:8080/graphql",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"graphql"
-							]
-						}
+						"url": "localhost:8080/graphql"
 					},
 					"response": []
 				}
