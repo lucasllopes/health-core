@@ -14,5 +14,5 @@ public interface MedicalRecordService {
     Optional<MedicalRecordResponseDTO> getById(Long id);
     MedicalRecordResponseDTO update(Long id, UpdateMedicalRecordRequestDTO updateMedicalRecordRequestDTO);
     void delete(Long id);
+    boolean isPatientOwner(String username, Long medicalRecordId);
 }
-

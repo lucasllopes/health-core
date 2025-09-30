@@ -163,4 +163,15 @@ public class AppointmentService {
         dto.setNotes(appointment.getNotes());
         return dto;
     }
+
+    public boolean isPatientOwner(String username, Long appointmentId) {
+        // Busca o Appointment pelo id
+        Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentId);
+        if (appointmentOpt.isEmpty()) return false;
+        Appointment appointment = appointmentOpt.get();
+        // Busca o Patient pelo username (assumindo que username é email único)
+        Patient patient = appointment.getPatient();
+        if (patient == null) return false;
+        return username.equalsIgnoreCase(patient.getEmail());
+    }
 }

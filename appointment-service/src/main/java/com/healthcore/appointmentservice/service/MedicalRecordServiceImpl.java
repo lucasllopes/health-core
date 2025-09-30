@@ -117,6 +117,17 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         medicalRecordRepository.delete(record);
     }
 
+    @Override
+    public boolean isPatientOwner(String username, Long medicalRecordId) {
+        // Busca o MedicalRecord pelo id
+        return medicalRecordRepository.findById(medicalRecordId)
+                .map(record -> {
+                    if (record.getPatient() == null) return false;
+                    return username.equalsIgnoreCase(record.getPatient().getEmail());
+                })
+                .orElse(false);
+    }
+
     private MedicalRecordResponseDTO toResponseDTO(MedicalRecord record) {
         MedicalRecordResponseDTO dto = new MedicalRecordResponseDTO();
         dto.setId(record.getId());

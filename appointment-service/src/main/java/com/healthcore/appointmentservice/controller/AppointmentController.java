@@ -46,7 +46,7 @@ public class AppointmentController {
     }
 
     @GetMapping
-    @PreAuthorize(DOCTOR_ROLE + " or " + NURSE_ROLE + " or (" + PATIENT_ROLE + ")")
+    @PreAuthorize(DOCTOR_ROLE + " or " + NURSE_ROLE)
     public ResponseEntity<List<AppointmentResponseDTO>> getAllAppointments(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
