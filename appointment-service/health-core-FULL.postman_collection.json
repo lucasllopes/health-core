@@ -362,21 +362,18 @@
 			"item": [
 				{
 					"name": "Cadastro Médico",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NTkyMjkzMzksImV4cCI6MTc1OTIzMDgzOX0.Wr-RXyBlfejKmr9zfA5ZEhvIc_QG2JKtZQtsTBWrkdQ"
 							}
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - SÃ£o Paulo, SP\"\r\n}",
+							"raw": "{\r\n  \"username\": \"caike novo\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike novo\",\r\n  \"specialty\": \"Oftalmologista\",\r\n  \"crm\": \"12345678999\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -393,21 +390,21 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTc1NTEsImV4cCI6MTc1Nzc5ODQ1MX0.HLTwxjJ8MGDXptbns5sZO1mHge7YtBm2HdvjOmMFHgE"
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NTkyMjk3OTMsImV4cCI6MTc1OTIzMTI5M30.6VHdpo-91tbsyYIOuu3db2dQRX-mN25gZYu8fYIXWL4"
 							}
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Guilherme Marques Ferreira\",\r\n  \"dateOfBirth\": \"1996-02-09\",\r\n  \"document\": \"12345678901\",\r\n  \"phone\": \"(11) 88888-7777\",\r\n  \"email\": \"guilherme.marques@email.com\",\r\n  \"address\": \"Rua das Guerras, 123 - Itumbiara, GO\"\r\n}",
+							"raw": "{\r\n  \"name\": \"caike atualizado\",\r\n  \"specialty\": \"cirurgião\",\r\n  \"crm\": \"99999999\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/doctors/2"
+						"url": "http://localhost:8080/doctors/4"
 					},
 					"response": []
 				},
@@ -432,7 +429,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NTkyMjk3OTMsImV4cCI6MTc1OTIzMTI5M30.6VHdpo-91tbsyYIOuu3db2dQRX-mN25gZYu8fYIXWL4"
 							}
 						},
 						"method": "GET",
@@ -464,7 +461,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc4MDI4NzAsImV4cCI6MTc1NzgwMzc3MH0.hnwVwk494-NqhYHSshPCe0GEboEjnQXoKEEGlaCX_yI"
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NTkyMjk3OTMsImV4cCI6MTc1OTIzMTI5M30.6VHdpo-91tbsyYIOuu3db2dQRX-mN25gZYu8fYIXWL4"
 							}
 						},
 						"method": "GET",
@@ -643,7 +640,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYW5hLmxpbWEiLCJpYXQiOjE3NTgyNDc3NzIsImV4cCI6MTc1ODI0ODY3Mn0.LVB5ENOw7-SNf-h1x2wExt4XetDu6ClWyci9Li8ZLKM"
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NTkyMjkwMDEsImV4cCI6MTc1OTIzMDUwMX0.YGm1-9UE8R60Sgq8O8TpFK00vMbZw1Fk_0J44G323Co"
 							}
 						},
 						"method": "POST",
