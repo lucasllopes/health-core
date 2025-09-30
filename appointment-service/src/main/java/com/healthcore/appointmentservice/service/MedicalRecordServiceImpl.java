@@ -108,6 +108,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         logger.info("Deleting MedicalRecord id={}", id);
         MedicalRecord record = medicalRecordRepository.findById(id)
                 .orElseThrow(() -> new MedicalRecordNotFoundException("MedicalRecord not found: " + id));
+
+        Appointment appointment = record.getAppointment();
+        if (appointment != null) {
+            appointment.setMedicalRecord(null);
+            appointmentRepository.save(appointment);
+        }
         medicalRecordRepository.delete(record);
     }
 
