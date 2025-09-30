@@ -2,20 +2,15 @@ package com.healthcore.appointmentservice.controller;
 
 import com.healthcore.appointmentservice.controller.helper.NurseDTOConverter;
 import com.healthcore.appointmentservice.controller.helper.PaginationHelper;
-import com.healthcore.appointmentservice.dto.NurseRequestDTO;
 import com.healthcore.appointmentservice.dto.registration.NurseRegistrationDTO;
-import com.healthcore.appointmentservice.dto.response.DoctorResponseDTO;
 import com.healthcore.appointmentservice.dto.response.NurseResponseDTO;
-import com.healthcore.appointmentservice.dto.response.PatientResponseDTO;
 import com.healthcore.appointmentservice.dto.update.NurseUpdateDTO;
-import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
 import com.healthcore.appointmentservice.service.NurseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +48,7 @@ public class NurseController {
     )
     {
 
-        log.info("NurseController | Buscando médicos - página: {}, tamanho: {}, ordenação: {} {}",
+        log.info("NurseController | Buscando enfermeiros - página: {}, tamanho: {}, ordenação: {} {}",
                 page, size, sortBy, sortDirection);
 
         Pageable pageable = paginationHelper.createPageable(page, size, sortBy, sortDirection);

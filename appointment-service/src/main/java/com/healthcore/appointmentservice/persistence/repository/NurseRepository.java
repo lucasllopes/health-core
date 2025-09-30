@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NurseRepository extends JpaRepository<Nurse, Long> {
@@ -18,4 +20,6 @@ public interface NurseRepository extends JpaRepository<Nurse, Long> {
             "AND u.enabled = true",
             nativeQuery = true)
     List<Nurse> findActiveNursesByFilters(@Param("name") String name, @Param("coren") String coren);
+
+    Optional<Nurse> findByUser_UsernameIgnoreCase(String username);
 }

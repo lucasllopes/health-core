@@ -7,6 +7,7 @@ import com.healthcore.appointmentservice.dto.update.NurseUpdateDTO;
 import com.healthcore.appointmentservice.exception.NurseNotFoundException;
 import com.healthcore.appointmentservice.mapper.NurseMapper;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
+import com.healthcore.appointmentservice.persistence.entity.Patient;
 import com.healthcore.appointmentservice.persistence.repository.NurseRepository;
 import com.healthcore.appointmentservice.service.helper.NurseSearchParameterCleaner;
 import com.healthcore.appointmentservice.service.helper.NurseStatusManager;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NurseService {
@@ -124,6 +126,24 @@ public class NurseService {
         }
         log.info("Desabilitando enfermeiro ID: {}", nurseId);
         changeNurseStatus(nurseId, true);
+    }
+
+
+    public boolean isNurseOwner(String username, Long nurseId) {
+        if (username == null || nurseId == null) {
+            return false;
+        }
+
+        Optional<Nurse> nurse = getNurseByUsername(username);
+        return nurse.isPresent() && nurse.get().getId().equals(nurseId);
+    }
+
+    public Optional<Nurse> getNurseByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username não pode ser nulo ou vazio");
+        }
+
+        return repository.findByUser_UsernameIgnoreCase(username);
     }
 
     private Nurse findNurseByIdOrThrow(Long nurseId){
