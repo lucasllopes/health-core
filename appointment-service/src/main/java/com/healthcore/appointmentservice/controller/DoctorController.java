@@ -42,7 +42,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<DoctorResponseDTO> createDoctor(
             @Valid @RequestBody DoctorRegistrationDTO registrationRequest
     )

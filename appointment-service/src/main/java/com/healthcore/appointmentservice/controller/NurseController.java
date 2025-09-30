@@ -61,7 +61,7 @@ public class NurseController {
 
 
     @PostMapping
-    @PreAuthorize(ADMIN_NURSE_DOCTOR_ROLES)
+    @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<NurseResponseDTO> createNurse(@RequestBody NurseRegistrationDTO request) {
         Nurse nurse = service.createNurse(request);
         return ResponseEntity.ok(NurseResponseDTO.fromEntity(nurse));
