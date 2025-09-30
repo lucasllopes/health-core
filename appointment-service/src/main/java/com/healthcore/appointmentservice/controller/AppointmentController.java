@@ -20,6 +20,14 @@ import java.util.List;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
+    // Constantes de roles para controle de acesso
+    private static final String ADMIN_ROLE = "hasRole('ADMIN')";
+    private static final String DOCTOR_ROLE = "hasRole('DOCTOR')";
+    private static final String NURSE_ROLE = "hasRole('NURSE')";
+    private static final String PATIENT_ROLE = "hasRole('PATIENT')";
+    private static final String ADMIN_NURSE_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')";
+    private static final String PATIENT_SELF_ACCESS = "hasRole('PATIENT') and @appointmentService.isPatientOwner(authentication.name, #id)";
+
     private final Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
     private final AppointmentService appointmentService;

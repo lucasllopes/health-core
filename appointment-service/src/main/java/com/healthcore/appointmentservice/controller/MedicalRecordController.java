@@ -23,6 +23,14 @@ public class MedicalRecordController {
     private final Logger logger = LoggerFactory.getLogger(MedicalRecordController.class);
     private final MedicalRecordService medicalRecordService;
 
+    // Constantes de roles para controle de acesso
+    private static final String ADMIN_ROLE = "hasRole('ADMIN')";
+    private static final String DOCTOR_ROLE = "hasRole('DOCTOR')";
+    private static final String NURSE_ROLE = "hasRole('NURSE')";
+    private static final String PATIENT_ROLE = "hasRole('PATIENT')";
+    private static final String ADMIN_NURSE_DOCTOR_ROLES = "hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')";
+    private static final String PATIENT_SELF_ACCESS = "hasRole('PATIENT') and @medicalRecordService.isPatientOwner(authentication.name, #id)";
+
     public MedicalRecordController(MedicalRecordService medicalRecordService) {
         this.medicalRecordService = medicalRecordService;
     }
