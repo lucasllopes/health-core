@@ -116,7 +116,35 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/patients?page=0&size=15&sortBy=id&sortDirection=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "15"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "sortDirection",
+									"value": "ASC"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -168,14 +196,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - SÃ£o Paulo, SP\"\r\n}",
+							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"coren\": \"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients"
+						"url": "http://localhost:8080/nurses"
 					},
 					"response": []
 				},
@@ -192,14 +220,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Guilherme Marques Ferreira\",\r\n  \"dateOfBirth\": \"1996-02-09\",\r\n  \"document\": \"12345678901\",\r\n  \"phone\": \"(11) 88888-7777\",\r\n  \"email\": \"guilherme.marques@email.com\",\r\n  \"address\": \"Rua das Guerras, 123 - Itumbiara, GO\"\r\n}",
+							"raw": "{\r\n  \"name\": \"Guilherme Marques Ferreira\",\r\n  \"coren\": \"987654321\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients/2"
+						"url": "http://localhost:8080/nurses/2"
 					},
 					"response": []
 				},
@@ -214,7 +242,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients/2"
+						"url": "http://localhost:8080/nurses/2"
 					},
 					"response": []
 				},
@@ -230,20 +258,24 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/patients/search?name=guilherme",
+							"raw": "http://localhost:8080/nurses/search?name=guilherme&coren=123",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"patients",
+								"nurses",
 								"search"
 							],
 							"query": [
 								{
 									"key": "name",
 									"value": "guilherme"
+								},
+								{
+									"key": "coren",
+									"value": "123"
 								}
 							]
 						}
@@ -251,7 +283,7 @@
 					"response": []
 				},
 				{
-					"name": "Buscar todos os Enfermeiro",
+					"name": "Buscar todos os Enfermeiros",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -261,7 +293,35 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/nurses?page=0&size=15&sortBy=id&sortDirection=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nurses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "15"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "sortDirection",
+									"value": "ASC"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -276,7 +336,7 @@
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/disable"
+						"url": "http://localhost:8080/nurses/2/disable"
 					},
 					"response": []
 				},
@@ -291,7 +351,7 @@
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/enable"
+						"url": "http://localhost:8080/nurses/2/enable"
 					},
 					"response": []
 				}
@@ -301,7 +361,10 @@
 			"name": "Médico",
 			"item": [
 				{
-					"name": "Cadastro Paciente",
+					"name": "Cadastro Médico",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -309,7 +372,7 @@
 								"token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIZWFsdGhDb3JlIiwic3ViIjoibWFyaWEuc291emEiLCJpYXQiOjE3NTc3OTkxMDcsImV4cCI6MTc1NzgwMDAwN30.W6lzQ0Ch7G4KpaZnA22Y04RsP60DBbzd9t3qs6Jglbk"
 							}
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -320,12 +383,12 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients"
+						"url": "http://localhost:8080/doctors"
 					},
 					"response": []
 				},
 				{
-					"name": "Atualizar Paciente",
+					"name": "Atualizar Médico",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -344,12 +407,12 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/patients/2"
+						"url": "http://localhost:8080/doctors/2"
 					},
 					"response": []
 				},
 				{
-					"name": "Buscar Paciente por ID",
+					"name": "Buscar Médico por ID",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -359,12 +422,12 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients/2"
+						"url": "http://localhost:8080/doctors/2"
 					},
 					"response": []
 				},
 				{
-					"name": "Buscar Paciente",
+					"name": "Buscar Médico",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -375,14 +438,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/patients/search?name=guilherme",
+							"raw": "http://localhost:8080/doctors/search?name=guilherme",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"patients",
+								"doctors",
 								"search"
 							],
 							"query": [
@@ -406,12 +469,40 @@
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/patients"
+						"url": {
+							"raw": "http://localhost:8080/doctors?page=0&size=15&sortBy=id&sortDirection=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "15"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "sortDirection",
+									"value": "ASC"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Desabilitar Paciente por ID",
+					"name": "Desabilitar Médico por ID",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -421,12 +512,12 @@
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/disable"
+						"url": "http://localhost:8080/doctors/2/disable"
 					},
 					"response": []
 				},
 				{
-					"name": "Habilitar Paciente por ID",
+					"name": "Habilitar Médico por ID",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -436,7 +527,7 @@
 						},
 						"method": "PATCH",
 						"header": [],
-						"url": "http://localhost:8080/patients/2/enable"
+						"url": "http://localhost:8080/doctors/2/enable"
 					},
 					"response": []
 				}
