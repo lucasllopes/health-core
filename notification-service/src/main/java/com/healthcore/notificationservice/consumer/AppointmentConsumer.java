@@ -28,11 +28,13 @@ public class AppointmentConsumer {
                             "appointmentId={}, " +
                             "patientDocument={}, " +
                             "doctorCrm={}, " +
+                            "nurseCoren={}" +
                             "scheduledAt={}, " +
                             "messageId={}, ",
                     notificationMessageDTO.id(),
-                    notificationMessageDTO.patientId(),
-                    notificationMessageDTO.doctorId(),
+                    notificationMessageDTO.patient().document(),
+                    notificationMessageDTO.doctor().crm(),
+                    notificationMessageDTO.nurse().coren(),
                     notificationMessageDTO.createdAt(),
                     message.getMessageProperties().getMessageId()
             );
@@ -56,27 +58,6 @@ public class AppointmentConsumer {
                                     Channel channel) {
         try {
 
-            String patientName = null;
-            String patientDoc  = null;
-            if (upcomingAppointment.patient() != null) {
-                patientName = upcomingAppointment.patient().getName();
-                patientDoc  = upcomingAppointment.patient().getDocument();
-            }
-
-            String doctorName = null;
-            String doctorCrm  = null;
-            if (upcomingAppointment.doctor() != null) {
-                doctorName = upcomingAppointment.doctor().getName();
-                doctorCrm  = upcomingAppointment.doctor().getCrm();
-            }
-
-            String nurseName = null;
-            String nurseCoren = null;
-            if (upcomingAppointment.nurse() != null) {
-                nurseName  = upcomingAppointment.nurse().getName();
-                nurseCoren = upcomingAppointment.nurse().getCoren();
-            }
-
             logger.info("""
             [UPCOMING APPOINTMENT NOTIFICATION]
               id: {}
@@ -93,9 +74,12 @@ public class AppointmentConsumer {
                     upcomingAppointment.appointmentDate(),
                     upcomingAppointment.status(),
                     upcomingAppointment.notes(),
-                    patientName, patientDoc,
-                    doctorName, doctorCrm,
-                    nurseName, nurseCoren,
+                    upcomingAppointment.patient().getName(),
+                    upcomingAppointment.patient().getDocument(),
+                    upcomingAppointment.doctor().getName(),
+                    upcomingAppointment.doctor().getCrm(),
+                    upcomingAppointment.nurse().getName(),
+                    upcomingAppointment.nurse().getCoren(),
                     upcomingAppointment.createdAt(),
                     upcomingAppointment.updatedAt()
             );

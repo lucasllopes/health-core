@@ -68,7 +68,7 @@ SELECT
     (SELECT id FROM patients WHERE document = 'DOC123456'),
     (SELECT id FROM doctors  WHERE crm      = 'CRM12345'),
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
-    (date_trunc('day', now()) + interval '1 day' + time '09:00'),
+    (now() + interval '1 day' ),
     'AGENDADO',
     'Consulta inicial 1 - com data de atualizacao',
     now(),
@@ -85,7 +85,7 @@ SELECT
     (SELECT id FROM patients WHERE document = 'DOC123456'),
     (SELECT id FROM doctors  WHERE crm      = 'CRM12345'),
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
-    (date_trunc('day', now()) + interval '2 day' + time '09:00'),
+    (now() + interval '2 day'),
     'AGENDADO',
     'Consulta inicial 2 - sem data de atualizacao',
     now(),
@@ -102,7 +102,7 @@ SELECT
     (SELECT id FROM patients WHERE document = '12345678902'),
     (SELECT id FROM doctors  WHERE crm      = 'CRM12345'),
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
-    (date_trunc('day', now()) + interval '2 day' + time '09:00'),
+    (now() + interval '2 day'),
     'AGENDADO',
     'Consulta inicial 3 - sem data de atualizacao',
     now(),
@@ -115,21 +115,25 @@ SELECT
 );
 
 
-INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
+INSERT INTO appointments (
+    patient_id, doctor_id, nurse_id, appointment_date,
+    status, notes, created_at, updated_at
+)
 SELECT
     (SELECT id FROM patients WHERE document = 'DOC66666'),
     (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
-    (date_trunc('day', now()) + interval '1 day' + time '09:00'),
+    (now() + interval '1 day'),
     'AGENDADO',
-    'Consulta inicial  4 - sem data de atualizacao',
+    'Consulta inicial 4 - sem data de atualizacao',
     now(),
     NULL
-    WHERE NOT EXISTS (
-  SELECT 1 FROM appointments a
-  WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
-    AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
-    AND a.appointment_date::date = current_date + 1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM appointments a
+    WHERE a.patient_id = (SELECT id FROM patients WHERE document = 'DOC66666')
+      AND a.doctor_id  = (SELECT id FROM doctors  WHERE crm      = 'CRM66666')
+      AND a.appointment_date::date = current_date + 1
 );
 
 INSERT INTO appointments (patient_id, doctor_id, nurse_id, appointment_date, status, notes, created_at, updated_at)
@@ -137,7 +141,7 @@ SELECT
     (SELECT id FROM patients WHERE document = '12345678902'),
     (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
-    (date_trunc('day', now()) - interval '2 day' + time '09:00'),
+    (now() - interval '2 day'),
     'CONCLUIDO',
     'Consulta finalizada 1',
     now(),
@@ -154,7 +158,7 @@ SELECT
     (SELECT id FROM patients WHERE document = 'DOC66666'),
     (SELECT id FROM doctors  WHERE crm      = 'CRM66666'),
     (SELECT id FROM nurses   WHERE coren    = 'COREN67890'),
-    (date_trunc('day', now()) - interval '2 day' + time '09:00'),
+    (now() - interval '2 day'),
     'CONCLUIDO',
     'Consulta finalizada 2',
     now(),

@@ -29,17 +29,14 @@ public class AppointmentService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
-    private final AppointmentProducerService appointmentProducerService;
     private final NotificationMessageSender notificationMessageSender;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
-                              AppointmentProducerService appointmentProducerService,
                               PatientRepository patientRepository,
                               DoctorRepository doctorRepository,
                               NurseRepository nurseRepository,
                               NotificationMessageSender notificationMessageSender) {
         this.appointmentRepository = appointmentRepository;
-        this.appointmentProducerService = appointmentProducerService;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.nurseRepository = nurseRepository;
@@ -50,8 +47,6 @@ public class AppointmentService {
         Appointment appointment = buildAppointment(createAppointmentRequestDTO);
         appointment.setStatus(createAppointmentRequestDTO.status());
         appointmentRepository.save(appointment);
-        AppointmentNotificationDTO event = buildAppointmentNotification(appointment);
-        appointmentProducerService.sendAppointmentCreated(event);
         // Envio para fila de notificação
         AppointmentNotificationMessageDTO notificationMsg = toNotificationMessageDTO(appointment);
         notificationMessageSender.sendNotification(notificationMsg);
@@ -165,11 +160,9 @@ public class AppointmentService {
     }
 
     public boolean isPatientOwner(String username, Long appointmentId) {
-        // Busca o Appointment pelo id
         Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentId);
         if (appointmentOpt.isEmpty()) return false;
         Appointment appointment = appointmentOpt.get();
-        // Busca o Patient pelo username (assumindo que username é email único)
         Patient patient = appointment.getPatient();
         if (patient == null) return false;
         return username.equalsIgnoreCase(patient.getEmail());
