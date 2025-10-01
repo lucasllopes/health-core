@@ -1,6 +1,6 @@
 package com.healthcore.notificationservice.dto;
 
-public record NurseNotifocationMessageDTO(
+public record NurseNotificationMessageDTO(
         String name,
         String coren
 ) {

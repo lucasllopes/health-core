@@ -1,10 +1,7 @@
 package com.healthcore.appointmentservice.service;
 
-import com.healthcore.appointmentservice.dto.AppointmentResponseDTO;
-import com.healthcore.appointmentservice.dto.CreateAppointmentRequestDTO;
-import com.healthcore.appointmentservice.dto.UpdateAppointmentRequestDTO;
+import com.healthcore.appointmentservice.dto.*;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
-import com.healthcore.appointmentservice.dto.AppointmentNotificationMessageDTO;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
@@ -29,17 +26,14 @@ public class AppointmentService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final NurseRepository nurseRepository;
-    private final AppointmentProducerService appointmentProducerService;
     private final NotificationMessageSender notificationMessageSender;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
-                              AppointmentProducerService appointmentProducerService,
                               PatientRepository patientRepository,
                               DoctorRepository doctorRepository,
                               NurseRepository nurseRepository,
                               NotificationMessageSender notificationMessageSender) {
         this.appointmentRepository = appointmentRepository;
-        this.appointmentProducerService = appointmentProducerService;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.nurseRepository = nurseRepository;
@@ -50,8 +44,6 @@ public class AppointmentService {
         Appointment appointment = buildAppointment(createAppointmentRequestDTO);
         appointment.setStatus(createAppointmentRequestDTO.status());
         appointmentRepository.save(appointment);
-        AppointmentNotificationDTO event = buildAppointmentNotification(appointment);
-        appointmentProducerService.sendAppointmentCreated(event);
         // Envio para fila de notificação
         AppointmentNotificationMessageDTO notificationMsg = toNotificationMessageDTO(appointment);
         notificationMessageSender.sendNotification(notificationMsg);
@@ -142,9 +134,25 @@ public class AppointmentService {
     private AppointmentNotificationMessageDTO toNotificationMessageDTO(Appointment appointment) {
         AppointmentNotificationMessageDTO dto = new AppointmentNotificationMessageDTO();
         dto.setAppointmentId(appointment.getId());
-        dto.setPatientId(appointment.getPatient() != null ? appointment.getPatient().getId() : null);
-        dto.setDoctorId(appointment.getDoctor() != null ? appointment.getDoctor().getId() : null);
-        dto.setNurseId(appointment.getNurse() != null ? appointment.getNurse().getId() : null);
+
+        dto.setPatient(
+                new PatientNotificationMessageDTO(
+                        appointment.getPatient().getName(),
+                        appointment.getPatient().getDocument(),
+                        appointment.getPatient().getPhone(),
+                        appointment.getPatient().getEmail()));
+
+        dto.setDoctor(
+                new DoctorNotificationMessageDTO(
+                        appointment.getDoctor().getName(),
+                        appointment.getDoctor().getSpecialty(),
+                        appointment.getDoctor().getCrm()));
+
+        dto.setNurse(
+                new NurseNotifocationMessageDTO(
+                        appointment.getNurse().getName(),
+                        appointment.getNurse().getCoren()));
+
         dto.setAppointmentDate(appointment.getAppointmentDate());
         dto.setStatus(appointment.getStatus());
         dto.setNotes(appointment.getNotes());
@@ -165,11 +173,9 @@ public class AppointmentService {
     }
 
     public boolean isPatientOwner(String username, Long appointmentId) {
-        // Busca o Appointment pelo id
         Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentId);
         if (appointmentOpt.isEmpty()) return false;
         Appointment appointment = appointmentOpt.get();
-        // Busca o Patient pelo username (assumindo que username é email único)
         Patient patient = appointment.getPatient();
         if (patient == null) return false;
         return username.equalsIgnoreCase(patient.getEmail());
