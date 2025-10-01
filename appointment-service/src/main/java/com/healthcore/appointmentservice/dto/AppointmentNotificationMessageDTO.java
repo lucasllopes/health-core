@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 
 public class AppointmentNotificationMessageDTO implements Serializable {
     private Long appointmentId;
-    private Long patientId;
-    private Long doctorId;
-    private Long nurseId;
+    private PatientNotificationMessageDTO patient;
+    private DoctorNotificationMessageDTO doctor;
+    private NurseNotifocationMessageDTO nurse;
     private LocalDateTime appointmentDate;
     private String status;
     private String notes;
@@ -16,15 +16,6 @@ public class AppointmentNotificationMessageDTO implements Serializable {
 
     public Long getAppointmentId() { return appointmentId; }
     public void setAppointmentId(Long appointmentId) { this.appointmentId = appointmentId; }
-
-    public Long getPatientId() { return patientId; }
-    public void setPatientId(Long patientId) { this.patientId = patientId; }
-
-    public Long getDoctorId() { return doctorId; }
-    public void setDoctorId(Long doctorId) { this.doctorId = doctorId; }
-
-    public Long getNurseId() { return nurseId; }
-    public void setNurseId(Long nurseId) { this.nurseId = nurseId; }
 
     public LocalDateTime getAppointmentDate() { return appointmentDate; }
     public void setAppointmentDate(LocalDateTime appointmentDate) { this.appointmentDate = appointmentDate; }
@@ -40,5 +31,28 @@ public class AppointmentNotificationMessageDTO implements Serializable {
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
-}
 
+    public PatientNotificationMessageDTO getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientNotificationMessageDTO patient) {
+        this.patient = patient;
+    }
+
+    public DoctorNotificationMessageDTO getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorNotificationMessageDTO doctor) {
+        this.doctor = doctor;
+    }
+
+    public NurseNotifocationMessageDTO getNurse() {
+        return nurse;
+    }
+
+    public void setNurse(NurseNotifocationMessageDTO nurse) {
+        this.nurse = nurse;
+    }
+}

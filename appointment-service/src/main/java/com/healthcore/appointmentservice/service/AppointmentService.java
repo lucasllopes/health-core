@@ -1,10 +1,7 @@
 package com.healthcore.appointmentservice.service;
 
-import com.healthcore.appointmentservice.dto.AppointmentResponseDTO;
-import com.healthcore.appointmentservice.dto.CreateAppointmentRequestDTO;
-import com.healthcore.appointmentservice.dto.UpdateAppointmentRequestDTO;
+import com.healthcore.appointmentservice.dto.*;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
-import com.healthcore.appointmentservice.dto.AppointmentNotificationMessageDTO;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
@@ -137,9 +134,25 @@ public class AppointmentService {
     private AppointmentNotificationMessageDTO toNotificationMessageDTO(Appointment appointment) {
         AppointmentNotificationMessageDTO dto = new AppointmentNotificationMessageDTO();
         dto.setAppointmentId(appointment.getId());
-        dto.setPatientId(appointment.getPatient() != null ? appointment.getPatient().getId() : null);
-        dto.setDoctorId(appointment.getDoctor() != null ? appointment.getDoctor().getId() : null);
-        dto.setNurseId(appointment.getNurse() != null ? appointment.getNurse().getId() : null);
+
+        dto.setPatient(
+                new PatientNotificationMessageDTO(
+                        appointment.getPatient().getName(),
+                        appointment.getPatient().getDocument(),
+                        appointment.getPatient().getPhone(),
+                        appointment.getPatient().getEmail()));
+
+        dto.setDoctor(
+                new DoctorNotificationMessageDTO(
+                        appointment.getDoctor().getName(),
+                        appointment.getDoctor().getSpecialty(),
+                        appointment.getDoctor().getCrm()));
+
+        dto.setNurse(
+                new NurseNotifocationMessageDTO(
+                        appointment.getNurse().getName(),
+                        appointment.getNurse().getCoren()));
+
         dto.setAppointmentDate(appointment.getAppointmentDate());
         dto.setStatus(appointment.getStatus());
         dto.setNotes(appointment.getNotes());

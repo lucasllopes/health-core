@@ -28,15 +28,13 @@ public class AppointmentConsumer {
                             "appointmentId={}, " +
                             "patientDocument={}, " +
                             "doctorCrm={}, " +
-                            "nurseCoren={}" +
-                            "scheduledAt={}, " +
-                            "messageId={}, ",
-                    notificationMessageDTO.id(),
+                            "nurseCoren={}, " +
+                            "scheduledAt={} ",
+                    notificationMessageDTO.appointmentId(),
                     notificationMessageDTO.patient().document(),
                     notificationMessageDTO.doctor().crm(),
                     notificationMessageDTO.nurse().coren(),
-                    notificationMessageDTO.createdAt(),
-                    message.getMessageProperties().getMessageId()
+                    notificationMessageDTO.createdAt()
             );
 
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
