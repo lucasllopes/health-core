@@ -4,6 +4,7 @@ import com.healthcore.appointmentservice.dto.registration.DoctorRegistrationDTO;
 import com.healthcore.appointmentservice.dto.registration.NurseRegistrationDTO;
 import com.healthcore.appointmentservice.dto.registration.PatientRegistrationDTO;
 import com.healthcore.appointmentservice.enums.UserRole;
+import com.healthcore.appointmentservice.exception.DocumentAlreadyExistsException;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
 import com.healthcore.appointmentservice.persistence.entity.Patient;
@@ -14,7 +15,6 @@ import com.healthcore.appointmentservice.persistence.repository.PatientRepositor
 import com.healthcore.appointmentservice.persistence.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,7 +92,7 @@ public class UserService implements UserDetailsService {
         log.info("Salvando paciente: {}", dto.username());
 
         validateUsernameNotExists(dto.username());
-
+        validateDocumentNotExists(dto.document());
         User user = createUser(dto.username(), dto.password(), UserRole.PATIENT);
         User savedUser = userRepository.save(user);
 
@@ -149,6 +149,11 @@ public class UserService implements UserDetailsService {
     private void validateUsernameNotExists(String username) {
         if (userRepository.findByusernameIgnoreCase(username).isPresent()) {
             throw new RuntimeException("Username já existe: " + username);
+        }
+    }
+    private void validateDocumentNotExists(String document) {
+        if (patientRepository.findByDocument(document).isPresent()) {
+            throw new DocumentAlreadyExistsException("Já existe um usuário com este documento vinculado: " + document);
         }
     }
 }

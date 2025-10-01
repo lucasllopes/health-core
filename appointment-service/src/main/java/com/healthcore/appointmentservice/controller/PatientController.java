@@ -6,6 +6,7 @@ import com.healthcore.appointmentservice.dto.response.PatientResponseDTO;
 import com.healthcore.appointmentservice.dto.update.PatientUpdateDTO;
 import com.healthcore.appointmentservice.persistence.entity.Patient;
 import com.healthcore.appointmentservice.service.PatientService;
+import com.healthcore.appointmentservice.exception.PatientNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import com.healthcore.appointmentservice.controller.helper.PatientDTOConverter;
 import com.healthcore.appointmentservice.controller.helper.PaginationHelper;
 import java.util.function.Supplier;
-
 import java.util.List;
 
 @RestController
@@ -79,7 +79,7 @@ public class PatientController {
 
         return patientService.getPatientById(id)
                 .map(patient -> ResponseEntity.ok(PatientResponseDTO.fromEntity(patient)))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new PatientNotFoundException(id));
     }
 
     @GetMapping("/search")
@@ -141,16 +141,11 @@ public class PatientController {
 
         log.info("{} paciente ID: {}", operationName, patientId);
 
-        try {
-            Patient patient = operation.get();
-            PatientResponseDTO response = PatientResponseDTO.fromEntity(patient);
-            return operationName.equals("Criando")
-                    ? ResponseEntity.status(HttpStatus.CREATED).body(response)
-                    : ResponseEntity.ok(response);
-        } catch (RuntimeException exception) {
-            log.error("Erro ao {}: {}", operationName.toLowerCase(), exception.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        Patient patient = operation.get();
+        PatientResponseDTO response = PatientResponseDTO.fromEntity(patient);
+        return operationName.equals("Criando")
+                ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
     }
 
     private ResponseEntity<Void> handlePatientStatusOperation(
@@ -160,12 +155,7 @@ public class PatientController {
 
         log.info("{} paciente ID: {}", operationName, patientId);
 
-        try {
-            operation.run();
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException exception) {
-            log.error("Erro ao {}: {}", operationName.toLowerCase(), exception.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+        operation.run();
+        return ResponseEntity.noContent().build();
     }
 }

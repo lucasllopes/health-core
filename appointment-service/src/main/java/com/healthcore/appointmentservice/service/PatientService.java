@@ -108,19 +108,20 @@ public class PatientService {
     }
 
     public void disablePatient(Long patientId) {
-        if (patientId == null || patientId <= 0) {
-            throw new IllegalArgumentException("ID do paciente deve ser um número positivo");
-        }
+        this.validatePatientId(patientId);
         log.info("Desabilitando paciente ID: {}", patientId);
         changePatientStatus(patientId, false);
     }
 
     public void enablePatient(Long patientId) {
+        this.validatePatientId(patientId);
+        log.info("Habilitando paciente ID: {}", patientId);
+        changePatientStatus(patientId, true);
+    }
+    private void validatePatientId(Long patientId) {
         if (patientId == null || patientId <= 0) {
             throw new IllegalArgumentException("ID do paciente deve ser um número positivo");
         }
-        log.info("Habilitando paciente ID: {}", patientId);
-        changePatientStatus(patientId, true);
     }
 
     public List<PatientResponseDTO> searchPatients(String name, String email, String document) {

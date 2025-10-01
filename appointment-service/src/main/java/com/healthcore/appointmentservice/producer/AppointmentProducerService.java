@@ -16,7 +16,7 @@ public class AppointmentProducerService {
 
     public void sendAppointmentCreated(AppointmentNotificationDTO event) {
         if (event == null) {
-            throw new IllegalArgumentException("AppointmentNotificationDTO cannot be null");
+            throw new IllegalArgumentException("AppointmentNotificationDTO não pode ser nulo.");
         }
 
         try {
@@ -28,7 +28,7 @@ public class AppointmentProducerService {
             System.out.println("Appointment created event sent: " + event);
         } catch (Exception e) {
             System.err.println("Failed to send appointment created event: " + e.getMessage());
-            throw new RuntimeException("Error sending appointment created event", e);
+            throw new RuntimeException("Erro ao enviar notificação de agendamento.", e);
         }
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 @EnableWebSecurity
@@ -40,11 +41,17 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            response.getWriter().write("Unauthorized: " + authException.getMessage());
+                            response.setCharacterEncoding("UTF-8");
+                            response.setContentType("text/plain; charset=UTF-8");
+                            byte[] body = "Não autorizado: Autenticação necessária, forneça um token Bearer válido.".getBytes(StandardCharsets.UTF_8);
+                            response.getOutputStream().write(body);
                         })
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            response.getWriter().write("Access Denied: " + accessDeniedException.getMessage());
+                            response.setCharacterEncoding("UTF-8");
+                            response.setContentType("text/plain; charset=UTF-8");
+                            byte[] body = "Acesso negado: O usuário logado não possui autorização para acessar este recurso.".getBytes(StandardCharsets.UTF_8);
+                            response.getOutputStream().write(body);
                         })
                 )
                 .build();

@@ -8,6 +8,7 @@ import com.healthcore.appointmentservice.dto.response.DoctorResponseDTO;
 import com.healthcore.appointmentservice.dto.update.DoctorUpdateDTO;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.service.DoctorService;
+import com.healthcore.appointmentservice.exception.DoctorNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +106,7 @@ public class DoctorController {
 
         return doctorService.getDoctorById(id)
                 .map(doctor -> ResponseEntity.ok(DoctorResponseDTO.fromEntity(doctor)))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new DoctorNotFoundException(id));
     }
 
     @PutMapping("/{id}")
@@ -156,18 +157,11 @@ public class DoctorController {
 
         log.info("DoctorController.handleDoctorOperation() | {} doctor ID: {}", operationName, doctorId);
 
-        try {
-
-            Doctor doctor = operation.get();
-            DoctorResponseDTO response = DoctorResponseDTO.fromEntity(doctor);
-            return operationName.equals("Criando")
-                    ? ResponseEntity.status(HttpStatus.CREATED).body(response)
-                    : ResponseEntity.ok(response);
-        } catch (RuntimeException exception) {
-
-            log.error("DoctorController | Erro ao {}: {}", operationName.toLowerCase(), exception.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        Doctor doctor = operation.get();
+        DoctorResponseDTO response = DoctorResponseDTO.fromEntity(doctor);
+        return operationName.equals("Criando")
+                ? ResponseEntity.status(HttpStatus.CREATED).body(response)
+                : ResponseEntity.ok(response);
     }
 
     private ResponseEntity<Void> handleDoctorStatusOperation(
@@ -179,12 +173,7 @@ public class DoctorController {
 
         log.info("DoctorController.handleDoctorStatusOperation() | {} doctor ID: {}", operationName, doctorId);
 
-        try {
-            operation.run();
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException exception) {
-            log.error("DoctorController.handleDoctorStatusOperation() | Erro ao {}: {}", operationName.toLowerCase(), exception.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+        operation.run();
+        return ResponseEntity.noContent().build();
     }
 }
