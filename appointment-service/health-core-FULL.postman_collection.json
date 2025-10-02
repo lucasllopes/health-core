@@ -27,7 +27,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"12345678902\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - SÃ£o Paulo, SP\"\r\n}",
+							"raw": "{\r\n  \"username\": \"caike\",\r\n  \"password\": \"senha123\",\r\n  \"name\": \"Caike\",\r\n  \"dateOfBirth\": \"2000-03-17\",\r\n  \"document\": \"20987654321\",\r\n  \"phone\": \"(11) 99998-8888\",\r\n  \"email\": \"caike@email.com\",\r\n  \"address\": \"Rua da Paz, 123 - São Paulo, SP\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

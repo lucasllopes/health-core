@@ -28,4 +28,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findActiveDoctorsByFilters(@Param("name") String name,
                                             @Param("specialty") String specialty,
                                             @Param("crm") String crm);
+
+    Optional<Doctor> findByUser_UsernameIgnoreCase(String username);
 }

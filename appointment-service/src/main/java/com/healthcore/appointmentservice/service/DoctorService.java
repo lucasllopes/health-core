@@ -111,6 +111,14 @@ public class DoctorService {
         return doctorRepository.findById(doctorId);
     }
 
+    public Optional<Doctor> getDoctorByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username não pode ser nulo ou vazio");
+        }
+
+        return doctorRepository.findByUser_UsernameIgnoreCase(username);
+    }
+
     public Doctor updateDoctor(Long doctorId, DoctorRequestDTO updateRequest) {
 
         if (doctorId == null || doctorId <= 0) {
@@ -142,6 +150,15 @@ public class DoctorService {
         }
         log.info("Desabilitando médico ID: {}", doctorId);
         changeDoctorStatus(doctorId, true);
+    }
+
+    public Boolean isDoctorOwner(String username, Long doctorId) {
+        if (username == null || doctorId == null) {
+            return false;
+        }
+
+        Optional<Doctor> doctor = getDoctorByUsername(username);
+        return doctor.isPresent() && doctor.get().getId().equals(doctorId);
     }
 
     private Doctor findDoctorByIdOrThrow(Long doctorId) {
