@@ -1,0 +1,113 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam componentStyle rectangle
+
+title HealthCore - Diagrama de Arquitetura
+
+rectangle "Ambiente de Desenvolvimento" {
+    component "Git" as git #LightGray
+    component "Maven" as maven #LightGreen
+    component "IntelliJ IDEA" as ide #Orange
+}
+
+rectangle "Appointment Service" {
+    node "Container Docker" as docker_appointment #LightBlue {
+        component "Spring Boot Application" as springboot_appointment #98FB98 {
+            component "Controllers" as controller_appointment
+            component "Services" as service_appointment
+            component "Repositories" as repository_appointment
+            component "Security" as security_appointment
+            component "DTOs & Mappers" as dtomapper_appointment
+            component "Producers" as producer_appointment
+            component "Exception Handling" as exception_appointment
+        }
+        database "PostgreSQL" as db_appointment #LightCyan
+        queue "RabbitMQ" as rabbit #LightPink
+    }
+}
+
+rectangle "Notification Service" {
+    node "Container Docker" as docker_notification #LightBlue {
+        component "Spring Boot Application" as springboot_notification #98FB98 {
+            component "Controllers" as controller_notification
+            component "Services" as service_notification
+            component "Repositories" as repository_notification
+            component "Security" as security_notification
+            component "DTOs & Mappers" as dtomapper_notification
+            component "Consumers" as consumer_notification
+            component "Exception Handling" as exception_notification
+        }
+        database "PostgreSQL" as db_notification #LightCyan
+        queue "RabbitMQ" as rabbit #LightPink
+    }
+}
+
+rectangle "Backend Stack" {
+    component "Java 21" as java #Orange
+    component "Spring Boot 3.x" as spring #98FB98
+    component "Spring Security" as springsec #98FB98
+    component "Spring Data JPA" as datajpa #98FB98
+    component "JWT" as jwt #Gold
+    component "RabbitMQ" as rabbitstack #LightPink
+}
+
+rectangle "DevOps Stack" {
+    component "Docker" as dockertech #LightBlue
+    component "Maven" as maventech #LightGreen
+    component "Git" as gittech #LightGray
+}
+
+' Relacionamentos internos
+controller_appointment --> service_appointment
+service_appointment --> repository_appointment
+service_appointment --> dtomapper_appointment
+service_appointment --> producer_appointment
+service_appointment --> exception_appointment
+repository_appointment --> db_appointment
+producer_appointment --> rabbit
+security_appointment --> jwt
+
+controller_notification --> service_notification
+service_notification --> repository_notification
+service_notification --> dtomapper_notification
+service_notification --> consumer_notification
+service_notification --> exception_notification
+repository_notification --> db_notification
+consumer_notification --> rabbit
+security_notification --> jwt
+
+' Mensageria entre serviços
+producer_appointment -right-> rabbit : envia eventos
+rabbit -left-> consumer_notification : consome eventos
+
+' Ambiente de desenvolvimento
+ide --> springboot_appointment
+ide --> springboot_notification
+git --> ide
+maven --> ide
+
+dockertech --> docker_appointment
+maventech --> docker_appointment
+gittech --> docker_appointment
+
+dockertech --> docker_notification
+maventech --> docker_notification
+gittech --> docker_notification
+
+note right of rabbit
+  Mensageria assíncrona entre
+  Appointment e Notification Service
+end note
+
+note left of springboot_appointment
+  REST API e GraphQL
+  com autenticação JWT
+end note
+
+note left of springboot_notification
+  REST API
+  com autenticação JWT
+end note
+
+@enduml
+

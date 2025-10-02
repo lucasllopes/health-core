@@ -1,0 +1,74 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam componentStyle rectangle
+
+title Notification Service - Diagrama de Arquitetura
+
+rectangle "Ambiente de Desenvolvimento" {
+    component "Git" as git #LightGray
+    component "Maven" as maven #LightGreen
+    component "IntelliJ IDEA" as ide #Orange
+}
+
+rectangle "Aplicação" {
+    node "Container Docker" as docker #LightBlue {
+        component "Spring Boot Application" as springboot #98FB98 {
+            component "Controllers" as controller
+            component "Services" as service
+            component "Repositories" as repository
+            component "Security" as security
+            component "DTOs & Mappers" as dtomapper
+            component "Consumers" as consumer
+            component "Exception Handling" as exception
+        }
+        database "PostgreSQL" as db #LightCyan
+        queue "RabbitMQ" as rabbit #LightPink
+    }
+}
+
+rectangle "Backend Stack" {
+    component "Java 21" as java #Orange
+    component "Spring Boot 3.x" as spring #98FB98
+    component "Spring Security" as springsec #98FB98
+    component "Spring Data JPA" as datajpa #98FB98
+    component "JWT" as jwt #Gold
+    component "RabbitMQ" as rabbitstack #LightPink
+}
+
+rectangle "DevOps Stack" {
+    component "Docker" as dockertech #LightBlue
+    component "Maven" as maventech #LightGreen
+    component "Git" as gittech #LightGray
+}
+
+' Relacionamentos
+controller --> service
+service --> repository
+service --> dtomapper
+service --> consumer
+service --> exception
+repository --> db
+consumer --> rabbit
+security --> jwt
+
+git --> ide
+maven --> ide
+ide --> springboot
+
+note right of docker
+  Containerização da aplicação,
+  banco de dados e mensageria
+end note
+
+note left of springboot
+  REST API
+  com autenticação JWT
+end note
+
+note right of rabbit
+  Comunicação assíncrona
+  via eventos RabbitMQ
+end note
+
+@enduml
+

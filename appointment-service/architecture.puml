@@ -1,0 +1,71 @@
+@startuml
+!define RECTANGLE package
+
+RECTANGLE Controller {
+  AppointmentController
+  AppointmentGraphQLController
+  AuthController
+  DoctorController
+  MedicalRecordController
+  NurseController
+  PatientController
+}
+
+RECTANGLE Service {
+  // Serviços de domínio
+}
+
+RECTANGLE Mapper {
+  // Conversores entre entidades e DTOs
+}
+
+RECTANGLE DTOs {
+  // Data Transfer Objects
+}
+
+RECTANGLE Entities {
+  // Entidades de domínio (persistence/entity)
+}
+
+RECTANGLE Repository {
+  // Persistência de dados
+}
+
+RECTANGLE Producer {
+  // Produtores de eventos (RabbitMQ)
+}
+
+RECTANGLE Security {
+  // Autenticação e autorização
+}
+
+RECTANGLE Configuration {
+  RabbitMQConfig
+  RabbitMQConstants
+}
+
+RECTANGLE Exception {
+  // Tratamento de exceções
+}
+
+RECTANGLE External {
+  Database
+  RabbitMQ
+}
+
+Controller --> Service : usa
+Controller --> Mapper : utiliza
+Controller --> DTOs : recebe/retorna
+Service --> Repository : acessa
+Service --> Entities : manipula
+Service --> DTOs : converte
+Service --> Producer : publica eventos
+Service --> Exception : lança
+Repository --> Entities : persiste
+Repository --> Database : CRUD
+Producer --> RabbitMQ : envia mensagens
+Security --> Controller : protege rotas
+Configuration --> Service : configura
+Configuration --> Producer : configura
+
+@enduml
