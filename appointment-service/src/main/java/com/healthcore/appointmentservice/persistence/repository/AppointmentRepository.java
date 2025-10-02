@@ -34,5 +34,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     Page<Appointment> findByAppointmentDateLessThanAndStatus(LocalDateTime now, String statusConcluido, Pageable pageable);
 
-    List<Appointment> findByAppointmentDateBetweenAndStatus(LocalDateTime start, LocalDateTime end, String status);
+    List<Appointment> findByAppointmentDateBetweenAndStatusAndSentAtIsNull(LocalDateTime start, LocalDateTime end, String status);
 }

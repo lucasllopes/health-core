@@ -12,11 +12,15 @@ import com.healthcore.appointmentservice.persistence.repository.NurseRepository;
 import com.healthcore.appointmentservice.persistence.repository.PatientRepository;
 import com.healthcore.appointmentservice.producer.AppointmentProducerService;
 import com.healthcore.appointmentservice.producer.NotificationMessageSender;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 @Service

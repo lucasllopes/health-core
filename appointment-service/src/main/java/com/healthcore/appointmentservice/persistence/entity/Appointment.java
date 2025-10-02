@@ -40,6 +40,9 @@ public class Appointment {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "sent_at")
+    private LocalDateTime sentAt;
+
     @OneToOne(mappedBy = "appointment")
     private MedicalRecord medicalRecord;
 
@@ -113,6 +116,14 @@ public class Appointment {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public LocalDateTime getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(LocalDateTime sentAt) {
+        this.sentAt = sentAt;
     }
 
     public MedicalRecord getMedicalRecord() {

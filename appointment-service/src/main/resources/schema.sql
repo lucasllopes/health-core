@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     notes TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
+    sent_at TIMESTAMP DEFAULT NULL,
     FOREIGN KEY (patient_id) REFERENCES patients (id),
     FOREIGN KEY (doctor_id) REFERENCES doctors (id),
     FOREIGN KEY (nurse_id) REFERENCES nurses (id)

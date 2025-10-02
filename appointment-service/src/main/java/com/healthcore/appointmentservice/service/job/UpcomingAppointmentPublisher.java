@@ -7,6 +7,7 @@ import com.healthcore.appointmentservice.persistence.repository.AppointmentRepos
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -23,12 +24,13 @@ public class UpcomingAppointmentPublisher {
     }
 
     @Scheduled(cron = "0 */2 * * * *", zone = "America/Sao_Paulo")
+    @Transactional
     public void publishTomorrowAppointments() {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
 
         LocalDateTime end = now.plusDays(1);
 
-        var appointments = appointmentRepository.findByAppointmentDateBetweenAndStatus(now, end, "AGENDADO");
+        var appointments = appointmentRepository.findByAppointmentDateBetweenAndStatusAndSentAtIsNull(now, end, "AGENDADO");
 
         for (Appointment appointment : appointments) {
 
@@ -45,6 +47,8 @@ public class UpcomingAppointmentPublisher {
             );
 
             rabbitTemplate.convertAndSend(RabbitMQConstants.EXCHANGE_NAME, RabbitMQConstants.ROUTING_KEY_UPCOMING, appointmentDTO);
+
+            appointment.setSentAt(LocalDateTime.now());
         }
     }
 }
