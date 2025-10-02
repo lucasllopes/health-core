@@ -919,7 +919,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"ana.lima\",\r\n    \"password\":\"senha123\"\r\n}",
+							"raw": "{\r\n    \"login\":\"maria.souza\",\r\n    \"password\":\"senha123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
