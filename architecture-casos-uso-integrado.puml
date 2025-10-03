@@ -1,0 +1,64 @@
+@startuml
+left to right direction
+title HealthCore - Diagrama de Casos de Uso Integrado
+
+:Paciente: as Paciente
+:Profissional de Saúde: as Profissional
+:Administrador: as Admin
+:Sistema Externo: as SistemaExterno
+
+rectangle "Appointment Service" {
+  usecase "Agendar Consulta" as UC1
+  usecase "Cancelar Consulta" as UC2
+  usecase "Visualizar Consultas" as UC3
+  usecase "Gerenciar Prontuário" as UC4
+  usecase "Autenticar Usuário" as UC5
+  usecase "Gerenciar Médicos" as UC6
+  usecase "Gerenciar Pacientes" as UC7
+  usecase "Gerenciar Enfermeiros" as UC8
+  usecase "Emitir Evento de Notificação" as UC9
+}
+
+rectangle "Notification Service" {
+  usecase "Receber Evento de Notificação" as UC10
+  usecase "Enviar Notificação ao Paciente" as UC11
+  usecase "Visualizar Notificações" as UC12
+}
+
+Paciente --> UC1
+Paciente --> UC2
+Paciente --> UC3
+Paciente --> UC12
+Paciente --> UC5
+
+Profissional --> UC3
+Profissional --> UC4
+Profissional --> UC6
+Profissional --> UC7
+Profissional --> UC8
+Profissional --> UC5
+
+Admin --> UC6
+Admin --> UC7
+Admin --> UC8
+Admin --> UC5
+
+UC1 --> UC9 : <<mensageria>>
+UC9 --> UC10 : <<RabbitMQ>>
+UC10 --> UC11
+
+SistemaExterno --> UC5 : <<API Auth>>
+
+note right of UC9
+  Evento de agendamento enviado
+  via RabbitMQ para o serviço
+  de notificação
+end note
+
+note right of UC11
+  Notificação pode ser enviada
+  por e-mail, SMS ou push
+end note
+
+@enduml
+

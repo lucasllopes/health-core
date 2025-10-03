@@ -1,0 +1,44 @@
+@startuml
+title HealthCore - Sequência de Mensageria entre Appointment e Notification Service
+
+actor Usuario
+participant AppointmentController
+participant AppointmentService
+participant AppointmentProducer
+queue RabbitMQ
+participant NotificationConsumer
+participant NotificationService
+participant NotificationRepository
+
+== Agendamento de Consulta ==
+Usuario -> AppointmentController: POST /appointments
+activate AppointmentController
+AppointmentController -> AppointmentService: criarAgendamento(dados)
+activate AppointmentService
+AppointmentService -> AppointmentProducer: enviarEventoAgendamento()
+activate AppointmentProducer
+AppointmentProducer -> RabbitMQ: publish(evento)
+deactivate AppointmentProducer
+AppointmentService --> AppointmentController: resposta agendamento
+AppointmentController --> Usuario: confirmação
+
+deactivate AppointmentService
+
+deactivate AppointmentController
+
+== Consumo de Evento de Notificação ==
+RabbitMQ -> NotificationConsumer: consume(evento)
+activate NotificationConsumer
+NotificationConsumer -> NotificationService: processarEvento(evento)
+activate NotificationService
+NotificationService -> NotificationRepository: salvarNotificacao()
+NotificationRepository --> NotificationService: Notificacao salva
+NotificationService --> NotificationConsumer: ok
+NotificationConsumer --> RabbitMQ: ack
+
+deactivate NotificationService
+
+deactivate NotificationConsumer
+
+@enduml
+
