@@ -1,11 +1,11 @@
 @startuml
 left to right direction
-title HealthCore - Diagrama de Casos de Uso Integrado
+title HealthCore - Diagrama de Casos de Uso
 
 :Paciente: as Paciente
 :Profissional de Saúde: as Profissional
 :Administrador: as Admin
-:Sistema Externo: as SistemaExterno
+
 
 rectangle "Appointment Service" {
   usecase "Agendar Consulta" as UC1
@@ -47,7 +47,7 @@ UC1 --> UC9 : <<mensageria>>
 UC9 --> UC10 : <<RabbitMQ>>
 UC10 --> UC11
 
-SistemaExterno --> UC5 : <<API Auth>>
+
 
 note right of UC9
   Evento de agendamento enviado

@@ -8,7 +8,7 @@ participant AppointmentProducer
 queue RabbitMQ
 participant NotificationConsumer
 participant NotificationService
-participant NotificationRepository
+
 
 == Agendamento de Consulta ==
 Usuario -> AppointmentController: POST /appointments
@@ -31,8 +31,8 @@ RabbitMQ -> NotificationConsumer: consume(evento)
 activate NotificationConsumer
 NotificationConsumer -> NotificationService: processarEvento(evento)
 activate NotificationService
-NotificationService -> NotificationRepository: salvarNotificacao()
-NotificationRepository --> NotificationService: Notificacao salva
+
+
 NotificationService --> NotificationConsumer: ok
 NotificationConsumer --> RabbitMQ: ack
 
