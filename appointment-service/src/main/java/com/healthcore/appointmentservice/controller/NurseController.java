@@ -101,16 +101,16 @@ public class NurseController {
 
     @PatchMapping("/{id}/disable")
     @PreAuthorize(ADMIN_ROLE)
-    public ResponseEntity<?> disableNurse(@PathVariable Long id) {
+    public ResponseEntity<Void> disableNurse(@PathVariable Long id) {
         service.disableNurse(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/enable")
     @PreAuthorize(ADMIN_ROLE)
     public ResponseEntity<Void> enableDoctor(@PathVariable Long id) {
         service.enableNurse(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }
