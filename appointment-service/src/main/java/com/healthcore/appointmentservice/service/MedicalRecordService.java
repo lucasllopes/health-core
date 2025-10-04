@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface MedicalRecordService {
     MedicalRecordResponseDTO create(CreateMedicalRecordRequestDTO createMedicalRecordRequestDTO);
     Page<MedicalRecordResponseDTO> getAll(Pageable pageable);
-    Optional<MedicalRecordResponseDTO> getById(Long id);
+    MedicalRecordResponseDTO getById(Long id);
     MedicalRecordResponseDTO update(Long id, UpdateMedicalRecordRequestDTO updateMedicalRecordRequestDTO);
     void delete(Long id);
     boolean isPatientOwner(String username, Long medicalRecordId);

@@ -62,9 +62,7 @@ public class MedicalRecordController {
     @PreAuthorize(DOCTOR_ROLE + " or " + NURSE_ROLE + " or (" + PATIENT_SELF_ACCESS + ")")
     public ResponseEntity<MedicalRecordResponseDTO> getMedicalRecordById(@PathVariable Long id) {
         logger.info("Handling GET request to /medicalrecords/{}", id);
-        return medicalRecordService.getById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(medicalRecordService.getById(id));
     }
 
     @PutMapping("/{id}")

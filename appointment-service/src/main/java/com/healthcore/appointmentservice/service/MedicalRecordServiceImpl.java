@@ -81,10 +81,13 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     }
 
     @Override
-    public Optional<MedicalRecordResponseDTO> getById(Long id) {
+    public MedicalRecordResponseDTO getById(Long id) {
         logger.info("Getting MedicalRecord by id={}", id);
-        return medicalRecordRepository.findById(id)
-                .map(this::toResponseDTO);
+
+        MedicalRecord medicalRecord = medicalRecordRepository
+                    .findById(id)
+                    .orElseThrow(() -> new MedicalRecordNotFoundException("Registro médico não encontrado: " + id));
+        return toResponseDTO(medicalRecord);
     }
 
     @Override
