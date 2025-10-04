@@ -56,8 +56,7 @@ note right of UC9
 end note
 
 note right of UC11
-  Notificação pode ser enviada
-  por e-mail, SMS ou push
+  Simula uma notificação no log.
 end note
 
 @enduml

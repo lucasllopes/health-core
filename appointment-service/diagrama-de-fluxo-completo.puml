@@ -1,0 +1,36 @@
+@startuml
+title HealthCore - Fluxo Principal de Operações com Mensageria
+
+actor Usuario
+participant AppointmentController
+participant AppointmentService
+participant AppointmentProducer
+queue RabbitMQ
+participant AppointmentConsumer
+
+
+== Agendamento de Consulta ==
+Usuario -> AppointmentController: POST /appointments
+activate AppointmentController
+AppointmentController -> AppointmentService: criarAgendamento(dados)
+activate AppointmentService
+AppointmentService -> AppointmentProducer: enviarEventoAgendamento()
+activate AppointmentProducer
+AppointmentProducer -> RabbitMQ: publish(evento)
+deactivate AppointmentProducer
+AppointmentService --> AppointmentController: resposta agendamento
+AppointmentController --> Usuario: confirmação
+
+deactivate AppointmentService
+
+deactivate AppointmentController
+
+== Consumo e Processamento do Evento ==
+RabbitMQ -> AppointmentConsumer: consome(evento)
+activate AppointmentConsumer
+AppointmentConsumer -> AppointmentConsumer: processarEvento(evento)
+AppointmentConsumer --> RabbitMQ: ack
+
+deactivate AppointmentConsumer
+
+@enduml

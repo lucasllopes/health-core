@@ -31,13 +31,13 @@ rectangle "Notification Service" {
         component "Spring Boot Application" as springboot_notification #98FB98 {
             component "Controllers" as controller_notification
             component "Services" as service_notification
-            component "Repositories" as repository_notification
+'            component "Repositories" as repository_notification
             component "Security" as security_notification
             component "DTOs & Mappers" as dtomapper_notification
             component "Consumers" as consumer_notification
             component "Exception Handling" as exception_notification
         }
-        database "PostgreSQL" as db_notification #LightCyan
+'        database "PostgreSQL" as db_notification #LightCyan
         queue "RabbitMQ" as rabbit #LightPink
     }
 }
@@ -68,11 +68,11 @@ producer_appointment --> rabbit
 security_appointment --> jwt
 
 controller_notification --> service_notification
-service_notification --> repository_notification
+'service_notification --> repository_notification
 service_notification --> dtomapper_notification
 service_notification --> consumer_notification
 service_notification --> exception_notification
-repository_notification --> db_notification
+'repository_notification --> db_notification
 consumer_notification --> rabbit
 security_notification --> jwt
 
