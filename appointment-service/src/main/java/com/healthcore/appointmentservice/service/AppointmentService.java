@@ -68,11 +68,11 @@ public class AppointmentService {
         Appointment existingAppointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Nenhum atendimento encontrado com o ID: " + appointmentId));
 
-        Patient patient = patientRepository.findById(updateRequest.getPatientId())
+        patientRepository.findById(updateRequest.getPatientId())
                 .orElseThrow(() -> new IllegalArgumentException("Nenhum paciente encontrado com o ID: " + updateRequest.getPatientId()));
-        Doctor doctor = doctorRepository.findById(updateRequest.getDoctorId())
+        doctorRepository.findById(updateRequest.getDoctorId())
                 .orElseThrow(() -> new IllegalArgumentException("Nenhum médico encontrado com o ID: " + updateRequest.getDoctorId()));
-        Nurse nurse = nurseRepository.findById(updateRequest.getNurseId())
+        nurseRepository.findById(updateRequest.getNurseId())
                 .orElseThrow(() -> new IllegalArgumentException("Nenhum enfermeiro encontrado com o ID: " + updateRequest.getNurseId()));
 
 
