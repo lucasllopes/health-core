@@ -12,6 +12,8 @@ public class UpdateAppointmentRequestDTO {
     @NotNull
     private Long patientId;
 
+    private Long nurseId;
+
     @NotNull
     @Future
     private LocalDateTime appointmentDate;
@@ -27,6 +29,9 @@ public class UpdateAppointmentRequestDTO {
 
     public Long getPatientId() { return patientId; }
     public void setPatientId(Long patientId) { this.patientId = patientId; }
+
+    public Long getNurseId() { return nurseId; }
+    public void setNurseId(Long nurseId) { this.nurseId = nurseId; }
 
     public LocalDateTime getAppointmentDate() { return appointmentDate; }
     public void setAppointmentDate(LocalDateTime appointmentDate) { this.appointmentDate = appointmentDate; }
