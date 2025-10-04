@@ -66,7 +66,7 @@ public class AppointmentService {
 
     public AppointmentResponseDTO update(Long appointmentId, UpdateAppointmentRequestDTO updateRequest) {
         Appointment existingAppointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + appointmentId));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum agendamento encontrado com o ID: " + appointmentId));
 
         if (updateRequest.getPatientId() != null) {
             existingAppointment.setPatient(findPatientById(updateRequest.getPatientId()));
@@ -93,7 +93,7 @@ public class AppointmentService {
 
     public void delete(Long id) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with id: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum agendamento encontrado com o ID: " + id));
         appointmentRepository.delete(appointment);
     }
 
@@ -111,17 +111,17 @@ public class AppointmentService {
 
     private Patient findPatientById(Long patientId) {
         return patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalArgumentException("Patient not found with id: " + patientId));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum paciente encontrado com o ID: " + patientId));
     }
 
     private Doctor findDoctorById(Long doctorId) {
         return doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new IllegalArgumentException("Doctor not found with id: " + doctorId));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum médico encontrado com o ID: " + doctorId));
     }
 
     private Nurse findNurseById(Long nurseId) {
         return nurseRepository.findById(nurseId)
-                .orElseThrow(() -> new IllegalArgumentException("Nurse not found with id: " + nurseId));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum enfermeiro encontrado com o ID: " + nurseId));
     }
 
     private AppointmentNotificationDTO buildAppointmentNotification(Appointment appointment) {
