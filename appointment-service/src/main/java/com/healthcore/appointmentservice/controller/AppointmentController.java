@@ -63,9 +63,8 @@ public class AppointmentController {
     @PreAuthorize(DOCTOR_ROLE + " or " + NURSE_ROLE + " or (" + PATIENT_SELF_ACCESS + ")")
     public ResponseEntity<AppointmentResponseDTO> getAppointmentById(@PathVariable Long id) {
         logger.info("Handling GET request to /appointments/{}", id);
-        return appointmentService.getById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(appointmentService.getById(id));
+
     }
 
     @PutMapping("/{id}")

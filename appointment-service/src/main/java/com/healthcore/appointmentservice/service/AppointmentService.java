@@ -2,6 +2,7 @@ package com.healthcore.appointmentservice.service;
 
 import com.healthcore.appointmentservice.dto.*;
 import com.healthcore.appointmentservice.dto.message.AppointmentNotificationDTO;
+import com.healthcore.appointmentservice.exception.DataNotFoundException;
 import com.healthcore.appointmentservice.persistence.entity.Appointment;
 import com.healthcore.appointmentservice.persistence.entity.Doctor;
 import com.healthcore.appointmentservice.persistence.entity.Nurse;
@@ -58,8 +59,9 @@ public class AppointmentService {
         return appointmentRepository.findAll(pageable).map(this::toResponseDTO);
     }
 
-    public Optional<AppointmentResponseDTO> getById(Long id) {
-        return appointmentRepository.findById(id).map(this::toResponseDTO);
+    public AppointmentResponseDTO getById(Long id) {
+        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Nenhum agendamento encontrado com o ID: " + id));
+        return toResponseDTO(appointment);
     }
 
     public AppointmentResponseDTO update(Long appointmentId, UpdateAppointmentRequestDTO updateRequest) {
