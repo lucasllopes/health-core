@@ -60,13 +60,13 @@ public class AppointmentService {
     }
 
     public AppointmentResponseDTO getById(Long id) {
-        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Nenhum agendamento encontrado com o ID: " + id));
+        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Nenhum atendimento encontrado com o ID: " + id));
         return toResponseDTO(appointment);
     }
 
     public AppointmentResponseDTO update(Long appointmentId, UpdateAppointmentRequestDTO updateRequest) {
         Appointment existingAppointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new IllegalArgumentException("Nenhum agendamento encontrado com o ID: " + appointmentId));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum atendimento encontrado com o ID: " + appointmentId));
 
         if (updateRequest.getPatientId() != null) {
             existingAppointment.setPatient(findPatientById(updateRequest.getPatientId()));
@@ -93,7 +93,7 @@ public class AppointmentService {
 
     public void delete(Long id) {
         Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Nenhum agendamento encontrado com o ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum atendimento encontrado com o ID: " + id));
         appointmentRepository.delete(appointment);
     }
 
